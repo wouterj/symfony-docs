@@ -1054,13 +1054,13 @@ do this, create a new template file that will store the new markup:
         {# src/Acme/TaskBundle/Resources/views/Form/fields.html.twig #}
 
         {% block field_row %}
-        {% spaceless %}
-            <div class="form_row">
-                {{ form_label(form) }}
-                {{ form_errors(form) }}
-                {{ form_widget(form) }}
-            </div>
-        {% endspaceless %}
+            {% spaceless %}
+                <div class="form_row">
+                    {{ form_label(form) }}
+                    {{ form_errors(form) }}
+                    {{ form_widget(form) }}
+                </div>
+            {% endspaceless %}
         {% endblock field_row %}
 
     .. code-block:: html+php
