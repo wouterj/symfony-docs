@@ -708,7 +708,7 @@ for example, the list template written in Twig:
         <ul>
             {% for post in posts %}
             <li>
-                <a href="{{ path('blog_show', { 'id': post.id }) }}">
+                <a href="{{ path('blog_show', {'id': post.id}) }}">
                     {{ post.title }}
                 </a>
             </li>
