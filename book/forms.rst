@@ -787,7 +787,7 @@ form "type"). It can be used to quickly build a form object in the controller:
 
     public function newAction()
     {
-        $task = // ...
+        $task = ...;
         $form = $this->createForm(new TaskType(), $task);
 
         // ...
