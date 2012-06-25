@@ -350,7 +350,7 @@ When working with template inheritance, here are some tips to keep in mind:
 
         {% block sidebar %}
             <h3>Table of Contents</h3>
-            ...
+            {# ... #}
             {{ parent() }}
         {% endblock %}
 
@@ -613,7 +613,7 @@ syntax for controllers (i.e. **bundle**:**controller**:**action**):
     .. code-block:: html+jinja
 
         {# app/Resources/views/base.html.twig #}
-        ...
+        {# ... #}
 
         <div id="sidebar">
             {% render "AcmeArticleBundle:Article:recentArticles" with {'max': 3} %}
@@ -622,7 +622,7 @@ syntax for controllers (i.e. **bundle**:**controller**:**action**):
     .. code-block:: html+php
 
         <!-- app/Resources/views/base.html.php -->
-        ...
+        {# ... #}
 
         <div id="sidebar">
             <?php echo $view['actions']->render('AcmeArticleBundle:Article:recentArticles', array('max' => 3)) ?>
