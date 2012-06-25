@@ -605,7 +605,7 @@ for just one object, you can use the ``getSingleResult()`` method instead::
     returned (if you're querying on something that could feasibly return
     more than one result)::
     
-        $query = $em->createQuery('SELECT ....')
+        $query = $em->createQuery('SELECT ...')
             ->setMaxResults(1);
         
         try {
@@ -696,7 +696,7 @@ To do this, add the name of the repository class to your mapping definition.
          */
         class Product
         {
-            //...
+            // ...
         }
 
     .. code-block:: yaml
