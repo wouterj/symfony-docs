@@ -194,10 +194,10 @@ First, build a base layout file:
             <body>
                 <div id="sidebar">
                     {% block sidebar %}
-                    <ul>
-                        <li><a href="/">Home</a></li>
-                        <li><a href="/blog">Blog</a></li>
-                    </ul>
+                        <ul>
+                            <li><a href="/">Home</a></li>
+                            <li><a href="/blog">Blog</a></li>
+                        </ul>
                     {% endblock %}
                 </div>
 
@@ -720,7 +720,7 @@ correctly:
 
         {# src/Acme/ArticleBundle/Resources/views/Article/recentList.html.twig #}
         {% for article in articles %}
-            <a href="{{ path('article_show', { 'slug': article.slug }) }}">
+            <a href="{{ path('article_show', {'slug': article.slug}) }}">
                 {{ article.title }}
             </a>
         {% endfor %}
