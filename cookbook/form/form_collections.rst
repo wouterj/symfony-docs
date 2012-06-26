@@ -308,13 +308,13 @@ new "tag" forms. To render it, make the following change to your template:
     .. code-block:: html+jinja
     
         <ul class="tags" data-prototype="{{ form_widget(form.tags.get('prototype')) | e }}">
-            ...
+            <!-- ... -->
         </ul>
     
     .. code-block:: html+php
     
         <ul class="tags" data-prototype="<?php echo $view->escape($view['form']->row($form['tags']->get('prototype'))) ?>">
-            ...
+            <!-- ... -->
         </ul>
 
 .. note::

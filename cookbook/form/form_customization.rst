@@ -554,6 +554,7 @@ resource to use such a layout:
                 form:
                     resources:
                         - 'FrameworkBundle:FormTable'
+                    # ...
 
     .. code-block:: xml
 
