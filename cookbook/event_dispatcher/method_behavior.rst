@@ -25,7 +25,7 @@ method::
             $foo = $event->getFoo();
             $bar = $event->getBar();
             // the real method implementation is here
-            // $ret = ...;
+            $ret = ...;
 
             // do something after the method
             $event = new FilterSendReturnValue($ret);

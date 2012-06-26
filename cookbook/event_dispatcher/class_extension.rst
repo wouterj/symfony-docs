@@ -109,7 +109,6 @@ and *add* the method ``bar()``:
             // the bar method arguments
             $arguments = $event->getArguments();
 
-            // do something
             // ...
 
             // set the return value
