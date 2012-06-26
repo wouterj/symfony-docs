@@ -80,10 +80,10 @@ The service config for these classes would look something like this:
         </parameters>
 
         <services>
-            <service id="my_mailer" ... >
+            <service id="my_mailer" ...>
               <!-- ... -->
             </service>
-            <service id="my_email_formatter" ... >
+            <service id="my_email_formatter" ...>
               <!-- ... -->
             </service>
             <service id="newsletter_manager" class="%newsletter_manager.class%">
@@ -113,8 +113,8 @@ The service config for these classes would look something like this:
         $container->setParameter('newsletter_manager.class', 'NewsletterManager');
         $container->setParameter('greeting_card_manager.class', 'GreetingCardManager');
 
-        $container->setDefinition('my_mailer', ... );
-        $container->setDefinition('my_email_formatter', ... );
+        $container->setDefinition('my_mailer', ...);
+        $container->setDefinition('my_email_formatter', ...);
         $container->setDefinition('newsletter_manager', new Definition(
             '%newsletter_manager.class%'
         ))->addMethodCall('setMailer', array(
@@ -212,10 +212,10 @@ a parent for a service.
         </parameters>
 
         <services>
-            <service id="my_mailer" ... >
+            <service id="my_mailer" ...>
               <!-- ... -->
             </service>
-            <service id="my_email_formatter" ... >
+            <service id="my_email_formatter" ...>
               <!-- ... -->
             </service>
             <service id="mail_manager" class="%mail_manager.class%" abstract="true">
@@ -240,8 +240,8 @@ a parent for a service.
         $container->setParameter('greeting_card_manager.class', 'GreetingCardManager');
         $container->setParameter('mail_manager.class', 'MailManager');
 
-        $container->setDefinition('my_mailer', ... );
-        $container->setDefinition('my_email_formatter', ... );
+        $container->setDefinition('my_mailer', ...);
+        $container->setDefinition('my_email_formatter', ...);
         $container->setDefinition('mail_manager', new Definition(
             '%mail_manager.class%'
         ))->SetAbstract(
@@ -333,13 +333,13 @@ to the ``NewsletterManager`` class, the config would look like this:
         </parameters>
 
         <services>
-            <service id="my_mailer" ... >
+            <service id="my_mailer" ...>
               <!-- ... -->
             </service>
-            <service id="my_alternative_mailer" ... >
+            <service id="my_alternative_mailer" ...>
               <!-- ... -->
             </service>
-            <service id="my_email_formatter" ... >
+            <service id="my_email_formatter" ...>
               <!-- ... -->
             </service>
             <service id="mail_manager" class="%mail_manager.class%" abstract="true">
@@ -368,9 +368,9 @@ to the ``NewsletterManager`` class, the config would look like this:
         $container->setParameter('greeting_card_manager.class', 'GreetingCardManager');
         $container->setParameter('mail_manager.class', 'MailManager');
 
-        $container->setDefinition('my_mailer', ... );
-        $container->setDefinition('my_alternative_mailer', ... );
-        $container->setDefinition('my_email_formatter', ... );
+        $container->setDefinition('my_mailer', ...);
+        $container->setDefinition('my_alternative_mailer', ...);
+        $container->setDefinition('my_email_formatter', ...);
         $container->setDefinition('mail_manager', new Definition(
             '%mail_manager.class%'
         ))->SetAbstract(
