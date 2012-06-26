@@ -186,7 +186,7 @@ the ``index`` template. To do this, use the ``render`` tag:
 .. code-block:: jinja
 
     {# src/Acme/DemoBundle/Resources/views/Demo/index.html.twig #}
-    {% render "AcmeDemoBundle:Demo:fancy" with { 'name': name, 'color': 'green' } %}
+    {% render "AcmeDemoBundle:Demo:fancy" with {'name': name, 'color': 'green'} %}
 
 Here, the ``AcmeDemoBundle:Demo:fancy`` string refers to the ``fancy`` action
 of the ``Demo`` controller. The arguments (``name`` and ``color``) act like
@@ -218,7 +218,7 @@ updated by just changing the configuration:
 
 .. code-block:: html+jinja
 
-    <a href="{{ path('_demo_hello', { 'name': 'Thomas' }) }}">Greet Thomas!</a>
+    <a href="{{ path('_demo_hello', {'name': 'Thomas'}) }}">Greet Thomas!</a>
 
 The ``path`` function takes the route name and an array of parameters as
 arguments. The route name is the main key under which routes are referenced
