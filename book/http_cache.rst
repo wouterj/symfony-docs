@@ -643,7 +643,7 @@ exposing a simple and efficient pattern::
         // the ETag or the Last-Modified value
         // (based on the Request, data is retrieved from
         // a database or a key-value store for instance)
-        $article = // ...
+        $article = ...;
 
         // create a Response with a ETag and/or a Last-Modified header
         $response = new Response();
@@ -656,7 +656,7 @@ exposing a simple and efficient pattern::
             return $response;
         } else {
             // do more work here - like retrieving more data
-            $comments = // ...
+            $comments = ...;
 
             // or render a template with the $response you've already started
             return $this->render(
