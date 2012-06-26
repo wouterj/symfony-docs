@@ -60,7 +60,7 @@ It can now be used from a template:
         {% image '@AcmeFooBundle/Resources/public/images/example.jpg'
             filter='jpegoptim' output='/images/example.jpg'
         %}
-        <img src="{{ asset_url }}" alt="Example"/>
+            <img src="{{ asset_url }}" alt="Example"/>
         {% endimage %}
 
     .. code-block:: html+php

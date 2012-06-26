@@ -48,7 +48,7 @@ drawn from various sources such as from within a bundle:
         {% javascripts
             '@AcmeFooBundle/Resources/public/js/*'
         %}
-        <script type="text/javascript" src="{{ asset_url }}"></script>
+            <script type="text/javascript" src="{{ asset_url }}"></script>
         {% endjavascripts %}
 
     .. code-block:: html+php
@@ -70,7 +70,7 @@ drawn from various sources such as from within a bundle:
             {% stylesheets
                 '@AcmeFooBundle/Resources/public/css/*'
             %}
-            <link rel="stylesheet" href="{{ asset_url }}" />
+                <link rel="stylesheet" href="{{ asset_url }}" />
             {% endstylesheets %}
 
         .. code-block:: html+php
@@ -115,7 +115,7 @@ them as a single file:
             '@AcmeBarBundle/Resources/public/js/form.js'
             '@AcmeBarBundle/Resources/public/js/calendar.js'
         %}
-        <script src="{{ asset_url }}"></script>
+            <script src="{{ asset_url }}"></script>
         {% endjavascripts %}
 
     .. code-block:: html+php
@@ -149,7 +149,7 @@ combine third party assets, such as jQuery, with your own into a single file:
             '@AcmeFooBundle/Resources/public/js/thirdparty/jquery.js'
             '@AcmeFooBundle/Resources/public/js/*'
         %}
-        <script src="{{ asset_url }}"></script>
+            <script src="{{ asset_url }}"></script>
         {% endjavascripts %}
 
     .. code-block:: html+php
@@ -225,7 +225,7 @@ into your template:
             '@AcmeFooBundle/Resources/public/js/*'
             filter='yui_js'
         %}
-        <script src="{{ asset_url }}"></script>
+            <script src="{{ asset_url }}"></script>
         {% endjavascripts %}
 
     .. code-block:: html+php
@@ -253,7 +253,7 @@ done from the template and is relative to the public document root:
             '@AcmeFooBundle/Resources/public/js/*'
             output='js/compiled/main.js'
         %}
-        <script src="{{ asset_url }}"></script>
+            <script src="{{ asset_url }}"></script>
         {% endjavascripts %}
 
     .. code-block:: html+php
@@ -377,7 +377,7 @@ some isolated directory (e.g. ``/js/compiled``), to keep things organized:
             '@AcmeFooBundle/Resources/public/js/*'
             output='js/compiled/main.js'
         %}
-        <script src="{{ asset_url }}"></script>
+            <script src="{{ asset_url }}"></script>
         {% endjavascripts %}
 
     .. code-block:: html+php

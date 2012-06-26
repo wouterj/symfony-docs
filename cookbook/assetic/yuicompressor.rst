@@ -82,7 +82,7 @@ the view layer, this work is done in your templates:
     .. code-block:: html+jinja
 
         {% javascripts '@AcmeFooBundle/Resources/public/js/*' filter='yui_js' %}
-        <script src="{{ asset_url }}"></script>
+            <script src="{{ asset_url }}"></script>
         {% endjavascripts %}
 
     .. code-block:: html+php
@@ -109,7 +109,7 @@ can be repeated to minify your stylesheets.
     .. code-block:: html+jinja
 
         {% stylesheets '@AcmeFooBundle/Resources/public/css/*' filter='yui_css' %}
-        <link rel="stylesheet" type="text/css" media="screen" href="{{ asset_url }}" />
+            <link rel="stylesheet" type="text/css" media="screen" href="{{ asset_url }}" />
         {% endstylesheets %}
 
     .. code-block:: html+php
@@ -134,7 +134,7 @@ apply this filter when debug mode is off.
     .. code-block:: html+jinja
 
         {% javascripts '@AcmeFooBundle/Resources/public/js/*' filter='?yui_js' %}
-        <script src="{{ asset_url }}"></script>
+            <script src="{{ asset_url }}"></script>
         {% endjavascripts %}
 
     .. code-block:: html+php
