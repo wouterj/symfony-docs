@@ -311,7 +311,7 @@ The controller renders the
 ``src/Acme/DemoBundle/Resources/views/Demo/hello.html.twig`` template (or
 ``AcmeDemoBundle:Demo:hello.html.twig`` if you use the logical name):
 
-.. code-block:: jinja
+.. code-block:: html+jinja
 
     {# src/Acme/DemoBundle/Resources/views/Demo/hello.html.twig #}
     {% extends "AcmeDemoBundle::layout.html.twig" %}
