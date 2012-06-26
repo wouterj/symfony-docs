@@ -136,8 +136,8 @@ default requirements and default options to all routes of a subtree::
     $rootCollection = new RouteCollection();
 
     $subCollection = new RouteCollection();
-    $subCollection->add( /*...*/ );
-    $subCollection->add( /*...*/ );
+    $subCollection->add(...);
+    $subCollection->add(...);
 
     $rootCollection->addCollection($subCollection, '/prefix', array('_scheme' => 'https'));
 
