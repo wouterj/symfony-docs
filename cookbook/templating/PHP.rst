@@ -27,9 +27,9 @@ your application configuration file:
     .. code-block:: xml
 
         <!-- app/config/config.xml -->
-        <framework:config ... >
+        <framework:config ...>
             <!-- ... -->
-            <framework:templating ... >
+            <framework:templating ...>
                 <framework:engine id="twig" />
                 <framework:engine id="php" />
             </framework:templating>
