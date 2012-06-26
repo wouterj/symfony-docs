@@ -155,7 +155,7 @@ You can begin specifying configuration under this namespace immediately:
             xsi:schemaLocation="http://www.example.com/symfony/schema/ http://www.example.com/symfony/schema/hello-1.0.xsd">
 
            <acme_hello:config />
-           ...
+           <!-- ... -->
 
         </container>
 
