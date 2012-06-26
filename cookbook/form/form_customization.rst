@@ -380,7 +380,6 @@ the base block by using the ``parent()`` Twig function:
 .. code-block:: html+jinja
 
     {# src/Acme/DemoBundle/Resources/views/Form/fields.html.twig #}
-
     {% extends 'form_div_layout.html.twig' %}
 
     {% block integer_widget %}
@@ -716,15 +715,15 @@ and customize the ``field_errors`` fragment.
     .. code-block:: html+jinja
 
         {% block field_errors %}
-        {% spaceless %}
-            {% if errors|length > 0 %}
-            <ul class="error_list">
-                {% for error in errors %}
-                    <li>{{ error.messageTemplate|trans(error.messageParameters, 'validators') }}</li>
-                {% endfor %}
-            </ul>
-            {% endif %}
-        {% endspaceless %}
+            {% spaceless %}
+                {% if errors|length > 0 %}
+                <ul class="error_list">
+                    {% for error in errors %}
+                        <li>{{ error.messageTemplate|trans(error.messageParameters, 'validators') }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            {% endspaceless %}
         {% endblock field_errors %}
 
     .. code-block:: html+php
