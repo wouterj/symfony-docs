@@ -129,6 +129,16 @@ is `protocol-relative`_ (i.e. starts with `//`) it will be added to both
 collections. URL's starting with ``http://`` will only be added to the
 ``http`` collection.
 
+.. versionadded:: 2.1
+
+    Unlike most configuration blocks, successive values for ``assets_base_urls``
+    will overwrite each other instead of being merged. This behavior was chosen
+    because developers will typically define base URL's for each environment.
+    Given that most projects tend to inherit configurations
+    (e.g. ``config_test.yml`` imports ``config_dev.yml``) and/or share a common
+    base configuration (i.e. ``config.yml``), merging could yield a set of base
+    URL's for multiple environments.
+
 .. _ref-framework-assets-version:
 
 assets_version
@@ -236,10 +246,11 @@ Full Default Configuration
 
             # general configuration
             charset:              ~
+            trust_proxy_headers:  false
             secret:               ~ # Required
             ide:                  ~
             test:                 ~
-            trust_proxy_headers:  false
+            default_locale:       en
 
             # form configuration
             form:
@@ -256,13 +267,15 @@ Full Default Configuration
             profiler:
                 only_exceptions:      false
                 only_master_requests:  false
-                dsn:                  "sqlite:%kernel.cache_dir%/profiler.db"
+                dsn:                  file:%kernel.cache_dir%/profiler
                 username:
                 password:
                 lifetime:             86400
                 matcher:
                     ip:                   ~
-                    path:                 ~
+
+                    # use the urldecoded format
+                    path:                 ~ # Example: ^/path to resource/
                     service:              ~
 
             # router configuration
@@ -274,37 +287,60 @@ Full Default Configuration
 
             # session configuration
             session:
-                auto_start:           ~
-                default_locale:       en
+                auto_start:           false
                 storage_id:           session.storage.native
+                handler_id:           session.handler.native_file
                 name:                 ~
-                lifetime:             0
+                cookie_lifetime:      ~
+                cookie_path:          ~
+                cookie_domain:        ~
+                cookie_secure:        ~
+                cookie_httponly:      ~
+                gc_divisor:           ~
+                gc_probability:       ~
+                gc_maxlifetime:       ~
+                save_path:            %kernel.cache_dir%/sessions
+
+                # DEPRECATED! Please use: cookie_lifetime
+                lifetime:             ~
+
+                # DEPRECATED! Please use: cookie_path
                 path:                 ~
+
+                # DEPRECATED! Please use: cookie_domain
                 domain:               ~
+
+                # DEPRECATED! Please use: cookie_secure
                 secure:               ~
+
+                # DEPRECATED! Please use: cookie_httponly
                 httponly:             ~
 
             # templating configuration
             templating:
                 assets_version:       ~
-                assets_version_format:  "%%s?%%s"
+                assets_version_format:  %%s?%%s
+                hinclude_default_template:  ~
+                form:
+                    resources:
+
+                        # Default:
+                        - FrameworkBundle:Form
                 assets_base_urls:
                     http:                 []
                     ssl:                  []
                 cache:                ~
                 engines:              # Required
-                form:
-                    resources:        [FrameworkBundle:Form]
 
                     # Example:
                     - twig
                 loaders:              []
                 packages:
 
-                    # Prototype
-                    name:
+                    # A collection of named packages
+                    some_package_name:
                         version:              ~
-                        version_format:       ~
+                        version_format:       %%s?%%s
                         base_urls:
                             http:                 []
                             ssl:                  []

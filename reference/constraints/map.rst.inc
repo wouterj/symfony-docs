@@ -18,6 +18,7 @@ String Constraints
 * :doc:`Email </reference/constraints/Email>`
 * :doc:`MinLength </reference/constraints/MinLength>`
 * :doc:`MaxLength </reference/constraints/MaxLength>`
+* :doc:`Size </reference/constraints/Size>`
 * :doc:`Url </reference/constraints/Url>`
 * :doc:`Regex </reference/constraints/Regex>`
 * :doc:`Ip </reference/constraints/Ip>`
@@ -27,6 +28,7 @@ Number Constraints
 
 * :doc:`Max </reference/constraints/Max>`
 * :doc:`Min </reference/constraints/Min>`
+* :doc:`Range </reference/constraints/Range>`
 
 Date Constraints
 ~~~~~~~~~~~~~~~~
@@ -44,6 +46,7 @@ Collection Constraints
 * :doc:`Language </reference/constraints/Language>`
 * :doc:`Locale </reference/constraints/Locale>`
 * :doc:`Country </reference/constraints/Country>`
+* :doc:`Size </reference/constraints/Size>`
 
 File Constraints
 ~~~~~~~~~~~~~~~~
@@ -56,4 +59,5 @@ Other Constraints
 
 * :doc:`Callback </reference/constraints/Callback>`
 * :doc:`All </reference/constraints/All>`
+* :doc:`UserPassword </reference/constraints/UserPassword>`
 * :doc:`Valid </reference/constraints/Valid>`

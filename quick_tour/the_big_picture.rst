@@ -17,7 +17,7 @@ Downloading Symfony2
 --------------------
 
 First, check that you have installed and configured a Web server (such as
-Apache) with PHP 5.3.2 or higher.
+Apache) with PHP 5.3.3 or higher.
 
 Ready? Start by downloading the "`Symfony2 Standard Edition`_", a Symfony
 :term:`distribution` that is preconfigured for the most common use cases and
@@ -58,7 +58,18 @@ have a ``Symfony/`` directory that looks like this:
 
     .. code-block:: bash
 
-        php bin/vendors install
+        curl -s http://getcomposer.org/installer | php
+
+    	php composer.phar install
+
+    If you don't have ``curl`` installed, you can also just download the ``installer``
+    file manually at http://getcomposer.org/installer. Place this file into your
+    project and then run:
+
+    .. code-block:: bash
+
+		php installer
+		php composer.phar install
 
 Checking the Configuration
 --------------------------

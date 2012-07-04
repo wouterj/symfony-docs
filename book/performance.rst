@@ -15,7 +15,7 @@ application even faster.
 Use a Byte Code Cache (e.g. APC)
 --------------------------------
 
-One the best (and easiest) things that you should do to improve your performance
+One of the best (and easiest) things that you should do to improve your performance
 is to use a "byte code cache". The idea of a byte code cache is to remove
 the need to constantly recompile the PHP source code. There are a number of
 `byte code caches`_ available, some of which are open source. The most widely
@@ -64,7 +64,7 @@ To use this class loader, simply adapt your ``autoloader.php`` as follows:
 .. code-block:: php
 
     // app/autoload.php
-    require __DIR__.'/../vendor/symfony/src/Symfony/Component/ClassLoader/ApcUniversalClassLoader.php';
+    require __DIR__.'/../vendor/symfony/symfony/src/Symfony/Component/ClassLoader/ApcUniversalClassLoader.php';
 
     use Symfony\Component\ClassLoader\ApcUniversalClassLoader;
 
@@ -109,7 +109,7 @@ Note that there are two disadvantages when using a bootstrap file:
 * when debugging, one will need to place break points inside the bootstrap file.
 
 If you're using Symfony2 Standard Edition, the bootstrap file is automatically
-rebuilt after updating the vendor libraries via the ``php bin/vendors install``
+rebuilt after updating the vendor libraries via the ``php composer.phar install``
 command.
 
 Bootstrap Files and Byte Code Caches
@@ -123,4 +123,4 @@ is no longer a reason to use a bootstrap file.
 .. _`byte code caches`: http://en.wikipedia.org/wiki/List_of_PHP_accelerators
 .. _`APC`: http://php.net/manual/en/book.apc.php
 .. _`autoloader.php`: https://github.com/symfony/symfony-standard/blob/master/app/autoload.php
-.. _`bootstrap file`: https://github.com/sensio/SensioDistributionBundle/blob/2.0/Resources/bin/build_bootstrap.php
+.. _`bootstrap file`: https://github.com/sensio/SensioDistributionBundle/blob/master/Composer/ScriptHandler.php

@@ -390,18 +390,62 @@ you'll need to specify which validation group(s) your form should use::
     ;
 
 If you're creating :ref:`form classes<book-form-creating-form-classes>` (a
-good practice), then you'll need to add the following to the ``getDefaultOptions()``
+good practice), then you'll need to add the following to the ``setDefaultOptions()``
 method::
 
-    public function getDefaultOptions(array $options)
+    use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        return array(
+        $resolver->setDefaults(array(
             'validation_groups' => array('registration')
-        );
+        ));
     }
 
 In both of these cases, *only* the ``registration`` validation group will
 be used to validate the underlying object.
+
+Groups based on Submitted Data
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. versionadded:: 2.1
+   The ability to specify a callback or Closure in ``validation_groups``
+   is new to version 2.1
+
+If you need some advanced logic to determine the validation groups (e.g.
+based on submitted data), you can set the ``validation_groups`` option
+to an array callback, or a ``Closure``::
+
+    use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    {
+        $resolver->setDefaults(array(
+            'validation_groups' => array('Acme\\AcmeBundle\\Entity\\Client', 'determineValidationGroups'),
+        ));
+    }
+
+This will call the static method ``determineValidationGroups()`` on the
+``Client`` class after the form is bound, but before validation is executed.
+The Form object is passed as an argument to that method (see next example).
+You can also define whole logic inline by using a Closure::
+
+    use Symfony\Component\Form\FormInterface;
+    use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    {
+        $resolver->setDefaults(array(
+            'validation_groups' => function(FormInterface $form) {
+                $data = $form->getData();
+                if (Entity\Client::TYPE_PERSON == $data->getType()) {
+                    return array('person')
+                } else {
+                    return array('company');
+                }
+            },
+        ));
+    }
 
 .. index::
    single: Forms; Built-in Field Types
@@ -523,7 +567,7 @@ the correct values of a number of field options.
     And though you'll need to manually add your server-side validation, these
     field type options can then be guessed from that information.
 
-* ``required``: The ``required`` option can be guessed based off of the validation
+* ``required``: The ``required`` option can be guessed based on the validation
   rules (i.e. is the field ``NotBlank`` or ``NotNull``) or the Doctrine metadata
   (i.e. is the field ``nullable``). This is very useful, as your client-side
   validation will automatically match your validation rules.
@@ -758,11 +802,11 @@ that will house the logic for building the task form:
     namespace Acme\TaskBundle\Form\Type;
 
     use Symfony\Component\Form\AbstractType;
-    use Symfony\Component\Form\FormBuilder;
+    use Symfony\Component\Form\FormBuilderInterface;
 
     class TaskType extends AbstractType
     {
-        public function buildForm(FormBuilder $builder, array $options)
+        public function buildForm(FormBuilderInterface $builder, array $options)
         {
             $builder->add('task');
             $builder->add('dueDate', null, array('widget' => 'single_text'));
@@ -809,11 +853,13 @@ the choice is ultimately up to you.
     good idea to explicitly specify the ``data_class`` option by adding the
     following to your form type class::
 
-        public function getDefaultOptions(array $options)
+        use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+
+        public function setDefaultOptions(OptionsResolverInterface $resolver)
         {
-            return array(
+            $resolver->setDefaults(array(
                 'data_class' => 'Acme\TaskBundle\Entity\Task',
-            );
+            ));
         }
 
 .. tip::
@@ -826,7 +872,9 @@ the choice is ultimately up to you.
     agree with these terms" checkbox) that will not be mapped to the underlying
     object, you need to set the property_path option to ``false``::
 
-        public function buildForm(FormBuilder $builder, array $options)
+        use Symfony\Component\Form\FormBuilderInterface;
+
+        public function buildForm(FormBuilderInterface $builder, array $options)
         {
             $builder->add('task');
             $builder->add('dueDate', null, array('property_path' => false));
@@ -854,7 +902,7 @@ to be persisted via Doctrine (i.e. you've added
 it after a form submission can be done when the form is valid::
 
     if ($form->isValid()) {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         $em->persist($task);
         $em->flush();
 
@@ -936,20 +984,21 @@ create a form class so that a ``Category`` object can be modified by the user::
     namespace Acme\TaskBundle\Form\Type;
 
     use Symfony\Component\Form\AbstractType;
-    use Symfony\Component\Form\FormBuilder;
+    use Symfony\Component\Form\FormBuilderInterface;
+    use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
     class CategoryType extends AbstractType
     {
-        public function buildForm(FormBuilder $builder, array $options)
+        public function buildForm(FormBuilderInterface $builder, array $options)
         {
             $builder->add('name');
         }
 
-        public function getDefaultOptions(array $options)
+        public function setDefaultOptions(OptionsResolverInterface $resolver)
         {
-            return array(
+            $resolver->setDefaults(array(
                 'data_class' => 'Acme\TaskBundle\Entity\Category',
-            );
+            ));
         }
 
         public function getName()
@@ -965,7 +1014,9 @@ class:
 
 .. code-block:: php
 
-    public function buildForm(FormBuilder $builder, array $options)
+    use Symfony\Component\Form\FormBuilderInterface;
+
+    public function buildForm(FormBuilderInterface $builder, array $options)
     {
         // ...
 
@@ -1116,6 +1167,19 @@ before falling back to the global theme.
 To customize any portion of a form, you just need to override the appropriate
 fragment. Knowing exactly which block or file to override is the subject of
 the next section.
+
+.. versionadded:: 2.1
+   An alternate Twig syntax for ``form_theme`` has been introduced in 2.1. It accepts
+   any valid Twig expression (the most noticeable difference is using an array when
+   using multiple themes).
+
+   .. code-block:: html+jinja
+
+       {# src/Acme/TaskBundle/Resources/views/Default/new.html.twig #}
+
+       {% form_theme form with 'AcmeTaskBundle:Form:fields.html.twig' %}
+
+       {% form_theme form with ['AcmeTaskBundle:Form:fields.html.twig', 'AcmeTaskBundle:Form:fields2.html.twig'] %}
 
 For a more extensive discussion, see :doc:`/cookbook/form/form_customization`.
 
@@ -1363,19 +1427,21 @@ that all un-rendered fields are output.
 
 The CSRF token can be customized on a form-by-form basis. For example::
 
+    use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+
     class TaskType extends AbstractType
     {
         // ...
 
-        public function getDefaultOptions(array $options)
+        public function setDefaultOptions(OptionsResolverInterface $resolver)
         {
-            return array(
+            $resolver->setDefaults(array(
                 'data_class'      => 'Acme\TaskBundle\Entity\Task',
                 'csrf_protection' => true,
                 'csrf_field_name' => '_token',
                 // a unique key to help generate the secret token
                 'intention'       => 'task_item',
-            );
+            ));
         }
 
         // ...
@@ -1484,13 +1550,14 @@ but here's a short example::
     ;
 
 Now, when you call `$form->bindRequest($request)`, the constraints setup here are run
-against your form's data. If you're using a form class, override the ``getDefaultOptions``
+against your form's data. If you're using a form class, override the ``setDefaultOptions()``
 method to specify the option::
 
     namespace Acme\TaskBundle\Form\Type;
 
     use Symfony\Component\Form\AbstractType;
     use Symfony\Component\Form\FormBuilder;
+    use Symfony\Component\OptionsResolver\OptionsResolverInterface;
     use Symfony\Component\Validator\Constraints\Email;
     use Symfony\Component\Validator\Constraints\MinLength;
     use Symfony\Component\Validator\Constraints\Collection;
@@ -1499,14 +1566,16 @@ method to specify the option::
     {
         // ...
 
-        public function getDefaultOptions(array $options)
+        public function setDefaultOptions(OptionsResolverInterface $resolver)
         {
             $collectionConstraint = new Collection(array(
                 'name' => new MinLength(5),
                 'email' => new Email(array('message' => 'Invalid email address')),
             ));
 
-            return array('validation_constraint' => $collectionConstraint);
+            $resolver->setDefaults(array(
+                'validation_constraint' => $collectionConstraint
+            ));
         }
     }
 

@@ -20,7 +20,7 @@ Downloading a Symfony2 Distribution
 .. tip::
 
     First, check that you have installed and configured a Web server (such
-    as Apache) with PHP 5.3.2 or higher. For more information on Symfony2
+    as Apache) with PHP 5.3.3 or higher. For more information on Symfony2
     requirements, see the :doc:`requirements reference</reference/requirements>`.
     For information on configuring your specific web server document root, see the
     following documentation: `Apache`_ | `Nginx`_ .
@@ -73,20 +73,60 @@ something like this:
                 app.php
                 ...
 
+.. _installation-updating-vendors:
+
 Updating Vendors
 ~~~~~~~~~~~~~~~~
 
-Finally, if you downloaded the archive "without vendors", install the vendors
-by running the following command from the command line:
+Step 1: Get `Composer`_ (The great new PHP packaging system)
 
 .. code-block:: bash
 
-    php bin/vendors install
+    curl -s http://getcomposer.org/installer | php
+
+Make sure you download ``composer.phar`` in the same folder where
+the ``composer.json`` file is located (this is your Symfony project
+root by default).
+
+Step 2: Install vendors
+
+.. code-block:: bash
+
+    php composer.phar install
 
 This command downloads all of the necessary vendor libraries - including
-Symfony itself - into the ``vendor/`` directory. For more information on
-how third-party vendor libraries are managed inside Symfony2, see
-":ref:`cookbook-managing-vendor-libraries`".
+Symfony itself - into the ``vendor/`` directory.
+
+.. note::
+
+	If you don't have ``curl`` installed, you can also just download the ``installer``
+	file manually at http://getcomposer.org/installer. Place this file into your
+	project and then run:
+
+	.. code-block:: bash
+
+		php installer
+		php composer.phar install
+		
+.. tip::
+
+	When running ``php composer.phar install`` or ``php composer.phar update``, composer will execute
+	post install/update commands to clear the cache and install assets. By default, the assets will be 
+	copied into your ``web`` directory. To create symlinks instead of copying the assets, you 
+	can add an entry in the ``extra`` node of your composer.json file with the key ``symfony-assets-install``
+	and the value ``symlink``:
+	
+	.. code-block:: json
+	
+	    "extra": {
+	        "symfony-app-dir": "app",
+	        "symfony-web-dir": "web",
+	        "symfony-assets-install": "symlink"
+	    }
+		
+	When passing ``relative`` instead of ``symlink`` to symfony-assets-install, the command will generate
+	relative symlinks.	
+		
 
 Configuration and Setup
 ~~~~~~~~~~~~~~~~~~~~~~~
@@ -213,12 +253,13 @@ file:
 
 Now, the vendor directory won't be committed to source control. This is fine
 (actually, it's great!) because when someone else clones or checks out the
-project, he/she can simply run the ``php bin/vendors install`` script to
+project, he/she can simply run the ``php composer.phar install`` script to
 download all the necessary vendor libraries.
 
 .. _`enable ACL support`: https://help.ubuntu.com/community/FilePermissionsACLs
 .. _`http://symfony.com/download`: http://symfony.com/download
 .. _`Git`: http://git-scm.com/
 .. _`GitHub Bootcamp`: http://help.github.com/set-up-git-redirect
+.. _`Composer`: http://getcomposer.org/
 .. _`Apache`: http://httpd.apache.org/docs/current/mod/core.html#documentroot
 .. _`Nginx`: http://wiki.nginx.org/Symfony
