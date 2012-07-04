@@ -64,6 +64,7 @@ information. By convention, this information is usually configured in an
     
     .. code-block:: yaml
     
+        # app/config/config.yml
         doctrine:
             dbal:
                 driver:   %database_driver%
