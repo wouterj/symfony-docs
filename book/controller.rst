@@ -12,7 +12,9 @@ you can dream up. The controller contains whatever arbitrary logic *your
 application* needs to render the content of a page.
 
 To see how simple this is, let's look at a Symfony2 controller in action.
-The following controller would render a page that simply prints ``Hello world!``::
+The following controller would render a page that simply prints ``Hello world!``:
+
+.. code-block:: php
 
     use Symfony\Component\HttpFoundation\Response;
 
@@ -208,7 +210,6 @@ passed to that method:
 
     <?php
     // src/Acme/HelloBundle/Controller/HelloController.php
-
     namespace Acme\HelloBundle\Controller;
     use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -276,7 +277,7 @@ the following guidelines in mind while you develop.
 
         public function indexAction($last_name, $color, $first_name)
         {
-            // ..
+            // ...
         }
 
 * **Each required controller argument must match up with a routing parameter**
@@ -286,7 +287,7 @@ the following guidelines in mind while you develop.
 
         public function indexAction($first_name, $last_name, $color, $foo)
         {
-            // ..
+            // ...
         }
 
     Making the argument optional, however, is perfectly ok. The following
@@ -294,7 +295,7 @@ the following guidelines in mind while you develop.
 
         public function indexAction($first_name, $last_name, $color, $foo = 'bar')
         {
-            // ..
+            // ...
         }
 
 * **Not all routing parameters need to be arguments on your controller**
@@ -349,7 +350,6 @@ Add the ``use`` statement atop the ``Controller`` class and then modify the
 .. code-block:: php
 
     // src/Acme/HelloBundle/Controller/HelloController.php
-
     namespace Acme\HelloBundle\Controller;
     use Symfony\Bundle\FrameworkBundle\Controller\Controller;
     use Symfony\Component\HttpFoundation\Response;
@@ -422,9 +422,7 @@ perform a 301 (permanent) redirect, modify the second argument::
 .. tip::
 
     The ``redirect()`` method is simply a shortcut that creates a ``Response``
-    object that specializes in redirecting the user. It's equivalent to:
-
-    .. code-block:: php
+    object that specializes in redirecting the user. It's equivalent to::
 
         use Symfony\Component\HttpFoundation\RedirectResponse;
 
@@ -448,7 +446,7 @@ object that's returned from that controller::
             'color' => 'green'
         ));
 
-        // further modify the response or return it directly
+        // ... further modify the response or return it directly
 
         return $response;
     }
@@ -570,7 +568,7 @@ If you're extending the base controller class, do the following::
 
     public function indexAction()
     {
-        $product = // retrieve the object from database
+        $product = ...retrieve the object from database;
         if (!$product) {
             throw $this->createNotFoundException('The product does not exist');
         }
@@ -641,7 +639,7 @@ For example, imagine you're processing a form submit::
 
         $form->bindRequest($this->getRequest());
         if ($form->isValid()) {
-            // do some sort of processing
+            // ... do some sort of processing
 
             $this->get('session')->getFlashBag()->add('notice', 'Your changes were saved!');
 
