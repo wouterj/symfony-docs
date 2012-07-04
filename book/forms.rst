@@ -147,7 +147,6 @@ helper functions:
     .. code-block:: html+jinja
 
         {# src/Acme/TaskBundle/Resources/views/Default/new.html.twig #}
-
         <form action="{{ path('task_new') }}" method="post" {{ form_enctype(form) }}>
             {{ form_widget(form) }}
 
@@ -602,7 +601,6 @@ of code. Of course, you'll usually need much more flexibility when rendering:
     .. code-block:: html+jinja
 
         {# src/Acme/TaskBundle/Resources/views/Default/new.html.twig #}
-
         <form action="{{ path('task_new') }}" method="post" {{ form_enctype(form) }}>
             {{ form_errors(form) }}
 
@@ -616,8 +614,7 @@ of code. Of course, you'll usually need much more flexibility when rendering:
 
     .. code-block:: html+php
 
-        <!-- // src/Acme/TaskBundle/Resources/views/Default/newAction.html.php -->
-
+        <!-- src/Acme/TaskBundle/Resources/views/Default/newAction.html.php -->
         <form action="<?php echo $view['router']->generate('task_new') ?>" method="post" <?php echo $view['form']->enctype($form) ?>>
             <?php echo $view['form']->errors($form) ?>
 
@@ -798,7 +795,6 @@ that will house the logic for building the task form:
 .. code-block:: php
 
     // src/Acme/TaskBundle/Form/Type/TaskType.php
-
     namespace Acme\TaskBundle\Form\Type;
 
     use Symfony\Component\Form\AbstractType;
@@ -825,7 +821,6 @@ form "type"). It can be used to quickly build a form object in the controller:
 .. code-block:: php
 
     // src/Acme/TaskBundle/Controller/DefaultController.php
-
     // add this new use statement at the top of the class
     use Acme\TaskBundle\Form\Type\TaskType;
 
@@ -1176,7 +1171,6 @@ the next section.
    .. code-block:: html+jinja
 
        {# src/Acme/TaskBundle/Resources/views/Default/new.html.twig #}
-
        {% form_theme form with 'AcmeTaskBundle:Form:fields.html.twig' %}
 
        {% form_theme form with ['AcmeTaskBundle:Form:fields.html.twig', 'AcmeTaskBundle:Form:fields2.html.twig'] %}
@@ -1283,7 +1277,6 @@ file:
     .. code-block:: yaml
 
         # app/config/config.yml
-
         twig:
             form:
                 resources:
@@ -1293,7 +1286,6 @@ file:
     .. code-block:: xml
 
         <!-- app/config/config.xml -->
-
         <twig:config ...>
                 <twig:form>
                     <resource>AcmeTaskBundle:Form:fields.html.twig</resource>
@@ -1304,7 +1296,6 @@ file:
     .. code-block:: php
 
         // app/config/config.php
-
         $container->loadFromExtension('twig', array(
             'form' => array('resources' => array(
                 'AcmeTaskBundle:Form:fields.html.twig',
@@ -1361,7 +1352,6 @@ file:
     .. code-block:: yaml
 
         # app/config/config.yml
-
         framework:
             templating:
                 form:
@@ -1373,7 +1363,6 @@ file:
     .. code-block:: xml
 
         <!-- app/config/config.xml -->
-
         <framework:config ...>
             <framework:templating>
                 <framework:form>
@@ -1386,7 +1375,6 @@ file:
     .. code-block:: php
 
         // app/config/config.php
-
         $container->loadFromExtension('framework', array(
             'templating' => array('form' =>
                 array('resources' => array(
@@ -1427,6 +1415,7 @@ that all un-rendered fields are output.
 
 The CSRF token can be customized on a form-by-form basis. For example::
 
+    // ...
     use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
     class TaskType extends AbstractType
@@ -1553,6 +1542,7 @@ Now, when you call `$form->bindRequest($request)`, the constraints setup here ar
 against your form's data. If you're using a form class, override the ``setDefaultOptions()``
 method to specify the option::
 
+    // src/Acme/TaskBundle/Form/Type/ContactType.php
     namespace Acme\TaskBundle\Form\Type;
 
     use Symfony\Component\Form\AbstractType;
