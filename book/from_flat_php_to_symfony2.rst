@@ -27,7 +27,6 @@ persisted to the database. Writing in flat PHP is quick and dirty:
 
     <?php
     // index.php
-
     $link = mysql_connect('localhost', 'myuser', 'mypassword');
     mysql_select_db('blog_db', $link);
 
@@ -85,7 +84,6 @@ the code that prepares the HTML "presentation":
 
     <?php
     // index.php
-
     $link = mysql_connect('localhost', 'myuser', 'mypassword');
     mysql_select_db('blog_db', $link);
 
@@ -146,7 +144,6 @@ of the application are isolated in a new file called ``model.php``:
 
     <?php
     // model.php
-
     function open_database_connection()
     {
         $link = mysql_connect('localhost', 'myuser', 'mypassword');
@@ -543,7 +540,6 @@ them for you. Here's the same sample application, now built in Symfony2:
 
     <?php
     // src/Acme/BlogBundle/Controller/BlogController.php
-
     namespace Acme\BlogBundle\Controller;
     use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -699,7 +695,6 @@ for example, the list template written in Twig:
 .. code-block:: html+jinja
 
     {# src/Acme/BlogBundle/Resources/views/Blog/list.html.twig #}
-
     {% extends "::layout.html.twig" %}
     {% block title %}List of Posts{% endblock %}
 
