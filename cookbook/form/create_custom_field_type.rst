@@ -151,7 +151,7 @@ new instance of the type in one of your forms::
 
     use Symfony\Component\Form\AbstractType;
     use Symfony\Component\Form\FormBuilder;
-    
+
     class AuthorType extends AbstractType
     {
         public function buildForm(FormBuilder $builder, array $options)

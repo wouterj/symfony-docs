@@ -1,5 +1,5 @@
 .. index::
-   single: Events; Create Listener
+   single: Events; Create listener
 
 How to create an Event Listener
 ===============================
@@ -27,12 +27,12 @@ event is just one of the core kernel events::
             // We get the exception object from the received event
             $exception = $event->getException();
             $message = 'My Error says: ' . $exception->getMessage();
-            
+
             // Customize our response object to display our exception details
             $response = new Response();
             $response->setContent($message);
             $response->setStatusCode($exception->getStatusCode());
-            
+
             // Send our modified response object to the event
             $event->setResponse($response);
         }

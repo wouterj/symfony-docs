@@ -94,7 +94,7 @@ Without even thinking about Doctrine or databases, you already know that
 you need a ``Product`` object to represent those products. Create this class
 inside the ``Entity`` directory of your ``AcmeStoreBundle``::
 
-    // src/Acme/StoreBundle/Entity/Product.php    
+    // src/Acme/StoreBundle/Entity/Product.php
     namespace Acme\StoreBundle\Entity;
 
     class Product
@@ -371,7 +371,7 @@ of the bundle:
     // ...
     use Acme\StoreBundle\Entity\Product;
     use Symfony\Component\HttpFoundation\Response;
-    
+
     public function createAction()
     {
         $product = new Product();
@@ -1071,7 +1071,7 @@ following method to the ``ProductRepository`` class::
                 JOIN p.category c
                 WHERE p.id = :id'
             )->setParameter('id', $id);
-        
+
         try {
             return $query->getSingleResult();
         } catch (\Doctrine\ORM\NoResultException $e) {
@@ -1310,7 +1310,7 @@ and ``nullable``. Take a few examples:
     Doctrine's `Property Mapping documentation`_
 
 .. index::
-   single: Doctrine; ORM Console Commands
+   single: Doctrine; ORM console commands
    single: CLI; Doctrine ORM
 
 Console Commands
