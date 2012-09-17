@@ -172,25 +172,23 @@ information will be available in the profiler.
 Full Default Configuration
 --------------------------
 
-.. configuration-block::
+.. code-block:: yaml
 
-    .. code-block:: yaml
-
-        swiftmailer:
-            transport:            smtp
-            username:             ~
-            password:             ~
-            host:                 localhost
-            port:                 false
-            encryption:           ~
-            auth_mode:            ~
-            spool:
-                type:                 file
-                path:                 "%kernel.cache_dir%/swiftmailer/spool"
-            sender_address:       ~
-            antiflood:
-                threshold:            99
-                sleep:                0
-            delivery_address:     ~
-            disable_delivery:     ~
-            logging:              "%kernel.debug%"
+    swiftmailer:
+        transport:            smtp
+        username:             ~
+        password:             ~
+        host:                 localhost
+        port:                 false
+        encryption:           ~
+        auth_mode:            ~
+        spool:
+            type:                 file
+            path:                 "%kernel.cache_dir%/swiftmailer/spool"
+        sender_address:       ~
+        antiflood:
+            threshold:            99
+            sleep:                0
+        delivery_address:     ~
+        disable_delivery:     ~
+        logging:              "%kernel.debug%"
