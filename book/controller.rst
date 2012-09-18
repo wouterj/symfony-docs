@@ -202,11 +202,8 @@ Route Parameters as Controller Arguments
 You already know that the ``_controller`` parameter ``AcmeHelloBundle:Hello:index``
 refers to a ``HelloController::indexAction()`` method that lives inside the
 ``AcmeHelloBundle`` bundle. What's more interesting is the arguments that are
-passed to that method:
+passed to that method::
 
-.. code-block:: php
-
-    <?php
     // src/Acme/HelloBundle/Controller/HelloController.php
     namespace Acme\HelloBundle\Controller;
 
@@ -344,9 +341,7 @@ access to any resource it might need. By extending this ``Controller`` class,
 you can take advantage of several helper methods.
 
 Add the ``use`` statement atop the ``Controller`` class and then modify the
-``HelloController`` to extend it:
-
-.. code-block:: php
+``HelloController`` to extend it::
 
     // src/Acme/HelloBundle/Controller/HelloController.php
     namespace Acme\HelloBundle\Controller;
@@ -422,9 +417,7 @@ perform a 301 (permanent) redirect, modify the second argument::
 .. tip::
 
     The ``redirect()`` method is simply a shortcut that creates a ``Response``
-    object that specializes in redirecting the user. It's equivalent to:
-
-    .. code-block:: php
+    object that specializes in redirecting the user. It's equivalent to::
 
         use Symfony\Component\HttpFoundation\RedirectResponse;
 
