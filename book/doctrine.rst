@@ -387,9 +387,8 @@ Persisting Objects to the Database
 Now that you have a mapped ``Product`` entity and corresponding ``product``
 table, you're ready to persist data to the database. From inside a controller,
 this is pretty easy. Add the following method to the ``DefaultController``
-of the bundle:
+of the bundle::
 
-.. code-block:: php
     :linenos:
 
     // src/Acme/StoreBundle/Controller/DefaultController.php
