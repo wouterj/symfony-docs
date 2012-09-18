@@ -29,6 +29,7 @@ Basic Usage
                     - Email:
                         message: The email "{{ value }}" is not a valid email.
                         checkMX: true
+
     .. code-block:: xml
 
         <!-- src/Acme/BlogBundle/Resources/config/validation.xml -->

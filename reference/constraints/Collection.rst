@@ -65,34 +65,6 @@ blank but is no longer than 100 characters in length, you would do the following
                                 message: Your short bio is too long!
                     allowMissingfields: true
 
-    .. code-block:: php-annotations
-
-        // src/Acme/BlogBundle/Entity/Author.php
-        use Symfony\Component\Validator\Constraints as Assert;
-
-        class Author
-        {
-            /**
-             * @Assert\Collection(
-             *     fields = {
-             *         "personal_email" = @Assert\Email,
-             *         "short_bio" = {
-             *             @Assert\NotBlank(),
-             *             @Assert\MaxLength(
-             *                 limit = 100,
-             *                 message = "Your bio is too long!"
-             *             )
-             *         }
-             *     },
-             *     allowMissingfields = true
-             * )
-             */
-             protected $profileData = array(
-                 'personal_email',
-                 'short_bio',
-             );
-        }
-
     .. code-block:: xml
 
         <!-- src/Acme/BlogBundle/Resources/config/validation.xml -->
@@ -138,6 +110,34 @@ blank but is no longer than 100 characters in length, you would do the following
                     'allowMissingFields' => true,
                 )));
             }
+        }
+
+    .. code-block:: php-annotations
+
+        // src/Acme/BlogBundle/Entity/Author.php
+        use Symfony\Component\Validator\Constraints as Assert;
+
+        class Author
+        {
+            /**
+             * @Assert\Collection(
+             *     fields = {
+             *         "personal_email" = @Assert\Email,
+             *         "short_bio" = {
+             *             @Assert\NotBlank(),
+             *             @Assert\MaxLength(
+             *                 limit = 100,
+             *                 message = "Your bio is too long!"
+             *             )
+             *         }
+             *     },
+             *     allowMissingfields = true
+             * )
+             */
+             protected $profileData = array(
+                 'personal_email',
+                 'short_bio',
+             );
         }
 
 Presence and Absence of Fields
