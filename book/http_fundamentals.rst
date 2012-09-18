@@ -179,9 +179,7 @@ Requests and Responses in PHP
 -----------------------------
 
 So how do you interact with the "request" and create a "response" when using
-PHP? In reality, PHP abstracts you a bit from the whole process:
-
-.. code-block:: php
+PHP? In reality, PHP abstracts you a bit from the whole process::
 
     <?php
     $uri = $_SERVER['REQUEST_URI'];
@@ -363,9 +361,7 @@ Stay Organized
 But inside your front controller, how do you know which page should
 be rendered and how can you render each in a sane way? One way or another, you'll need to
 check the incoming URI and execute different parts of your code depending
-on that value. This can get ugly quickly:
-
-.. code-block:: php
+on that value. This can get ugly quickly::
 
     // index.php
     $request = Request::createFromGlobals();
@@ -437,9 +433,7 @@ by adding an entry for ``/contact`` to your routing configuration file:
 When someone visits the ``/contact`` page, this route is matched, and the
 specified controller is executed. As you'll learn in the :doc:`routing chapter</book/routing>`,
 the ``AcmeDemoBundle:Main:contact`` string is a short syntax that points to a
-specific PHP method ``contactAction`` inside a class called ``MainController``:
-
-.. code-block:: php
+specific PHP method ``contactAction`` inside a class called ``MainController``::
 
     class MainController
     {
