@@ -141,9 +141,7 @@ Isolating the Application (Domain) Logic
 So far the application contains only one page. But what if a second page
 needed to use the same database connection, or even the same array of blog
 posts? Refactor the code so that the core behavior and data-access functions
-of the application are isolated in a new file called ``model.php``:
-
-.. code-block:: html+php
+of the application are isolated in a new file called ``model.php``::
 
     <?php
     // model.php
@@ -183,9 +181,7 @@ of the application are isolated in a new file called ``model.php``:
    in this example, only a portion (or none) of the model is actually concerned
    with accessing a database.
 
-The controller (``index.php``) is now very simple:
-
-.. code-block:: html+php
+The controller (``index.php``) is now very simple::
 
     <?php
     require_once 'model.php';
@@ -274,9 +270,7 @@ an individual blog result based on a given id::
     }
 
 Next, create a new file called ``show.php`` - the controller for this new
-page:
-
-.. code-block:: html+php
+page::
 
     <?php
     require_once 'model.php';
@@ -353,9 +347,7 @@ You're about to take a **big** step with the application. With one file handling
 all requests, you can centralize things such as security handling, configuration
 loading, and routing. In this application, ``index.php`` must now be smart
 enough to render the blog post list page *or* the blog post show page based
-on the requested URI:
-
-.. code-block:: html+php
+on the requested URI::
 
     <?php
     // index.php
@@ -376,9 +368,7 @@ on the requested URI:
     }
 
 For organization, both controllers (formerly ``index.php`` and ``show.php``)
-are now PHP functions and each has been moved into a separate file, ``controllers.php``:
-
-.. code-block:: php
+are now PHP functions and each has been moved into a separate file, ``controllers.php``::
 
     function list_action()
     {
@@ -426,9 +416,7 @@ containing the class.
 
 First, `download symfony`_ and place it into a ``vendor/symfony/`` directory.
 Next, create an ``app/bootstrap.php`` file. Use it to ``require`` the two
-files in the application and to configure the autoloader:
-
-.. code-block:: html+php
+files in the application and to configure the autoloader::
 
     <?php
     // bootstrap.php
@@ -452,9 +440,7 @@ to interpret each request and return a response. To this end, Symfony2 provides
 both a :class:`Symfony\\Component\\HttpFoundation\\Request` and a
 :class:`Symfony\\Component\\HttpFoundation\\Response` class. These classes are
 object-oriented representations of the raw HTTP request being processed and
-the HTTP response being returned. Use them to improve the blog:
-
-.. code-block:: html+php
+the HTTP response being returned. Use them to improve the blog::
 
     <?php
     // index.php
@@ -480,9 +466,7 @@ the HTTP response being returned. Use them to improve the blog:
 
 The controllers are now responsible for returning a ``Response`` object.
 To make this easier, you can add a new ``render_template()`` function, which,
-incidentally, acts quite a bit like the Symfony2 templating engine:
-
-.. code-block:: php
+incidentally, acts quite a bit like the Symfony2 templating engine::
 
     // controllers.php
     use Symfony\Component\HttpFoundation\Response;
@@ -537,9 +521,7 @@ from scratch, you could at least use Symfony's standalone `Routing`_ and
 `Templating`_ components, which already solve these problems.
 
 Instead of re-solving common problems, you can let Symfony2 take care of
-them for you. Here's the same sample application, now built in Symfony2:
-
-.. code-block:: html+php
+them for you. Here's the same sample application, now built in Symfony2::
 
     <?php
     // src/Acme/BlogBundle/Controller/BlogController.php
@@ -635,9 +617,7 @@ A routing configuration map provides this information in a readable format:
 Now that Symfony2 is handling all the mundane tasks, the front controller
 is dead simple. And since it does so little, you'll never have to touch
 it once it's created (and if you use a Symfony2 distribution, you won't
-even need to create it!):
-
-.. code-block:: html+php
+even need to create it!)::
 
     <?php
     // web/app.php
