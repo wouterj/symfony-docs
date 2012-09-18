@@ -61,19 +61,6 @@ If your valid choice list is simple, you can pass them in directly via the
             </property>
         </class>
 
-    .. code-block:: php-annotations
-
-        // src/Acme/BlogBundle/Entity/Author.php
-        use Symfony\Component\Validator\Constraints as Assert;
-
-        class Author
-        {
-            /**
-             * @Assert\Choice(choices = {"male", "female"}, message = "Choose a valid gender.")
-             */
-            protected $gender;
-        }
-
     .. code-block:: php
 
         // src/Acme/BlogBundle/EntityAuthor.php
@@ -91,6 +78,19 @@ If your valid choice list is simple, you can pass them in directly via the
                     'message' => 'Choose a valid gender',
                 )));
             }
+        }
+
+    .. code-block:: php-annotations
+
+        // src/Acme/BlogBundle/Entity/Author.php
+        use Symfony\Component\Validator\Constraints as Assert;
+
+        class Author
+        {
+            /**
+             * @Assert\Choice(choices = {"male", "female"}, message = "Choose a valid gender.")
+             */
+            protected $gender;
         }
 
 Supplying the Choices with a Callback Function
@@ -125,6 +125,17 @@ constraint.
                 gender:
                     - Choice: { callback: getGenders }
 
+    .. code-block:: xml
+
+        <!-- src/Acme/BlogBundle/Resources/config/validation.xml -->
+        <class name="Acme\BlogBundle\Entity\Author">
+            <property name="gender">
+                <constraint name="Choice">
+                    <option name="callback">getGenders</option>
+                </constraint>
+            </property>
+        </class>
+
     .. code-block:: php-annotations
 
         // src/Acme/BlogBundle/Entity/Author.php
@@ -137,17 +148,6 @@ constraint.
              */
             protected $gender;
         }
-
-    .. code-block:: xml
-
-        <!-- src/Acme/BlogBundle/Resources/config/validation.xml -->
-        <class name="Acme\BlogBundle\Entity\Author">
-            <property name="gender">
-                <constraint name="Choice">
-                    <option name="callback">getGenders</option>
-                </constraint>
-            </property>
-        </class>
 
 If the static callback is stored in a different class, for example ``Util``,
 you can pass the class name and the method as an array.
@@ -213,7 +213,7 @@ for details on its usage.
 multiple
 ~~~~~~~~
 
-**type**: ``Boolean`` **default**: ``false``
+**type**: ``boolean`` **default**: ``false``
 
 If this option is true, the input value is expected to be an array instead
 of a single, scalar value. The constraint will check that each value of
@@ -276,7 +276,7 @@ too many options per the `max`_ option.
 strict
 ~~~~~~
 
-**type**: ``Boolean`` **default**: ``false``
+**type**: ``boolean`` **default**: ``false``
 
 If true, the validator will also check the type of the input value. Specifically,
 this value is passed to as the third argument to the PHP `in_array`_ method

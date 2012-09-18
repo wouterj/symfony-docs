@@ -40,6 +40,17 @@ Setup
                 - Callback:
                     methods:   [isAuthorValid]
 
+    .. code-block:: xml
+
+        <!-- src/Acme/BlogBundle/Resources/config/validation.xml -->
+        <class name="Acme\BlogBundle\Entity\Author">
+            <constraint name="Callback">
+                <option name="methods">
+                    <value>isAuthorValid</value>
+                </option>
+            </constraint>
+        </class>
+
     .. code-block:: php-annotations
 
         // src/Acme/BlogBundle/Entity/Author.php
@@ -51,17 +62,6 @@ Setup
         class Author
         {
         }
-
-    .. code-block:: xml
-
-        <!-- src/Acme/BlogBundle/Resources/config/validation.xml -->
-        <class name="Acme\BlogBundle\Entity\Author">
-            <constraint name="Callback">
-                <option name="methods">
-                    <value>isAuthorValid</value>
-                </option>
-            </constraint>
-        </class>
 
 The Callback Method
 -------------------
@@ -123,20 +123,6 @@ process. Each method can be one of the following formats:
                         methods:
                             -    [Acme\BlogBundle\MyStaticValidatorClass, isAuthorValid]
 
-        .. code-block:: php-annotations
-
-            // src/Acme/BlogBundle/Entity/Author.php
-            use Symfony\Component\Validator\Constraints as Assert;
-
-            /**
-             * @Assert\Callback(methods={
-             *     { "Acme\BlogBundle\MyStaticValidatorClass", "isAuthorValid"}
-             * })
-             */
-            class Author
-            {
-            }
-
         .. code-block:: php
 
             // src/Acme/BlogBundle/Entity/Author.php
@@ -154,6 +140,20 @@ process. Each method can be one of the following formats:
                         'methods' => array('isAuthorValid'),
                     )));
                 }
+            }
+
+        .. code-block:: php-annotations
+
+            // src/Acme/BlogBundle/Entity/Author.php
+            use Symfony\Component\Validator\Constraints as Assert;
+
+            /**
+             * @Assert\Callback(methods={
+             *     { "Acme\BlogBundle\MyStaticValidatorClass", "isAuthorValid"}
+             * })
+             */
+            class Author
+            {
             }
 
     In this case, the static method ``isAuthorValid`` will be called on the

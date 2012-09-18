@@ -27,6 +27,28 @@ table:
 
 .. configuration-block::
 
+    .. code-block:: yaml
+
+        # src/Acme/UserBundle/Resources/config/validation.yml
+        Acme\UserBundle\Entity\Author:
+            constraints:
+                - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: email
+            properties:
+                email:
+                    - Email: ~
+
+    .. code-block:: xml
+
+        <class name="Acme\UserBundle\Entity\Author">
+            <constraint name="Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity">
+                <option name="fields">email</option>
+                <option name="message">This email already exists.</option>
+            </constraint>
+             <property name="email">
+                <constraint name="Email" />
+            </property>
+        </class>
+
     .. code-block:: php-annotations
 
         // Acme/UserBundle/Entity/User.php
@@ -52,28 +74,6 @@ table:
             
             // ...
         }
-
-    .. code-block:: yaml
-
-        # src/Acme/UserBundle/Resources/config/validation.yml
-        Acme\UserBundle\Entity\Author:
-            constraints:
-                - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: email
-            properties:
-                email:
-                    - Email: ~
-
-    .. code-block:: xml
-
-        <class name="Acme\UserBundle\Entity\Author">
-            <constraint name="Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity">
-                <option name="fields">email</option>
-                <option name="message">This email already exists.</option>
-            </constraint>
-             <property name="email">
-                <constraint name="Email" />
-            </property>
-        </class>
 
 Options
 -------

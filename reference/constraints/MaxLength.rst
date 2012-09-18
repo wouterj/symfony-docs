@@ -28,6 +28,17 @@ Basic Usage
                 summary:
                     - MaxLength: 100
     
+    .. code-block:: xml
+
+        <!-- src/Acme/BlogBundle/Resources/config/validation.xml -->
+        <class name="Acme\BlogBundle\Entity\Blog">
+            <property name="summary">
+                <constraint name="MaxLength">
+                    <value>100</value>
+                </constraint>
+            </property>
+        </class>
+    
     .. code-block:: php-annotations
 
         // src/Acme/BlogBundle/Entity/Blog.php
@@ -40,17 +51,6 @@ Basic Usage
              */
             protected $summary;
         }
-    
-    .. code-block:: xml
-
-        <!-- src/Acme/BlogBundle/Resources/config/validation.xml -->
-        <class name="Acme\BlogBundle\Entity\Blog">
-            <property name="summary">
-                <constraint name="MaxLength">
-                    <value>100</value>
-                </constraint>
-            </property>
-        </class>
 
 Options
 -------

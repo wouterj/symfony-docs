@@ -78,24 +78,6 @@ below a certain file size and a valid PDF, add the following:
                         maxSize: 1024k
                         mimeTypes: [application/pdf, application/x-pdf]
                         mimeTypesMessage: Please upload a valid PDF
-                        
-
-    .. code-block:: php-annotations
-
-        // src/Acme/BlogBundle/Entity/Author.php
-        use Symfony\Component\Validator\Constraints as Assert;
-
-        class Author
-        {
-            /**
-             * @Assert\File(
-             *     maxSize = "1024k",
-             *     mimeTypes = {"application/pdf", "application/x-pdf"},
-             *     mimeTypesMessage = "Please upload a valid PDF"
-             * )
-             */
-            protected $bioFile;
-        }
 
     .. code-block:: xml
 
@@ -116,8 +98,8 @@ below a certain file size and a valid PDF, add the following:
     .. code-block:: php
 
         // src/Acme/BlogBundle/Entity/Author.php
-        // ...
 
+        // ...
         use Symfony\Component\Validator\Mapping\ClassMetadata;
         use Symfony\Component\Validator\Constraints\File;
 
@@ -136,6 +118,23 @@ below a certain file size and a valid PDF, add the following:
                     'mimeTypesMessage' => 'Please upload a valid PDF',
                 )));
             }
+        }
+
+    .. code-block:: php-annotations
+
+        // src/Acme/BlogBundle/Entity/Author.php
+        use Symfony\Component\Validator\Constraints as Assert;
+
+        class Author
+        {
+            /**
+             * @Assert\File(
+             *     maxSize = "1024k",
+             *     mimeTypes = {"application/pdf", "application/x-pdf"},
+             *     mimeTypesMessage = "Please upload a valid PDF"
+             * )
+             */
+            protected $bioFile;
         }
 
 The ``bioFile`` property is validated to guarantee that it is a real file.

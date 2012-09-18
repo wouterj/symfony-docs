@@ -83,6 +83,46 @@ an ``Address`` instance in the ``$address`` property.
             </property>
         </class>
 
+    .. code-block:: php
+
+        // src/Acme/HelloBundle/Address.php
+        use Symfony\Component\Validator\Mapping\ClassMetadata;
+        use Symfony\Component\Validator\Constraints\NotBlank;
+        use Symfony\Component\Validator\Constraints\MaxLength;
+        
+        class Address
+        {
+            protected $street;
+
+            protected $zipCode;
+            
+            public static function loadValidatorMetadata(ClassMetadata $metadata)
+            {
+                $metadata->addPropertyConstraint('street', new NotBlank());
+                $metadata->addPropertyConstraint('zipCode', new NotBlank());
+                $metadata->addPropertyConstraint('zipCode', new MaxLength(5));
+            }
+        }
+
+        // src/Acme/HelloBundle/Author.php
+        use Symfony\Component\Validator\Mapping\ClassMetadata;
+        use Symfony\Component\Validator\Constraints\NotBlank;
+        use Symfony\Component\Validator\Constraints\MinLength;
+        
+        class Author
+        {
+            protected $firstName;
+            protected $lastName;
+            protected $address;
+            
+            public static function loadValidatorMetadata(ClassMetadata $metadata)
+            {
+                $metadata->addPropertyConstraint('firstName', new NotBlank());
+                $metadata->addPropertyConstraint('firstName', new MinLength(4));
+                $metadata->addPropertyConstraint('lastName', new NotBlank());
+            }
+        }
+
     .. code-block:: php-annotations
 
         // src/Acme/HelloBundle/Address.php
@@ -119,48 +159,6 @@ an ``Address`` instance in the ``$address`` property.
             protected $address;
         }
 
-    .. code-block:: php
-
-        // src/Acme/HelloBundle/Address.php
-        use Symfony\Component\Validator\Mapping\ClassMetadata;
-        use Symfony\Component\Validator\Constraints\NotBlank;
-        use Symfony\Component\Validator\Constraints\MaxLength;
-        
-        class Address
-        {
-            protected $street;
-
-            protected $zipCode;
-            
-            public static function loadValidatorMetadata(ClassMetadata $metadata)
-            {
-                $metadata->addPropertyConstraint('street', new NotBlank());
-                $metadata->addPropertyConstraint('zipCode', new NotBlank());
-                $metadata->addPropertyConstraint('zipCode', new MaxLength(5));
-            }
-        }
-
-        // src/Acme/HelloBundle/Author.php
-        use Symfony\Component\Validator\Mapping\ClassMetadata;
-        use Symfony\Component\Validator\Constraints\NotBlank;
-        use Symfony\Component\Validator\Constraints\MinLength;
-        
-        class Author
-        {
-            protected $firstName;
-
-            protected $lastName;
-            
-            protected $address;
-            
-            public static function loadValidatorMetadata(ClassMetadata $metadata)
-            {
-                $metadata->addPropertyConstraint('firstName', new NotBlank());
-                $metadata->addPropertyConstraint('firstName', new MinLength(4));
-                $metadata->addPropertyConstraint('lastName', new NotBlank());
-            }
-        }
-
 With this mapping, it is possible to successfully validate an author with an
 invalid address. To prevent that, add the ``Valid`` constraint to the ``$address``
 property.
@@ -184,21 +182,6 @@ property.
             </property>
         </class>
 
-    .. code-block:: php-annotations
-
-        // src/Acme/HelloBundle/Author.php
-        use Symfony\Component\Validator\Constraints as Assert;
-
-        class Author
-        {
-            /* ... */
-            
-            /**
-             * @Assert\Valid
-             */
-            protected $address;
-        }
-
     .. code-block:: php
 
         // src/Acme/HelloBundle/Author.php
@@ -213,6 +196,21 @@ property.
             {
                 $metadata->addPropertyConstraint('address', new Valid());
             }
+        }
+
+    .. code-block:: php-annotations
+
+        // src/Acme/HelloBundle/Author.php
+        use Symfony\Component\Validator\Constraints as Assert;
+
+        class Author
+        {
+            /* ... */
+            
+            /**
+             * @Assert\Valid
+             */
+            protected $address;
         }
 
 If you validate an author with an invalid address now, you can see that the

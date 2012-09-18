@@ -28,6 +28,18 @@ Basic Usage
                 firstName:
                     - MinLength: { limit: 3, message: "Your name must have at least {{ limit }} characters." }
 
+    .. code-block:: xml
+
+        <!-- src/Acme/BlogBundle/Resources/config/validation.xml -->
+        <class name="Acme\BlogBundle\Entity\Blog">
+            <property name="summary">
+                <constraint name="MinLength">
+                    <option name="limit">3</option>
+                    <option name="message">Your name must have at least {{ limit }} characters.</option>
+                </constraint>
+            </property>
+        </class>
+
     .. code-block:: php-annotations
 
         // src/Acme/BlogBundle/Entity/Blog.php
@@ -43,18 +55,6 @@ Basic Usage
              */
             protected $summary;
         }
-
-    .. code-block:: xml
-
-        <!-- src/Acme/BlogBundle/Resources/config/validation.xml -->
-        <class name="Acme\BlogBundle\Entity\Blog">
-            <property name="summary">
-                <constraint name="MinLength">
-                    <option name="limit">3</option>
-                    <option name="message">Your name must have at least {{ limit }} characters.</option>
-                </constraint>
-            </property>
-        </class>
 
 Options
 -------

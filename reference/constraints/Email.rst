@@ -78,7 +78,7 @@ This message is shown if the underlying data is not a valid email address.
 checkMX
 ~~~~~~~
 
-**type**: ``Boolean`` **default**: ``false``
+**type**: ``boolean`` **default**: ``false``
 
 If true, then the `checkdnsrr`_ PHP function will be used to check the validity
 of the MX record of the host of the given email.

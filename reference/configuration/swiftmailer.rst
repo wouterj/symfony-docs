@@ -156,7 +156,7 @@ on the ``X-Swift-To``, ``X-Swift-Cc`` and ``X-Swift-Bcc`` headers.
 disable_delivery
 ~~~~~~~~~~~~~~~~
 
-**type**: ``Boolean`` **default**: ``false``
+**type**: ``boolean`` **default**: ``false``
 
 If true, the ``transport`` will automatically be set to ``null``, and no
 emails will actually be delivered.
@@ -164,7 +164,7 @@ emails will actually be delivered.
 logging
 ~~~~~~~
 
-**type**: ``Boolean`` **default**: ``%kernel.debug%``
+**type**: ``boolean`` **default**: ``%kernel.debug%``
 
 If true, Symfony's data collector will be activated for Swiftmailer and the
 information will be available in the profiler.
@@ -172,25 +172,23 @@ information will be available in the profiler.
 Full Default Configuration
 --------------------------
 
-.. configuration-block::
+.. code-block:: yaml
 
-    .. code-block:: yaml
-
-        swiftmailer:
-            transport:            smtp
-            username:             ~
-            password:             ~
-            host:                 localhost
-            port:                 false
-            encryption:           ~
-            auth_mode:            ~
-            spool:
-                type:                 file
-                path:                 "%kernel.cache_dir%/swiftmailer/spool"
-            sender_address:       ~
-            antiflood:
-                threshold:            99
-                sleep:                0
-            delivery_address:     ~
-            disable_delivery:     ~
-            logging:              "%kernel.debug%"
+    swiftmailer:
+        transport:            smtp
+        username:             ~
+        password:             ~
+        host:                 localhost
+        port:                 false
+        encryption:           ~
+        auth_mode:            ~
+        spool:
+            type:                 file
+            path:                 "%kernel.cache_dir%/swiftmailer/spool"
+        sender_address:       ~
+        antiflood:
+            threshold:            99
+            sleep:                0
+        delivery_address:     ~
+        disable_delivery:     ~
+        logging:              "%kernel.debug%"

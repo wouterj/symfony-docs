@@ -23,9 +23,7 @@ Basic Usage
 This constraint can be applied to properties (e.g. a ``termsAccepted`` property
 on a registration model) or to a "getter" method. It's most powerful in the
 latter case, where you can assert that a method returns a true value. For
-example, suppose you have the following method:
-
-.. code-block:: php
+example, suppose you have the following method::
 
     // src/Acme/BlogBundle/Entity/Author.php
     namespace Acme\BlogBundle\Entity;
@@ -51,24 +49,6 @@ Then you can constrain this method with ``True``.
             getters:
                 tokenValid:
                     - "True": { message: "The token is invalid" }
-
-    .. code-block:: php-annotations
-
-        // src/Acme/BlogBundle/Entity/Author.php
-        use Symfony\Component\Validator\Constraints as Assert;
-
-        class Author
-        {
-            protected $token;
-
-            /**
-             * @Assert\True(message = "The token is invalid")
-             */
-            public function isTokenValid()
-            {
-                return $this->token == $this->generateToken();
-            }
-        }
 
     .. code-block:: xml
 
@@ -105,6 +85,24 @@ Then you can constrain this method with ``True``.
                 )));
             }
 
+            public function isTokenValid()
+            {
+                return $this->token == $this->generateToken();
+            }
+        }
+
+    .. code-block:: php-annotations
+
+        // src/Acme/BlogBundle/Entity/Author.php
+        use Symfony\Component\Validator\Constraints as Assert;
+
+        class Author
+        {
+            protected $token;
+
+            /**
+             * @Assert\True(message = "The token is invalid")
+             */
             public function isTokenValid()
             {
                 return $this->token == $this->generateToken();

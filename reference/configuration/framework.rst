@@ -84,7 +84,7 @@ the ``ide`` option does not need to be specified.
 test
 ~~~~
 
-**type**: ``Boolean``
+**type**: ``boolean``
 
 If this configuration parameter is present (and not ``false``), then the
 services related to testing your application (e.g. ``test.client``) are loaded.
@@ -94,7 +94,7 @@ This setting should be present in your ``test`` environment (usually via
 trust_proxy_headers
 ~~~~~~~~~~~~~~~~~~~
 
-**type**: ``Boolean``
+**type**: ``boolean``
 
 Configures if HTTP headers (like ``HTTP_X_FORWARDED_FOR``, ``X_FORWARDED_PROTO``, and
 ``X_FORWARDED_HOST``) are trusted as indication for an SSL connection. By default, it is
@@ -240,103 +240,101 @@ would be ``/images/logo.png?version=5``.
 Full Default Configuration
 --------------------------
 
-.. configuration-block::
+.. code-block:: yaml
 
-    .. code-block:: yaml
+    framework:
 
-        framework:
+        # general configuration
+        charset:              ~
+        secret:               ~ # Required
+        ide:                  ~
+        test:                 ~
+        trust_proxy_headers:  false
 
-            # general configuration
-            charset:              ~
-            secret:               ~ # Required
-            ide:                  ~
-            test:                 ~
-            trust_proxy_headers:  false
+        # form configuration
+        form:
+            enabled:              true
+        csrf_protection:
+            enabled:              true
+            field_name:           _token
 
-            # form configuration
-            form:
-                enabled:              true
-            csrf_protection:
-                enabled:              true
-                field_name:           _token
+        # esi configuration
+        esi:
+            enabled:              true
 
-            # esi configuration
-            esi:
-                enabled:              true
-
-            # profiler configuration
-            profiler:
-                only_exceptions:      false
-                only_master_requests:  false
-                dsn:                  "sqlite:%kernel.cache_dir%/profiler.db"
-                username:
-                password:
-                lifetime:             86400
-                matcher:
-                    ip:                   ~
-                    path:                 ~
-                    service:              ~
-
-            # router configuration
-            router:
-                resource:             ~ # Required
-                type:                 ~
-                http_port:            80
-                https_port:           443
-
-            # session configuration
-            session:
-                auto_start:           ~
-                default_locale:       en
-                storage_id:           session.storage.native
-                name:                 ~
-                lifetime:             0
+        # profiler configuration
+        profiler:
+            only_exceptions:      false
+            only_master_requests:  false
+            dsn:                  "sqlite:%kernel.cache_dir%/profiler.db"
+            username:
+            password:
+            lifetime:             86400
+            matcher:
+                ip:                   ~
                 path:                 ~
-                domain:               ~
-                secure:               ~
-                httponly:             ~
+                service:              ~
 
-            # templating configuration
-            templating:
-                assets_version:       ~
-                assets_version_format:  "%%s?%%s"
-                assets_base_urls:
-                    http:                 []
-                    ssl:                  []
-                cache:                ~
-                engines:              # Required
-                form:
-                    resources:        [FrameworkBundle:Form]
+        # router configuration
+        router:
+            resource:             ~ # Required
+            type:                 ~
+            http_port:            80
+            https_port:           443
 
-                    # Example:
-                    - twig
-                loaders:              []
-                packages:
+        # session configuration
+        session:
+            auto_start:           ~
+            default_locale:       en
+            storage_id:           session.storage.native
+            name:                 ~
+            lifetime:             0
+            path:                 ~
+            domain:               ~
+            secure:               ~
+            httponly:             ~
 
-                    # Prototype
-                    name:
-                        version:              ~
-                        version_format:       ~
-                        base_urls:
-                            http:                 []
-                            ssl:                  []
+        # templating configuration
+        templating:
+            assets_version:       ~
+            assets_version_format:  "%%s?%%s"
+            assets_base_urls:
+                http:                 []
+                ssl:                  []
+            cache:                ~
+            engines:              # Required
+            form:
+                resources:        [FrameworkBundle:Form]
 
-            # translator configuration
-            translator:
-                enabled:              true
-                fallback:             en
+                # Example:
+                - twig
+            loaders:              []
+            packages:
 
-            # validation configuration
-            validation:
-                enabled:              true
-                cache:                ~
-                enable_annotations:   false
+                # Prototype
+                name:
+                    version:              ~
+                    version_format:       ~
+                    base_urls:
+                        http:                 []
+                        ssl:                  []
 
-            # annotation configuration
-            annotations:
-                cache:                file
-                file_cache_dir:       "%kernel.cache_dir%/annotations"
-                debug:                true
+        # translator configuration
+        translator:
+            enabled:              true
+            fallback:             en
+
+        # validation configuration
+        validation:
+            enabled:              true
+            cache:                ~
+            enable_annotations:   false
+
+        # annotation configuration
+        annotations:
+            cache:                file
+            file_cache_dir:       "%kernel.cache_dir%/annotations"
+            debug:                true
 
 .. _`protocol-relative`: http://tools.ietf.org/html/rfc3986#section-4.2
 .. _`sprintf()`: http://php.net/manual/en/function.sprintf.php

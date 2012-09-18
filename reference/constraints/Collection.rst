@@ -65,34 +65,6 @@ blank but is no longer than 100 characters in length, you would do the following
                                 message: Your short bio is too long!
                     allowMissingfields: true
 
-    .. code-block:: php-annotations
-
-        // src/Acme/BlogBundle/Entity/Author.php
-        use Symfony\Component\Validator\Constraints as Assert;
-
-        class Author
-        {
-            /**
-             * @Assert\Collection(
-             *     fields = {
-             *         "personal_email" = @Assert\Email,
-             *         "short_bio" = {
-             *             @Assert\NotBlank(),
-             *             @Assert\MaxLength(
-             *                 limit = 100,
-             *                 message = "Your bio is too long!"
-             *             )
-             *         }
-             *     },
-             *     allowMissingfields = true
-             * )
-             */
-             protected $profileData = array(
-                 'personal_email',
-                 'short_bio',
-             );
-        }
-
     .. code-block:: xml
 
         <!-- src/Acme/BlogBundle/Resources/config/validation.xml -->
@@ -140,6 +112,34 @@ blank but is no longer than 100 characters in length, you would do the following
             }
         }
 
+    .. code-block:: php-annotations
+
+        // src/Acme/BlogBundle/Entity/Author.php
+        use Symfony\Component\Validator\Constraints as Assert;
+
+        class Author
+        {
+            /**
+             * @Assert\Collection(
+             *     fields = {
+             *         "personal_email" = @Assert\Email,
+             *         "short_bio" = {
+             *             @Assert\NotBlank(),
+             *             @Assert\MaxLength(
+             *                 limit = 100,
+             *                 message = "Your bio is too long!"
+             *             )
+             *         }
+             *     },
+             *     allowMissingfields = true
+             * )
+             */
+             protected $profileData = array(
+                 'personal_email',
+                 'short_bio',
+             );
+        }
+
 Presence and Absence of Fields
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -170,7 +170,7 @@ be executed against that element of the collection.
 allowExtraFields
 ~~~~~~~~~~~~~~~~
 
-**type**: ``Boolean`` **default**: false
+**type**: ``boolean`` **default**: false
 
 If this option is set to ``false`` and the underlying collection contains
 one or more elements that are not included in the `fields`_ option, a validation
@@ -179,14 +179,14 @@ error will be returned. If set to ``true``, extra fields are ok.
 extraFieldsMessage
 ~~~~~~~~~~~~~~~~~~
 
-**type**: ``Boolean`` **default**: ``The fields {{ fields }} were not expected``
+**type**: ``boolean`` **default**: ``The fields {{ fields }} were not expected``
 
 The message shown if `allowExtraFields`_ is false and an extra field is detected.
 
 allowMissingFields
 ~~~~~~~~~~~~~~~~~~
 
-**type**: ``Boolean`` **default**: false
+**type**: ``boolean`` **default**: false
 
 If this option is set to ``false`` and one or more fields from the `fields`_
 option are not present in the underlying collection, a validation error will
@@ -196,7 +196,7 @@ option are not present in the underlying collection.
 missingFieldsMessage
 ~~~~~~~~~~~~~~~~~~~~
 
-**type**: ``Boolean`` **default**: ``The fields {{ fields }} are missing``
+**type**: ``boolean`` **default**: ``The fields {{ fields }} are missing``
 
 The message shown if `allowMissingFields`_ is false and one or more fields
 are missing from the underlying collection.
