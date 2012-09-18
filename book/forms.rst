@@ -24,9 +24,7 @@ Creating a Simple Form
 Suppose you're building a simple todo list application that will need to
 display "tasks". Because your users will need to edit and create tasks, you're
 going to need to build a form. But before you begin, first focus on the generic
-``Task`` class that represents and stores the data for a single task:
-
-.. code-block:: php
+``Task`` class that represents and stores the data for a single task::
 
     // src/Acme/TaskBundle/Entity/Task.php
     namespace Acme\TaskBundle\Entity;
@@ -34,7 +32,6 @@ going to need to build a form. But before you begin, first focus on the generic
     class Task
     {
         protected $task;
-
         protected $dueDate;
 
         public function getTask()
@@ -742,9 +739,7 @@ Creating Form Classes
 As you've seen, a form can be created and used directly in a controller.
 However, a better practice is to build the form in a separate, standalone PHP
 class, which can then be reused anywhere in your application. Create a new class
-that will house the logic for building the task form:
-
-.. code-block:: php
+that will house the logic for building the task form::
 
     // src/Acme/TaskBundle/Form/Type/TaskType.php
     namespace Acme\TaskBundle\Form\Type;
@@ -768,9 +763,7 @@ that will house the logic for building the task form:
 
 This new class contains all the directions needed to create the task form
 (note that the ``getName()`` method should return a unique identifier for this
-form "type"). It can be used to quickly build a form object in the controller:
-
-.. code-block:: php
+form "type"). It can be used to quickly build a form object in the controller::
 
     // src/Acme/TaskBundle/Controller/DefaultController.php
 
@@ -1426,9 +1419,7 @@ an array.
 .. tip::
 
     You can also access POST values (in this case "name") directly through
-    the request object, like so:
-
-    .. code-block:: php
+    the request object, like so::
 
         $this->get('request')->request->get('name');
 
