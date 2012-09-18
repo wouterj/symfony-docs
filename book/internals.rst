@@ -264,9 +264,7 @@ the ``Request`` and determine the Controller name (stored in the
 *Event Class*: :class:`Symfony\\Component\\HttpKernel\\Event\\FilterControllerEvent`
 
 This event is not used by ``FrameworkBundle``, but can be an entry point used
-to modify the controller that should be executed:
-
-.. code-block:: php
+to modify the controller that should be executed::
 
     use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
 
@@ -316,9 +314,7 @@ The value returned by the Controller is accessible via the
 *Event Class*: :class:`Symfony\\Component\\HttpKernel\\Event\\FilterResponseEvent`
 
 The purpose of this event is to allow other systems to modify or replace the
-``Response`` object after its creation:
-
-.. code-block:: php
+``Response`` object after its creation::
 
     public function onKernelResponse(FilterResponseEvent $event)
     {
@@ -358,9 +354,7 @@ forwards the ``Request`` to a given Controller (the value of the
 ``class::method`` notation).
 
 A listener on this event can create and set a ``Response`` object, create
-and set a new ``Exception`` object, or do nothing:
-
-.. code-block:: php
+and set a new ``Exception`` object, or do nothing::
 
     use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
     use Symfony\Component\HttpFoundation\Response;
