@@ -276,9 +276,8 @@ Optional Step 3: Create the Template
 
 Templates allow you to move all of the presentation (e.g. HTML code) into
 a separate file and reuse different portions of the page layout. Instead
-of writing the HTML inside the controller, render a template instead:
+of writing the HTML inside the controller, render a template instead::
 
-.. code-block:: php
     :linenos:
 
     // src/Acme/HelloBundle/Controller/HelloController.php
@@ -868,9 +867,11 @@ call the ``prod`` front controller instead:
 Since the ``prod`` environment is optimized for speed; the configuration,
 routing and Twig templates are compiled into flat PHP classes and cached.
 When viewing changes in the ``prod`` environment, you'll need to clear these
-cached files and allow them to rebuild::
+cached files and allow them to rebuild:
 
-    php app/console cache:clear --env=prod --no-debug
+.. code-block:: bash
+
+    $ php app/console cache:clear --env=prod --no-debug
 
 .. note::
 
