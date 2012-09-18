@@ -303,9 +303,7 @@ information is separated by a comma:
      Cache-Control: max-age=3600, must-revalidate
 
 Symfony provides an abstraction around the ``Cache-Control`` header to make
-its creation more manageable:
-
-.. code-block:: php
+its creation more manageable::
 
     $response = new Response();
 
@@ -456,7 +454,9 @@ header can be set with the ``setExpires()`` ``Response`` method. It takes a
 
     $response->setExpires($date);
 
-The resulting HTTP header will look like this::
+The resulting HTTP header will look like this:
+
+.. code-block:: text
 
     Expires: Thu, 01 Mar 2011 16:00:00 GMT
 
@@ -788,12 +788,12 @@ as this is the only useful one outside of Akamaï context:
     <!doctype html>
     <html>
         <body>
-            ... some content
+            <!-- ... some content -->
 
             <!-- Embed the content of another page here -->
             <esi:include src="http://..." />
 
-            ... more content
+            <!-- ... more content -->
         </body>
     </html>
 
@@ -1011,7 +1011,6 @@ Here is how you can configure the Symfony2 reverse proxy to support the
 ``PURGE`` HTTP method::
 
     // app/AppCache.php
-
     use Symfony\Bundle\FrameworkBundle\HttpCache\HttpCache;
 
     class AppCache extends HttpCache
