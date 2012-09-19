@@ -28,7 +28,7 @@ Configuring the Database
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
 Before you can start, you'll need to configure your database connection
-information.  By convention, this information is usually configured in an
+information. By convention, this information is usually configured in an
 ``app/config/parameters.ini`` file:
 
 .. code-block:: ini
@@ -68,7 +68,7 @@ you:
 
     In this example, you have one configured connection, named ``default``. If
     you want to configure more than one connection, read the `PropelBundle
-    configuration section <Working With Symfony2 - Configuration>`_.
+    configuration section<Working With Symfony2 - Configuration>`_.
 
 Creating a Model Class
 ~~~~~~~~~~~~~~~~~~~~~~
@@ -115,7 +115,7 @@ Creating the Database Tables/Schema
 Now you have a usable ``Product`` class and all you need to persist it. Of
 course, you don't yet have the corresponding ``product`` table in your
 database. Fortunately, Propel can automatically create all the database tables
-needed for every known model in your application.  To do this, run:
+needed for every known model in your application. To do this, run:
 
 .. code-block:: bash
 
@@ -128,7 +128,11 @@ match the schema you've specified.
 .. tip::
 
     You can run the last three commands combined by using the following
-    command: ``php app/console propel:build --insert-sql``.
+    command: 
+    
+    .. code-block:: bash
+
+        $ php app/console propel:build --insert-sql
 
 Persisting Objects to the Database
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -163,7 +167,7 @@ need to use other services, the object knows how to persist itself.
 .. note::
 
     If you're following along with this example, you'll need to create a
-    :doc:`route <routing>` that points to this action to see it in action.
+    :doc:`route<routing>` that points to this action to see it in action.
 
 Fetching Objects from the Database
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -231,16 +235,22 @@ Querying for Objects
 Propel provides generated ``Query`` classes to run both basic and complex queries
 without any work::
     
-    \Acme\StoreBundle\Model\ProductQuery::create()->findPk($id);
+    use Acme\StoreBundle\Model\ProductQuery;
+    // ...
+
+    ProductQuery::create()->findPk($id);
     
-    \Acme\StoreBundle\Model\ProductQuery::create()
+    ProductQuery::create()
         ->filterByName('Foo')
         ->findOne();
 
 Imagine that you want to query for products which cost more than 19.99, ordered
 from cheapest to most expensive. From inside a controller, do the following::
 
-    $products = \Acme\StoreBundle\Model\ProductQuery::create()
+    use Acme\StoreBundle\Model\ProductQuery;
+    // ...
+
+    $products = ProductQuery::create()
         ->filterByPrice(array('min' => 19.99))
         ->orderByPrice()
         ->find();
@@ -258,15 +268,17 @@ If you want to reuse some queries, you can add your own methods to the
     {
         public function filterByExpensivePrice()
         {
-            return $this
-                ->filterByPrice(array('min' => 1000))
+            return $this->filterByPrice(array('min' => 1000))
         }
     }
 
 But note that Propel generates a lot of methods for you and a simple
 ``findAllOrderedByName()`` can be written without any effort::
 
-    \Acme\StoreBundle\Model\ProductQuery::create()
+    use Acme\StoreBundle\Model\ProductQuery;
+    // ...
+
+    ProductQuery::create()
         ->orderByName()
         ->find();
 
@@ -322,7 +334,7 @@ Saving Related Objects
 
 Now, let's see the code in action. Imagine you're inside a controller::
 
-    // ...
+    // src/Acme/StoreBundle/Controller/DefaultController.php
     use Acme\StoreBundle\Model\Category;
     use Acme\StoreBundle\Model\Product;
     use Symfony\Component\HttpFoundation\Response;
@@ -402,7 +414,7 @@ To add a hook, just add a new method to the object class::
     {
         public function preInsert(\PropelPDO $con = null)
         {
-            // do something before the object is inserted
+            // ... do something before the object is inserted
         }
     }
 
