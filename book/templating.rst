@@ -569,7 +569,6 @@ template. First, create a controller that renders a certain number of recent
 articles::
 
     // src/Acme/ArticleBundle/Controller/ArticleController.php
-
     class ArticleController extends Controller
     {
         public function recentArticlesAction($max = 3)
@@ -619,7 +618,6 @@ syntax for controllers (i.e. **bundle**:**controller**:**action**):
         {# app/Resources/views/base.html.twig #}
 
         {# ... #}
-
         <div id="sidebar">
             {% render "AcmeArticleBundle:Article:recentArticles" with {'max': 3} %}
         </div>
@@ -628,8 +626,7 @@ syntax for controllers (i.e. **bundle**:**controller**:**action**):
 
         <!-- app/Resources/views/base.html.php -->
 
-        {# ... #}
-
+        <!-- ... -->
         <div id="sidebar">
             <?php echo $view['actions']->render('AcmeArticleBundle:Article:recentArticles', array('max' => 3)) ?>
         </div>
@@ -927,7 +924,7 @@ you're actually using the templating engine service. For example::
 
     return $this->render('AcmeArticleBundle:Article:index.html.twig');
 
-is equivalent to:
+is equivalent to::
 
     $engine = $this->container->get('templating');
     $content = $engine->render('AcmeArticleBundle:Article:index.html.twig');
@@ -1072,7 +1069,7 @@ covered:
 
 * Create a template for each "section" of your site. For example, an ``AcmeBlogBundle``,
   would have a template called ``AcmeBlogBundle::layout.html.twig`` that contains
-  only blog section-specific elements;
+  only blog section-specific elements:
 
     .. code-block:: html+jinja
 
@@ -1181,7 +1178,9 @@ Output Escaping in PHP
 
 Output escaping is not automatic when using PHP templates. This means that
 unless you explicitly choose to escape a variable, you're not protected. To
-use output escaping, use the special ``escape()`` view method::
+use output escaping, use the special ``escape()`` view method:
+
+.. code-block:: html+php
 
     Hello <?php echo $view->escape($name) ?>
 
@@ -1190,7 +1189,7 @@ within an HTML context (and thus the variable is escaped to be safe for HTML).
 The second argument lets you change the context. For example, to output something
 in a JavaScript string, use the ``js`` context:
 
-.. code-block:: js
+.. code-block:: javascript
 
     var myMsg = 'Hello <?php echo $view->escape($name, 'js') ?>';
 
