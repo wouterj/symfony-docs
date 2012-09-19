@@ -15,7 +15,7 @@ The Symfony2 stable API is a subset of all Symfony2 published public methods
 The implementation itself can change though. The only valid case for a change
 in the stable API is in order to fix a security issue.
 
-The stable API is based on a whitelist, tagged with `@api`. Therefore,
+The stable API is based on a whitelist, tagged with ``@api``. Therefore,
 everything not tagged explicitly is not part of the stable API.
 
 .. tip::
