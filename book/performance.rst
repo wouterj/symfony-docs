@@ -19,7 +19,7 @@ One of the best (and easiest) things that you should do to improve your performa
 is to use a "byte code cache". The idea of a byte code cache is to remove
 the need to constantly recompile the PHP source code. There are a number of
 `byte code caches`_ available, some of which are open source. The most widely
-used byte code cache is probably `APC`_
+used byte code cache is probably `APC`_.
 
 Using a byte code cache really has no downside, and Symfony2 has been architected
 to perform really well in this type of environment.
@@ -59,9 +59,7 @@ the first time. Symfony comes with a class - ``ApcUniversalClassLoader`` -
 loader that extends the ``UniversalClassLoader`` and stores the class locations
 in APC.
 
-To use this class loader, simply adapt your ``autoloader.php`` as follows:
-
-.. code-block:: php
+To use this class loader, simply adapt your ``autoloader.php`` as follows::
 
     // app/autoload.php
     require __DIR__.'/../vendor/symfony/src/Symfony/Component/ClassLoader/ApcUniversalClassLoader.php';
