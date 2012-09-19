@@ -407,9 +407,7 @@ is that the URL of the route (``/login``) matches the ``login_path`` config
 value, as that's where the security system will redirect users that need
 to login.
 
-Next, create the controller that will display the login form:
-
-.. code-block:: php
+Next, create the controller that will display the login form::
 
     // src/Acme/SecurityBundle/Controller/SecurityController.php;
     namespace Acme\SecurityBundle\Controller;
@@ -810,9 +808,7 @@ Securing a Controller
 
 Protecting your application based on URL patterns is easy, but may not be
 fine-grained enough in certain cases. When necessary, you can easily force
-authorization from inside a controller:
-
-.. code-block:: php
+authorization from inside a controller::
 
     // ...
     use Symfony\Component\Security\Core\Exception\AccessDeniedException;
@@ -829,9 +825,7 @@ authorization from inside a controller:
 .. _book-security-securing-controller-annotations:
 
 You can also choose to install and use the optional ``JMSSecurityExtraBundle``,
-which can secure your controller using annotations:
-
-.. code-block:: php
+which can secure your controller using annotations::
 
     // ...
     use JMS\SecurityExtraBundle\Annotation\Secure;
@@ -1178,9 +1172,7 @@ from the hashed password).
 If you have some sort of registration form for users, you'll need to be able
 to determine the hashed password so that you can set it on your user. No
 matter what algorithm you configure for your user object, the hashed password
-can always be determined in the following way from a controller:
-
-.. code-block:: php
+can always be determined in the following way from a controller::
 
     $factory = $this->get('security.encoder_factory');
     $user = new Acme\UserBundle\Entity\User();
@@ -1194,9 +1186,7 @@ Retrieving the User Object
 
 After authentication, the ``User`` object of the current user can be accessed
 via the ``security.context`` service. From inside a controller, this will
-look like:
-
-.. code-block:: php
+look like::
 
     public function indexAction()
     {
@@ -1576,17 +1566,15 @@ Access Control in Controllers
 -----------------------------
 
 If you want to check if the current user has a role in your controller, use
-the ``isGranted`` method of the security context:
-
-.. code-block:: php
+the ``isGranted`` method of the security context::
 
     public function indexAction()
     {
         // show different content to admin users
         if ($this->get('security.context')->isGranted('ROLE_ADMIN')) {
-            // Load admin content here
+            // .. load admin content here
         }
-        // load other regular content here
+        // ... load other regular content here
     }
 
 .. note::
@@ -1658,7 +1646,7 @@ setting:
         security:
             firewalls:
                 main:
-                    // ...
+                    # ...
                     switch_user: { role: ROLE_ADMIN, parameter: _want_to_be_this_user }
 
     .. code-block:: xml
