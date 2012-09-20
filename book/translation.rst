@@ -22,21 +22,21 @@ the user::
     The term *locale* refers roughly to the user's language and country. It
     can be any string that your application uses to manage translations
     and other format differences (e.g. currency format). We recommended the
-    `ISO639-1`_ *language* code, an underscore (``_``), then the `ISO3166 Alpha-2`_ *country*
-    code (e.g. ``fr_FR`` for French/France).
+    `ISO639-1`_ *language* code, an underscore (``_``), then the `ISO3166 Alpha-2`_ 
+    *country* code (e.g. ``fr_FR`` for French/France).
 
 In this chapter, we'll learn how to prepare an application to support multiple
 locales and then how to create translations for multiple locales. Overall,
 the process has several common steps:
 
-1. Enable and configure Symfony's ``Translation`` component;
+#. Enable and configure Symfony's ``Translation`` component;
 
-2. Abstract strings (i.e. "messages") by wrapping them in calls to the ``Translator``;
+#. Abstract strings (i.e. "messages") by wrapping them in calls to the ``Translator``;
 
-3. Create translation resources for each supported locale that translate
+#. Create translation resources for each supported locale that translate
    each message in the application;
 
-4. Determine, set and manage the user's locale in the session.
+#. Determine, set and manage the user's locale in the session.
 
 .. index::
    single: Translations; Configuration
@@ -92,9 +92,7 @@ Translation of text is done through the  ``translator`` service
 (:class:`Symfony\\Component\\Translation\\Translator`). To translate a block
 of text (called a *message*), use the
 :method:`Symfony\\Component\\Translation\\Translator::trans` method. Suppose,
-for example, that we're translating a simple message from inside a controller:
-
-.. code-block:: php
+for example, that we're translating a simple message from inside a controller::
 
     public function indexAction()
     {
@@ -167,9 +165,7 @@ the appropriate message catalog and returns it (if it exists).
 Message Placeholders
 ~~~~~~~~~~~~~~~~~~~~
 
-Sometimes, a message containing a variable needs to be translated:
-
-.. code-block:: php
+Sometimes, a message containing a variable needs to be translated::
 
     public function indexAction($name)
     {
@@ -182,9 +178,7 @@ However, creating a translation for this string is impossible since the translat
 will try to look up the exact message, including the variable portions
 (e.g. "Hello Ryan" or "Hello Fabien"). Instead of writing a translation
 for every possible iteration of the ``$name`` variable, we can replace the
-variable with a "placeholder":
-
-.. code-block:: php
+variable with a "placeholder"::
 
     public function indexAction($name)
     {
@@ -235,10 +229,10 @@ is done just as before:
 
 As we've seen, creating a translation is a two-step process:
 
-1. Abstract the message that needs to be translated by processing it through
+#. Abstract the message that needs to be translated by processing it through
    the ``Translator``.
 
-2. Create a translation for the message in each locale that you choose to
+#. Create a translation for the message in each locale that you choose to
    support.
 
 The second step is done by creating message catalogues that define the translations
@@ -369,9 +363,7 @@ Symfony2 will discover these files and use them when translating either
 .. sidebar:: Using Real or Keyword Messages
 
     This example illustrates the two different philosophies when creating
-    messages to be translated:
-
-    .. code-block:: php
+    messages to be translated::
 
         $t = $translator->trans('Symfony2 is great');
 
@@ -468,9 +460,7 @@ files:
 * ``navigation.fr.xliff``
 
 When translating strings that are not in the default domain (``messages``),
-you must specify the domain as the third argument of ``trans()``:
-
-.. code-block:: php
+you must specify the domain as the third argument of ``trans()``::
 
     $this->get('translator')->trans('Symfony2 is great', array(), 'admin');
 
@@ -484,9 +474,7 @@ Handling the User's Locale
 --------------------------
 
 The locale of the current user is stored in the session and is accessible
-via the ``session`` service:
-
-.. code-block:: php
+via the ``session`` service::
 
     $locale = $this->get('session')->getLocale();
 
@@ -571,7 +559,7 @@ by the routing system using the special ``_locale`` parameter:
             '_controller' => 'AcmeDemoBundle:Contact:index',
             '_locale'     => 'en',
         ), array(
-            '_locale'     => 'en|fr|de'
+            '_locale'     => 'en|fr|de',
         )));
 
         return $collection;
@@ -606,9 +594,7 @@ all the forms as a string separated by a pipe (``|``)::
     'There is one apple|There are %count% apples'
 
 To translate pluralized messages, use the
-:method:`Symfony\\Component\\Translation\\Translator::transChoice` method:
-
-.. code-block:: php
+:method:`Symfony\\Component\\Translation\\Translator::transChoice` method::
 
     $t = $this->get('translator')->transChoice(
         'There is one apple|There are %count% apples',
@@ -795,9 +781,7 @@ Forcing the Translator Locale
 
 When translating a message, Symfony2 uses the locale from the user's session
 or the ``fallback`` locale if necessary. You can also manually specify the
-locale to use for translation:
-
-.. code-block:: php
+locale to use for translation::
 
     $this->get('translator')->trans(
         'Symfony2 is great',
@@ -828,9 +812,7 @@ Translating Constraint Messages
 
 The best way to understand constraint translation is to see it in action. To start,
 suppose you've created a plain-old-PHP object that you need to use somewhere in
-your application:
-
-.. code-block:: php
+your application::
 
     // src/Acme/BlogBundle/Entity/Author.php
     namespace Acme\BlogBundle\Entity;
