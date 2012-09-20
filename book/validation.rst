@@ -21,9 +21,7 @@ The Basics of Validation
 
 The best way to understand validation is to see it in action. To start, suppose
 you've created a plain-old-PHP object that you need to use somewhere in
-your application:
-
-.. code-block:: php
+your application::
 
     // src/Acme/BlogBundle/Entity/Author.php
     namespace Acme\BlogBundle\Entity;
@@ -117,9 +115,7 @@ on the ``validator`` service (class :class:`Symfony\\Component\\Validator\\Valid
 The job of the ``validator`` is easy: to read the constraints (i.e. rules)
 of a class and verify whether or not the data on the object satisfies those
 constraints. If validation fails, an array of errors is returned. Take this
-simple example from inside a controller:
-
-.. code-block:: php
+simple example from inside a controller::
 
     // ...
     use Symfony\Component\HttpFoundation\Response;
