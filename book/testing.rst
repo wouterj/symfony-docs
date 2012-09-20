@@ -154,8 +154,9 @@ for its ``DemoController`` (`DemoControllerTest`_) that reads as follows::
     kernel of your application. In most cases, this happens automatically.
     However, if your kernel is in a non-standard directory, you'll need
     to modify your ``phpunit.xml.dist`` file to set the ``KERNEL_DIR`` environment
-    variable to the directory of your kernel::
+    variable to the directory of your kernel:
 
+    .. code-block:: xml
         <phpunit>
             <!-- ... -->
             <php>
@@ -526,8 +527,7 @@ The Crawler can extract information from the nodes::
     $info = $crawler->extract(array('_text', 'href'));
 
     // Executes a lambda for each node and return an array of results
-    $data = $crawler->each(function ($node, $i)
-    {
+    $data = $crawler->each(function($node, $i) {
         return $node->attr('href');
     });
 
@@ -654,7 +654,6 @@ configuration option:
         # app/config/config_test.yml
 
         # ...
-
         swiftmailer:
             disable_delivery: true
 
@@ -663,7 +662,6 @@ configuration option:
         <!-- app/config/config_test.xml -->
         <container>
             <!-- ... -->
-
             <swiftmailer:config disable-delivery="true" />
         </container>
 
@@ -672,7 +670,6 @@ configuration option:
         // app/config/config_test.php
 
         // ...
-
         $container->loadFromExtension('swiftmailer', array(
             'disable_delivery' => true
         ));
