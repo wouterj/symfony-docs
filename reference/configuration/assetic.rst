@@ -12,8 +12,8 @@ Full Default Configuration
     assetic:
         debug:                true
         use_controller:       true
-        read_from:            %kernel.root_dir%/../web
-        write_to:             %assetic.read_from%
+        read_from:            "%kernel.root_dir%/../web"
+        write_to:             "%assetic.read_from%"
         java:                 /usr/bin/java
         node:                 /usr/bin/node
         sass:                 /usr/bin/sass
@@ -31,20 +31,14 @@ Full Default Configuration
 
         assets:
 
-            # Prototype
-            name:
-                inputs:               []
-                filters:              []
-                options:
+                # Prototype
+                name:                 []
+    filters:
 
-                    # Prototype
-                    name:                 []
-        filters:
+        # Prototype
+        name:                 []
+    twig:
+        functions:
 
             # Prototype
             name:                 []
-        twig:
-            functions:
-
-                # Prototype
-                name:                 []

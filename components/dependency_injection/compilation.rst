@@ -6,7 +6,7 @@ Compiling the Container
 
 The service container can be compiled for various reasons. These reasons
 include checking for any potential issues such as circular references and
-making the container more efficient by resolving parameters and removing 
+making the container more efficient by resolving parameters and removing
 unused services.
 
 It is compiled by running::
@@ -21,6 +21,8 @@ in the container. After this and several other passes that check the container's
 validity, further compiler passes are used to optimize the configuration
 before it is cached. For example, private services and abstract services
 are removed, and aliases are resolved.
+
+.. _components-dependency-injection-extension:
 
 Managing Configuration with Extensions
 --------------------------------------
@@ -59,7 +61,10 @@ A very simple extension may just load configuration files into the container::
     {
         public function load(array $configs, ContainerBuilder $container)
         {
-            $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
+            $loader = new XmlFileLoader(
+                $container,
+                new FileLocator(__DIR__.'/../Resources/config')
+            );
             $loader->load('services.xml');
         }
 
@@ -170,7 +175,7 @@ the XML configuration::
         return 'http://www.example.com/symfony/schema/';
     }
 
-..note::
+.. note::
 
     XSD validation is optional, returning ``false`` from the ``getXsdValidationBasePath``
     method will disable it.
@@ -192,7 +197,7 @@ The XML version of the config would then look like this:
 
     </container>
 
-..note::
+.. note::
 
     In the Symfony2 full stack framework there is a base Extension class which
     implements these methods as well as a shortcut method for processing the
@@ -223,7 +228,10 @@ but also load a secondary one only if a certain parameter is set::
         $processor = new Processor();
         $config = $processor->processConfiguration($configuration, $configs);
 
-        $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
+        $loader = new XmlFileLoader(
+            $container,
+            new FileLocator(__DIR__.'/../Resources/config')
+        );
         $loader->load('services.xml');
 
         if ($config['advanced']) {
@@ -237,6 +245,8 @@ but also load a secondary one only if a certain parameter is set::
     you cannot do it from another extension as it uses a fresh container.
     You should instead use a compiler pass which works with the full container
     after the extensions have been processed.
+
+.. _components-dependency-injection-compiler-passes:
 
 Creating a Compiler Pass
 ------------------------
@@ -275,6 +285,12 @@ will then be called when the container is compiled::
     $container = new ContainerBuilder();
     $container->addCompilerPass(new CustomCompilerPass);
 
+.. note::
+
+    Compiler passes are registered differently if you are using the full
+    stack framework, see :doc:`/cookbook/service_container/compiler_passes`
+    for more details.
+
 Controlling the Pass Ordering
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -299,7 +315,12 @@ For example, to run your custom pass after the default removal passes have been 
     use Symfony\Component\DependencyInjection\Compiler\PassConfig;
 
     $container = new ContainerBuilder();
-    $container->addCompilerPass(new CustomCompilerPass, PassConfig::TYPE_AFTER_REMOVING);
+    $container->addCompilerPass(
+        new CustomCompilerPass,
+        PassConfig::TYPE_AFTER_REMOVING
+    );
+
+.. _components-dependency-injection-dumping:
 
 Dumping the Configuration for Performance
 -----------------------------------------
@@ -345,7 +366,10 @@ it::
         $container->compile();
 
         $dumper = new PhpDumper($container);
-        file_put_contents($file, $dumper->dump(array('class' => 'MyCachedContainer')));
+        file_put_contents(
+            $file,
+            $dumper->dump(array('class' => 'MyCachedContainer'))
+        );
     }
 
 You will now get the speed of the PHP configured container with the ease of using
@@ -359,7 +383,8 @@ but getting an up to date configuration whilst developing your application::
 
     // ...
 
-    // set $isDebug based on something in your project
+    // based on something in your project
+    $isDebug = ...;
 
     $file = __DIR__ .'/cache/container.php';
 
@@ -371,16 +396,19 @@ but getting an up to date configuration whilst developing your application::
         // ...
         $container->compile();
 
-        if(!$isDebug) 
+        if (!$isDebug) {
             $dumper = new PhpDumper($container);
-            file_put_contents($file, $dumper->dump(array('class' => 'MyCachedContainer')));
+            file_put_contents(
+                $file,
+                $dumper->dump(array('class' => 'MyCachedContainer'))
+            );
         }
     }
 
 This could be further improved by only recompiling the container in debug
 mode when changes have been made to its configuration rather than on every
 request. This can be done by caching the resource files used to configure
-the container in the way describe in ":doc:`/components/config/caching`"
+the container in the way described in ":doc:`/components/config/caching`"
 in the config component documentation.
 
 You do not need to work out which files to cache as the container builder
@@ -392,7 +420,8 @@ and use them as metadata for the cache::
 
     // ...
 
-    // set $isDebug based on something in your project
+    // based on something in your project
+    $isDebug = ...;
 
     $file = __DIR__ .'/cache/container.php';
     $containerConfigCache = new ConfigCache($file, $isDebug);
@@ -418,3 +447,8 @@ constructor argument. When the cache is not in debug mode the cached container
 will always be used if it exists. In debug mode, an additional metadata file
 is written with the timestamps of all the resource files. These are then checked
 to see if the files have changed, if they have the cache will be considered stale.
+
+.. note::
+
+    In the full stack framework the compilation and caching of the container
+    is taken care of for you.
