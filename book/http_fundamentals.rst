@@ -358,9 +358,9 @@ Stay Organized
 ~~~~~~~~~~~~~~
 
 But inside your front controller, how do you know which page should
-be rendered and how can you render each in a sane way? One way or another, you'll need to
-check the incoming URI and execute different parts of your code depending
-on that value. This can get ugly quickly::
+be rendered and how can you render each in a sane way? One way or another, 
+you'll need to check the incoming URI and execute different parts of your code 
+depending on that value. This can get ugly quickly::
 
     // index.php
     $request = Request::createFromGlobals();
@@ -452,9 +452,10 @@ by adding an entry for ``/contact`` to your routing configuration file:
    such as XML or PHP.
 
 When someone visits the ``/contact`` page, this route is matched, and the
-specified controller is executed. As you'll learn in the :doc:`routing chapter</book/routing>`,
-the ``AcmeDemoBundle:Main:contact`` string is a short syntax that points to a
-specific PHP method ``contactAction`` inside a class called ``MainController``::
+specified controller is executed. As you'll learn in the 
+:doc:`routing chapter</book/routing>`, the ``AcmeDemoBundle:Main:contact`` 
+string is a short syntax that points to a specific PHP method ``contactAction`` 
+inside a class called ``MainController``::
 
     // src/Acme/DemoBundle/Controller/MainController.php
     class MainController

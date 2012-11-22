@@ -772,7 +772,9 @@ ordered alphabetically.
         public function findAllOrderedByName()
         {
             return $this->getEntityManager()
-                ->createQuery('SELECT p FROM AcmeStoreBundle:Product p ORDER BY p.name ASC')
+                ->createQuery(
+                    'SELECT p FROM AcmeStoreBundle:Product p ORDER BY p.name ASC'
+                )
                 ->getResult();
         }
     }
@@ -1199,7 +1201,9 @@ the current date, only when the entity is first persisted (i.e. inserted):
             <entity name="Acme\StoreBundle\Entity\Product">
                     <!-- ... -->
                     <lifecycle-callbacks>
-                        <lifecycle-callback type="prePersist" method="setCreatedValue" />
+                        <lifecycle-callback type="prePersist" 
+                            method="setCreatedValue"
+                        />
                     </lifecycle-callbacks>
             </entity>
         </doctrine-mapping>

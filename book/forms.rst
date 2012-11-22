@@ -154,7 +154,11 @@ helper functions:
     .. code-block:: html+php
 
         <!-- src/Acme/TaskBundle/Resources/views/Default/new.html.php -->
-        <form action="<?php echo $view['router']->generate('task_new') ?>" method="post" <?php echo $view['form']->enctype($form) ?> >
+        <form 
+            action="<?php echo $view['router']->generate('task_new') ?>" 
+            method="post"
+            <?php echo $view['form']->enctype($form) ?>
+        >
             <?php echo $view['form']->widget($form) ?>
 
             <input type="submit" />
@@ -439,7 +443,8 @@ the documentation for each type.
     any field. By default, the ``required`` option is set to ``true``, meaning
     that HTML5-ready browsers will apply client-side validation if the field
     is left blank. If you don't want this behavior, either set the ``required``
-    option on your field to ``false`` or :ref:`disable HTML5 validation<book-forms-html5-validation-disable>`.
+    option on your field to ``false`` or 
+    :ref:`disable HTML5 validation<book-forms-html5-validation-disable>`.
 
     Also note that setting the ``required`` option to ``true`` will **not**
     result in server-side validation to be applied. In other words, if a
@@ -565,7 +570,11 @@ of code. Of course, you'll usually need much more flexibility when rendering:
     .. code-block:: html+php
 
         <!-- src/Acme/TaskBundle/Resources/views/Default/newAction.html.php -->
-        <form action="<?php echo $view['router']->generate('task_new') ?>" method="post" <?php echo $view['form']->enctype($form) ?>>
+        <form
+            action="<?php echo $view['router']->generate('task_new') ?>"
+            method="post"
+            <?php echo $view['form']->enctype($form) ?>
+        >
             <?php echo $view['form']->errors($form) ?>
 
             <?php echo $view['form']->row($form['task']) ?>
@@ -1078,7 +1087,10 @@ renders the form:
         <!-- src/Acme/TaskBundle/Resources/views/Default/new.html.php -->
         <?php $view['form']->setTheme($form, array('AcmeTaskBundle:Form')) ?>
 
-        <?php $view['form']->setTheme($form, array('AcmeTaskBundle:Form', 'AcmeTaskBundle:Form')) ?>
+        <?php $view['form']->setTheme($form, array(
+            'AcmeTaskBundle:Form',
+            'AcmeTaskBundle:Form',
+        )) ?>
 
         <form ...>
 
@@ -1437,8 +1449,8 @@ class. But without a class, how can you add constraints to the data of your
 form?
 
 The answer is to setup the constraints yourself, and pass them into your
-form. The overall approach is covered a bit more in the :ref:`validation chapter<book-validation-raw-values>`,
-but here's a short example::
+form. The overall approach is covered a bit more in the 
+:ref:`validation chapter<book-validation-raw-values>`, but here's a short example::
 
     // import the namespaces above your controller class
     use Symfony\Component\Validator\Constraints\Email;

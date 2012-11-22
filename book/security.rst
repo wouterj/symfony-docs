@@ -68,7 +68,9 @@ authentication (i.e. the old-school username/password box):
         <srv:container xmlns="http://symfony.com/schema/dic/security"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xmlns:srv="http://symfony.com/schema/dic/services"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+            xsi:schemaLocation="http://symfony.com/schema/dic/services
+                http://symfony.com/schema/dic/services/services-1.0.xsd"
+        >
 
             <!-- app/config/security.xml -->
 
@@ -87,7 +89,9 @@ authentication (i.e. the old-school username/password box):
                     <user name="admin" password="kitten" roles="ROLE_ADMIN" />
                 </provider>
 
-                <encoder class="Symfony\Component\Security\Core\User\User" algorithm="plaintext" />
+                <encoder class="Symfony\Component\Security\Core\User\User"
+                    algorithm="plaintext"
+                />
             </config>
         </srv:container>
 
@@ -300,7 +304,9 @@ First, enable form login under your firewall:
         <srv:container xmlns="http://symfony.com/schema/dic/security"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xmlns:srv="http://symfony.com/schema/dic/services"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+            xsi:schemaLocation="http://symfony.com/schema/dic/services
+                http://symfony.com/schema/dic/services/services-1.0.xsd"
+        >
 
             <!-- app/config/security.xml -->
 
@@ -372,7 +378,9 @@ login form submission (i.e. ``/login_check``):
 
         <routes xmlns="http://symfony.com/schema/routing"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
+            xsi:schemaLocation="http://symfony.com/schema/routing
+                http://symfony.com/schema/routing/routing-1.0.xsd"
+        >
 
             <route id="login" pattern="/login">
                 <default key="_controller">AcmeSecurityBundle:Security:login</default>
@@ -768,7 +776,11 @@ Here is an example of how you might secure this route from outside access:
     .. code-block:: php
 
             'access_control' => array(
-                array('path' => '^/_internal', 'role' => 'IS_AUTHENTICATED_ANONYMOUSLY', 'ip' => '127.0.0.1'),
+                array(
+                    'path' => '^/_internal',
+                    'role' => 'IS_AUTHENTICATED_ANONYMOUSLY',
+                    'ip' => '127.0.0.1'
+                ),
             ),
 
 .. _book-security-securing-channel:

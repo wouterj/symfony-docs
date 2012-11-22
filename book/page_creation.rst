@@ -31,8 +31,8 @@ The "Hello Symfony!" Page
 -------------------------
 
 Let's start with a spin off of the classic "Hello World!" application. When
-you're finished, the user will be able to get a personal greeting (e.g. "Hello Symfony")
-by going to the following URL:
+you're finished, the user will be able to get a personal greeting (e.g. 
+"Hello Symfony") by going to the following URL:
 
 .. code-block:: text
 
@@ -116,9 +116,11 @@ an entry when you generated the ``AcmeHelloBundle``:
 
         <routes xmlns="http://symfony.com/schema/routing"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
+            xsi:schemaLocation="http://symfony.com/schema/routing
+                http://symfony.com/schema/routing/routing-1.0.xsd">
 
-            <import resource="@AcmeHelloBundle/Resources/config/routing.xml" prefix="/" />
+            <import resource="@AcmeHelloBundle/Resources/config/routing.xml"
+                prefix="/" />
         </routes>
 
     .. code-block:: php
@@ -159,7 +161,8 @@ the new route that defines the URL of the page that you're about to create:
 
         <routes xmlns="http://symfony.com/schema/routing"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
+            xsi:schemaLocation="http://symfony.com/schema/routing
+                http://symfony.com/schema/routing/routing-1.0.xsd">
 
             <route id="hello" pattern="/hello/{name}">
                 <default key="_controller">AcmeHelloBundle:Hello:index</default>
@@ -249,8 +252,8 @@ application should greet you:
 
 .. tip::
 
-    You can also view your app in the "prod" :ref:`environment<environments-summary>`
-    by visiting:
+    You can also view your app in the "prod" 
+    :ref:`environment<environments-summary>` by visiting:
 
     .. code-block:: text
 
@@ -290,16 +293,22 @@ of writing the HTML inside the controller, render a template instead:
     {
         public function indexAction($name)
         {
-            return $this->render('AcmeHelloBundle:Hello:index.html.twig', array('name' => $name));
+            return $this->render('AcmeHelloBundle:Hello:index.html.twig', array(
+                'name' => $name,
+            ));
 
-            // render a PHP template instead
-            // return $this->render('AcmeHelloBundle:Hello:index.html.php', array('name' => $name));
+            /* render a PHP template instead
+               return $this->render('AcmeHelloBundle:Hello:index.html.php', array(
+                   'name' => $name,
+               ));
+             */
         }
     }
 
 .. note::
 
-   In order to use the :method:`Symfony\\Bundle\\FrameworkBundle\\Controller\\Controller::render`
+   In order to use the 
+   :method:`Symfony\\Bundle\\FrameworkBundle\\Controller\\Controller::render`
    method, your controller must extend the
    :class:`Symfony\\Bundle\\FrameworkBundle\\Controller\\Controller` class,
    which adds shortcuts for tasks that are common inside controllers. This
@@ -390,7 +399,9 @@ and in the ``app`` directory:
                 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
                 <title><?php $view['slots']->output('title', 'Welcome!') ?></title>
                 <?php $view['slots']->output('stylesheets') ?>
-                <link rel="shortcut icon" href="<?php echo $view['assets']->getUrl('favicon.ico') ?>" />
+                <link rel="shortcut icon" 
+                    href="<?php echo $view['assets']->getUrl('favicon.ico') ?>"
+                />
             </head>
             <body>
                 <?php $view['slots']->output('_content') ?>
@@ -560,7 +571,8 @@ in your application and to optimize them the way you want.
 .. note::
 
    While you'll learn the basics here, an entire cookbook entry is devoted
-   to the organization and best practices of :doc:`bundles</cookbook/bundles/best_practices>`.
+   to the organization and best practices of 
+   :doc:`bundles</cookbook/bundles/best_practices>`.
 
 A bundle is simply a structured set of files within a directory that implement
 a single feature. You might create a ``BlogBundle``, a ``ForumBundle`` or
@@ -635,8 +647,9 @@ called ``AcmeTestBundle.php``::
 
 .. tip::
 
-   The name ``AcmeTestBundle`` follows the standard :ref:`Bundle naming conventions<bundles-naming-conventions>`.
-   You could also choose to shorten the name of the bundle to simply ``TestBundle``
+   The name ``AcmeTestBundle`` follows the standard 
+   :ref:`Bundle naming conventions<bundles-naming-conventions>`. You could 
+   also choose to shorten the name of the bundle to simply ``TestBundle``
    by naming this class ``TestBundle`` (and naming the file ``TestBundle.php``).
 
 This empty class is the only piece you need to create the new bundle. Though
@@ -887,8 +900,8 @@ cached files and allow them to rebuild:
 .. note::
 
     The ``test`` environment is used when running automated tests and cannot
-    be accessed directly through the browser. See the :doc:`testing chapter</book/testing>`
-    for more details.
+    be accessed directly through the browser. See the 
+    :doc:`testing chapter</book/testing>` for more details.
 
 .. index::
    single: Environments; Configuration
@@ -944,7 +957,9 @@ the configuration file for the ``dev`` environment.
         $loader->import('config.php');
 
         $container->loadFromExtension('framework', array(
-            'router'   => array('resource' => '%kernel.root_dir%/config/routing_dev.php'),
+            'router'   => array(
+                'resource' => '%kernel.root_dir%/config/routing_dev.php'
+            ),
             'profiler' => array('only-exceptions' => false),
         ));
 

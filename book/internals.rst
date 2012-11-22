@@ -253,10 +253,10 @@ the event. In this case, all other listeners won't be called.
 
 This event is used by ``FrameworkBundle`` to populate the ``_controller``
 ``Request`` attribute, via the
-:class:`Symfony\\Bundle\\FrameworkBundle\\EventListener\\RouterListener`. RequestListener
-uses a :class:`Symfony\\Component\\Routing\\RouterInterface` object to match
-the ``Request`` and determine the Controller name (stored in the
-``_controller`` ``Request`` attribute).
+:class:`Symfony\\Bundle\\FrameworkBundle\\EventListener\\RouterListener`. 
+RequestListener uses a :class:`Symfony\\Component\\Routing\\RouterInterface` 
+object to match the ``Request`` and determine the Controller name (stored 
+in the ``_controller`` ``Request`` attribute).
 
 .. index::
    single: Event; kernel.controller
@@ -384,7 +384,8 @@ The Event Dispatcher
 
 The event dispatcher is a standalone component that is responsible for much
 of the underlying logic and flow behind a Symfony request. For more information,
-see the :doc:`Event Dispatcher Component Documentation</components/event_dispatcher/introduction>`.
+see the 
+:doc:`Event Dispatcher Component Documentation</components/event_dispatcher/introduction>`.
 
 .. index::
    single: Profiler
@@ -516,7 +517,8 @@ the configuration for the development environment:
     .. code-block:: xml
 
         <!-- xmlns:webprofiler="http://symfony.com/schema/dic/webprofiler" -->
-        <!-- xsi:schemaLocation="http://symfony.com/schema/dic/webprofiler http://symfony.com/schema/dic/webprofiler/webprofiler-1.0.xsd"> -->
+        <!-- xsi:schemaLocation="http://symfony.com/schema/dic/webprofiler 
+                 http://symfony.com/schema/dic/webprofiler/webprofiler-1.0.xsd"> -->
 
         <!-- load the profiler -->
         <framework:config>
@@ -567,11 +569,16 @@ If you enable the web profiler, you also need to mount the profiler routes:
 
     .. code-block:: xml
 
-        <import resource="@WebProfilerBundle/Resources/config/routing/profiler.xml" prefix="/_profiler" />
+        <import resource="@WebProfilerBundle/Resources/config/routing/profiler.xml" 
+            prefix="/_profiler"
+        />
 
     .. code-block:: php
 
-        $collection->addCollection($loader->import("@WebProfilerBundle/Resources/config/routing/profiler.xml"), '/_profiler');
+        $collection->addCollection(
+            $loader->import("@WebProfilerBundle/Resources/config/routing/profiler.xml"),
+            '/_profiler'
+        );
 
 As the profiler adds some overhead, you might want to enable it only under
 certain circumstances in the production environment. The ``only-exceptions``

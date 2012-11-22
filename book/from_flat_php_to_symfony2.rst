@@ -554,7 +554,9 @@ them for you. Here's the same sample application, now built in Symfony2::
                 ->createQuery('SELECT p FROM AcmeBlogBundle:Post p')
                 ->execute();
 
-            return $this->render('AcmeBlogBundle:Blog:list.html.php', array('posts' => $posts));
+            return $this->render('AcmeBlogBundle:Blog:list.html.php', array(
+                'posts' => $posts,
+            ));
         }
 
         public function showAction($id)
@@ -570,7 +572,9 @@ them for you. Here's the same sample application, now built in Symfony2::
                 throw $this->createNotFoundException();
             }
 
-            return $this->render('AcmeBlogBundle:Blog:show.html.php', array('post' => $post));
+            return $this->render('AcmeBlogBundle:Blog:show.html.php', array(
+                'post' => $post,
+            ));
         }
     }
 
@@ -590,7 +594,9 @@ now quite a bit simpler:
     <ul>
         <?php foreach ($posts as $post): ?>
         <li>
-            <a href="<?php echo $view['router']->generate('blog_show', array('id' => $post->getId())) ?>">
+            <a href="<?php echo $view['router']->generate('blog_show', array(
+                'id' => $post->getId(),
+            )) ?>">
                 <?php echo $post->getTitle() ?>
             </a>
         </li>
@@ -605,7 +611,9 @@ The layout is nearly identical:
     <!DOCTYPE html>
     <html>
         <head>
-            <title><?php echo $view['slots']->output('title', 'Default title') ?></title>
+            <title>
+                <?php echo $view['slots']->output('title', 'Default title') ?>
+            </title>
         </head>
         <body>
             <?php echo $view['slots']->output('_content') ?>
@@ -667,7 +675,8 @@ migrating the blog from flat PHP to Symfony2 has improved life:
   allows for new developers to be productive in your project more quickly;
 
 * 100% of the code you write is for *your* application. You **don't need
-  to develop or maintain low-level utilities** such as :ref:`autoloading<autoloading-introduction-sidebar>`,
+  to develop or maintain low-level utilities** such as 
+  :ref:`autoloading<autoloading-introduction-sidebar>`,
   :doc:`routing</book/routing>`, or rendering :doc:`controllers</book/controller>`;
 
 * Symfony2 gives you **access to open source tools** such as Doctrine and the
@@ -731,7 +740,8 @@ The corresponding ``layout.html.twig`` template is also easier to write:
 
 Twig is well-supported in Symfony2. And while PHP templates will always
 be supported in Symfony2, the many advantages of Twig will continue to
-be discussed. For more information, see the :doc:`templating chapter</book/templating>`.
+be discussed. For more information, see the 
+:doc:`templating chapter</book/templating>`.
 
 Learn more from the Cookbook
 ----------------------------
