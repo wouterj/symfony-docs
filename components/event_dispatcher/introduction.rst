@@ -311,7 +311,7 @@ the ``getOrder`` method::
     public function onStoreOrder(FilterOrderEvent $event)
     {
         $order = $event->getOrder();
-        // do something to or with the order
+        // ... do something to or with the order
     }
 
 .. index::
@@ -447,7 +447,10 @@ This can lead to some advanced applications of the ``EventDispatcher`` including
 letting listeners dispatch other events, event chaining or even lazy loading of
 more listeners into the dispatcher object. Examples follow:
 
-Lazy loading listeners::
+Lazy loading listeners
+......................
+
+.. code-block:: php
 
     use Symfony\Component\EventDispatcher\Event;
     use Acme\StoreBundle\Event\StoreSubscriber;
@@ -469,7 +472,10 @@ Lazy loading listeners::
         }
     }
 
-Dispatching another event from within a listener::
+Dispatching another event from within a listener
+................................................
+
+.. code-block:: php
 
     use Symfony\Component\EventDispatcher\Event;
 
@@ -488,7 +494,10 @@ While this above is sufficient for most uses, if your application uses multiple
 instance of the ``EventDispatcher`` into your listeners.  This could be done
 using constructor or setter injection as follows:
 
-Constructor injection::
+Constructor injection
+.....................
+
+.. code-block:: php
 
     use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
@@ -502,7 +511,10 @@ Constructor injection::
         }
     }
 
-Or setter injection::
+Setter injection
+................
+
+.. code-block:: php
 
     use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
