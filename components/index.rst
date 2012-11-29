@@ -19,6 +19,7 @@ The Components
     routing/index
     serializer
     templating
+    translation
     yaml
 
 .. include:: /components/map.rst.inc

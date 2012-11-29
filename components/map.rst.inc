@@ -69,6 +69,10 @@
 
   * :doc:`/components/templating`
 
+* **Translation**
+
+  * :doc:`/components/translation`
+
 * **YAML**
 
   * :doc:`/components/yaml`
