@@ -100,13 +100,11 @@ like this:
 
 .. code-block:: php
 
-    use Mailer;
-
     class NewsletterManager
     {
         private $mailer;
 
-        public function __construct(Mailer $mailer)
+        public function __construct(\Mailer $mailer)
         {
             $this->mailer = $mailer;
         }
@@ -128,20 +126,18 @@ Then you can register this as a service as well and pass the ``mailer`` service 
         ->addArgument('%mailer.transport%');
 
     $container->register('newsletter_manager', 'NewsletterManager')
-        ->addArgument(new Reference('mailer');
+        ->addArgument(new Reference('mailer'));
 
 If the ``NewsletterManager`` did not require the ``Mailer`` and injecting
 it was only optional then you could use setter injection instead:
 
 .. code-block:: php
 
-    use Mailer;
-
     class NewsletterManager
     {
         private $mailer;
 
-        public function setMailer(Mailer $mailer)
+        public function setMailer(\Mailer $mailer)
         {
             $this->mailer = $mailer;
         }
@@ -164,7 +160,7 @@ If you do want to though then the container can call the setter method:
         ->addArgument('%mailer.transport%');
 
     $container->register('newsletter_manager', 'NewsletterManager')
-        ->addMethodCall('setMailer', new Reference('mailer');
+        ->addMethodCall('setMailer', new Reference('mailer'));
 
 You could then get your ``newsletter_manager`` service from the container
 like this:
@@ -280,6 +276,6 @@ The ``newsletter_manager`` and ``mailer`` services can be set up using config fi
            ->addArgument('%mailer.transport%');
 
         $container->register('newsletter_manager', 'NewsletterManager')
-           ->addMethodCall('setMailer', new Reference('mailer');
+           ->addMethodCall('setMailer', new Reference('mailer'));
 
 .. _Packagist: https://packagist.org/packages/symfony/dependency-injection
