@@ -761,7 +761,6 @@ it exists and do nothing if it doesn't:
     .. code-block:: xml
 
         <!-- src/Acme/HelloBundle/Resources/config/services.xml -->
-
         <services>
             <service id="my_mailer" ...>
               <!-- ... -->
@@ -864,8 +863,8 @@ Configuring the service container is easy:
     .. code-block:: xml
 
         <service id="newsletter_manager" class="%newsletter_manager.class%">
-            <argument type="service" id="mailer"/>
-            <argument type="service" id="templating"/>
+            <argument type="service" id="mailer" />
+            <argument type="service" id="templating" />
         </service>
 
     .. code-block:: php

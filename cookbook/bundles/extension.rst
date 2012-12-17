@@ -383,7 +383,7 @@ configuration value:
             xmlns:acme_hello="http://www.example.com/symfony/schema/"
             xsi:schemaLocation="http://www.example.com/symfony/schema/ http://www.example.com/symfony/schema/hello-1.0.xsd">
 
-            <acme_hello:config my_type="foo">
+            <acme_hello:config my-type="foo">
                 <!-- ... -->
             </acme_hello:config>
 
