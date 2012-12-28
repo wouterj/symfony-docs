@@ -366,6 +366,8 @@ Symfony2 will discover these files and use them when translating either
 "Symfony2 is great" or "symfony2.great" into a French language locale (e.g.
 ``fr_FR`` or ``fr_BE``).
 
+.. _real-keyword-messages:
+
 .. sidebar:: Using Real or Keyword Messages
 
     This example illustrates the two different philosophies when creating
