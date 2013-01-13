@@ -19,9 +19,13 @@ You can install the component in many different ways:
 Usage
 -----
 
-The :class:`Symfony\\Component\\Translation\\Translator` class provides tools 
-for loading translation files and generating translated strings from these, 
-including support for pluralization::
+The :class:`Symfony\\Component\\Translation\\Translator` class is the main
+entry point for translating your application. You will load message catalogues
+in it and you will translate strings that match one of these messages. The
+``Translator`` class can even handle difficult messages, like pluralization
+ones.
+
+A simpelst code looks like this::
 
     use Symfony\Component\Translation\Translator;
     use Symfony\Component\Translation\MessageSelector;
@@ -35,15 +39,38 @@ including support for pluralization::
     
     echo $translator->trans('Hello World!');
 
-Message Catalogues
-------------------
+We will explain this code in the next sections.
 
-The messages are stored in message catalogues inside the ``Translator``
-class. A Message Catalogue is like a dictionary of translations for a specific 
+Instantiate the ``Translator``
+------------------------------
+
+We need to instantiate the ``Translator`` before we can use him. The
+constructor of the ``Translator`` requires two arguments: The current locale
+and a message selector. The current locale is the one you used to use in the
+translations in your applications, but you can change this per translation.
+The message selector is a class which determines how we handle pluralization,
+we will come back to this later in the document just put a new instance of
+:class:`Symfony\\Component\\Translation\\MessageSelector` here.
+
+.. code-block:: php
+
+    use Symfony\Component\Translation\Translator;
+    use Symfony\Component\Translation\MessageSelector;
+
+    $translator = new Translator('fr_FR', new MessageSelector());
+
+Loading Message Catalogues
+--------------------------
+
+A Message Catalogue is like a dictionary of translations for a specific
+locale. The ``Translator`` can handle multiple message catalogues for the same
 locale.
 
-Loading catalogues
-~~~~~~~~~~~~~~~~~~
+Before the ``Translator`` can begin translating string, we need to load
+message catalogues.
+
+Adding Loaders
+~~~~~~~~~~~~~~
 
 The Translation component uses Loader classes to load catalogues. You can load
 multiple resources for the same locale, it will be combined into one
@@ -63,34 +90,117 @@ Loader too. The default loaders are:
 * :class:`Symfony\\Component\\Translation\\Loader\\YamlFileLoader` - to load
   catalogues from yaml files (requires the :doc:`Yaml component</components/yaml>`).
 
-If you use another loader than the ``ArrayLoader`` you should require the
-:doc:`Config component</components/config/index>`.
+All loaders, except the ``ArrayLoader``, requires :doc:`the Config component</components/config/index>`
 
 At first, you should add a loader to the ``Translator``::
 
+    use Symfony\Component\Translation\Loader\YamlFileLoader;
+
     // ...
-    $translator->addLoader('array', new ArrayLoader());
+    $translator->addLoader('yaml', new YamlFileLoader());
 
 The first argument is the key to which we can refer the loader in the translator
-and the second argument is an instance of the loader itself. After this, you
-can add your resources using the correct loader::
+and the second argument is an instance of the loader itself. You will use the
+key to determine which loader to use while loading the message catalogues
+
+Loading catalogues
+~~~~~~~~~~~~~~~~~~
+
+Now you have added the loader you want to use, you can begin loading the
+message catalogues. You will do this with the
+:method:`Symfony\\Component\\Translation\\Translator::addResource` method.
+This method requires 3 arguments: The first one is the key of the loader
+(which you added in the section above), the second one is the resource (a
+filename or an array if you use the ``ArrayLoader``) and the tirth one the
+locale for this message catalogues.
+
+Loading files
+"""""""""""""
+
+We begin by creating a ``message`` file:
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        # translations/messages.fr.yml
+        Symfony2 is great: J'aime Symfony2
+
+    .. code-block:: xml
+
+        <!-- translations/messages.fr.xliff -->
+        <?xml version="1.0"?>
+        <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+            <file source-language="en" datatype="plaintext" original="file.ext">
+                <body>
+                    <trans-unit id="1">
+                        <source>Symfony2 is great</source>
+                        <target>J'aime Symfony2</target>
+                    </trans-unit>
+                </body>
+            </file>
+        </xliff>
+
+    .. code-block:: php
+
+        // translations/messages.fr.php
+        return array(
+            'Symfony2 is great' => 'J\'aime Symfony2',
+        );
+
+    .. code-block:: csv
+
+        ; translations/messages.fr.csv
+        "Symfony2 is great"; "J'aime Symfony2"
+
+Now we can load them using the loader we added::
+
+    // ...
+    $translator->addResource('yaml', 'translations/messages.fr.yml', 'fr_FR');
+
+This will load our message catalogue and at it to the ``fr_FR`` locale.
+
+Loading Arrays
+""""""""""""""
+
+If you need something simple (for unit tests) or you won't require another
+component, you can use PHP arrays.
+
+You can load them with the ``ArrayLoader`` and the second argument will be the
+array to load, instead of the file to load::
 
     // ...
     $translator->addResource('array', array(
-        'Hello World!' => 'Bonjour',
+        'Symfony2 is great' => 'J\'aime Symfony2',
     ), 'fr_FR');
 
-The first argument is the key of the loader, the second argument is the
-resource (which is an array in this case) and the tirth argument is the locale.
+Translating strings
+-------------------
 
-.. note::
+Translation is done with the :method:`Symfony\\Component\\Translation\\Translator::trans`
+method::
 
-    If you use a ``*FileLoader`` class to load your resources, the
-    ``addResources`` method looks like this::
+    // ...
+    echo $translator->trans('Symfony2 is great');
 
-        // ...
-        $translator->addLoader('yaml', new YamlFileLoader());
-        $translator->addResource('yaml', 'path/to/messages.fr.yml', 'fr_FR');
+The ``Translator`` will now search for the string ``'Symfony2 is great'`` in
+the current locale (set in the constructor, ``fr_FR`` in this example). He
+will return the translated string if he can find something and he will return
+the input string if he cannot find something.
+
+Fallback locale
+~~~~~~~~~~~~~~~
+
+You can set a fallback locale to fallback to if the translator cannot find
+something. You can set it with the
+:method:`Symfony\\Component\Translation\Translator::setFallbackLocale` method.
+In our example, we can add a fallback locale for ``en_GB``::
+
+    // ...
+    $translator->setFallbackLocale('en_GB');
+
+We need to load the ``en_GB`` message catalogues and it will translate
+something in English if a French translation is not found.
 
 Translate strings
 -----------------
