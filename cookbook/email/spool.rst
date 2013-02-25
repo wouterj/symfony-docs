@@ -58,7 +58,7 @@ In order to use the spool, use the following configuration:
 .. tip::
 
     If you want to store the spool somewhere with your project directory,
-    remember that you can use the `%kernel.root_dir%` parameter to reference
+    remember that you can use the ``%kernel.root_dir%`` parameter to reference
     the project's root:
 
     .. code-block:: yaml

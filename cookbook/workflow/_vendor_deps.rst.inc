@@ -23,7 +23,7 @@ It's important to realize that these vendor libraries are *not* actually part
 of *your* repository. Instead, they're simply un-tracked files that are downloaded
 into the ``vendor/`` directory by the ``bin/vendors`` script. But since all
 the information needed to download these files is saved in ``deps`` and ``deps.lock``
-(which *are* stored) in the repository), any other developer can use the
+(which *are* stored in the repository), any other developer can use the
 project, run ``php bin/vendors install``, and download the exact same set
 of vendor libraries. This means that you're controlling exactly what each
 vendor library looks like, without needing to actually commit them to *your*

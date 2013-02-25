@@ -296,7 +296,7 @@ used them in your application:
     # some app.yml file from symfony1
     all:
       email:
-        from_address:  foo.bar@example.com
+        from_address:  "foo.bar@example.com"
 
 In Symfony2, you can also create arbitrary entries under the ``parameters``
 key of your configuration:
@@ -304,7 +304,7 @@ key of your configuration:
 .. code-block:: yaml
 
     parameters:
-        email.from_address: foo.bar@example.com
+        email.from_address: "foo.bar@example.com"
 
 You can now access this from a controller, for example::
 

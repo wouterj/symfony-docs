@@ -26,8 +26,8 @@ it is broken down.
                     handler: swift
                 swift:
                     type:       swift_mailer
-                    from_email: error@example.com
-                    to_email:   error@example.com
+                    from_email: "error@example.com"
+                    to_email:   "error@example.com"
                     subject:    An Error Occurred!
                     level:      debug
 
@@ -106,8 +106,8 @@ get logged on the server as well as the emails being sent:
                     handler: swift
                 swift:
                     type:       swift_mailer
-                    from_email: error@example.com
-                    to_email:   error@example.com
+                    from_email: "error@example.com"
+                    to_email:   "error@example.com"
                     subject:    An Error Occurred!
                     level:      debug
 
