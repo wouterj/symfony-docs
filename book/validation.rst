@@ -839,8 +839,8 @@ Group Sequence
 --------------
 
 In some cases, you want to validate your groups by steps. To do this, you can
-use the ``GroupSequence`` feature. In this case, an object defines a group sequence
-, which determines the order groups should be validated.
+use the ``GroupSequence`` feature. In this case, an object defines a group
+sequence, which determines the order groups should be validated.
 
 For example, suppose you have a ``User`` class and want to validate that the
 username and the password are different only if all other validation passes
@@ -974,10 +974,10 @@ that group are valid, the second group, ``Strict``, will be validated.
     constraints that do not belong to any group.
 
     This means that you have to use the ``{ClassName}`` (e.g. ``User``) group
-    when specifing a group sequence. When using ``Default``, you get an
-    infinite recursion (as the ``Default`` groups references the group
-    sequence, which will contain the ``Default`` group which references the
-    same group sequence, ...).
+    when defining the group sequence in the metadata of the class. When using
+    ``Default``, you get an infinite recursion (as the ``Default`` groups
+    references the group sequence in the metadata, which will contain the
+    ``Default`` group, which references the same group sequence, ...).
 
 Group Sequence Providers
 ~~~~~~~~~~~~~~~~~~~~~~~~
