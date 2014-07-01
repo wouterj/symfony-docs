@@ -10,8 +10,8 @@ your process and there is a higher risk you forget to test things. In order
 to avoid this and build better, more reliable applications, you should test
 your code using automated tests.
 
-The PHPUnit Testing Framework
------------------------------
+Using a Testing Framework
+-------------------------
 
 Symfony2 integrates with an independent library - called PHPUnit - to give
 you a rich testing framework. This chapter won't cover PHPUnit itself, but
@@ -39,6 +39,12 @@ file.
 .. tip::
 
     Code coverage can be generated with the ``--coverage-html`` option.
+
+.. sidebar:: Using other Testing Frameworks
+
+    Most popular PHP testing frameworks also provide Symfony2 integration. You
+    are free to use any testing framework you like. For instance, you can use `Behat`_
+    using the `Behat Symfony2 Extension`_ and `PHPspec`_ using the `PHPspec Symfony2 Extension`_.
 
 .. index::
    single: Tests; Unit tests
@@ -857,3 +863,7 @@ Learn more
 .. _`DemoControllerTest`: https://github.com/symfony/symfony-standard/blob/master/src/Acme/DemoBundle/Tests/Controller/DemoControllerTest.php
 .. _`$_SERVER`: http://php.net/manual/en/reserved.variables.server.php
 .. _`documentation`: http://phpunit.de/manual/current/en/
+.. _`Behat`: http://behat.org/
+.. _`Behat Symfony2 Extension`: https://github.com/behat/symfony2extension
+.. _`PHPspec`: http://phpspec.org/
+.. _`PHPspec Symfony2 Extension`: https://github.com/phpspec/Symfony2Extension
