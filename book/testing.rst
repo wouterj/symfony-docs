@@ -34,10 +34,6 @@ The ``-c`` option tells PHPUnit to look in the ``app/`` directory for a configur
 file. If you're curious about the PHPUnit options, check out the ``app/phpunit.xml.dist``
 file.
 
-.. tip::
-
-    Code coverage can be generated with the ``--coverage-html`` option.
-
 .. sidebar:: Using other Testing Frameworks
 
     Most popular PHP testing frameworks also provide Symfony2 integration. You
