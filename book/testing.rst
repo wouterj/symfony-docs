@@ -28,7 +28,6 @@ your application's tests with the following command:
 
 .. code-block:: bash
 
-    # specify the configuration directory on the command line
     $ phpunit -c app/
 
 The ``-c`` option tells PHPUnit to look in the ``app/`` directory for a configuration
