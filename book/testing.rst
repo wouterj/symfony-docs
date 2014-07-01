@@ -22,10 +22,9 @@ it has its own excellent `documentation`_.
     Symfony2 works with PHPUnit 3.5.11 or later, though version 3.6.4 is
     needed to test the Symfony core code itself.
 
-Each test - whether it's a unit test or a functional test - is a PHP class
-that should live in the ``Tests/`` subdirectory of your bundles. If you follow
-this rule, then you can run all of your application's tests with the following
-command:
+In PHPUnit, each test is a PHP class that should live in the ``Tests/``
+subdirectory of your bundles. If you follow this rule, then you can run all of
+your application's tests with the following command:
 
 .. code-block:: bash
 
