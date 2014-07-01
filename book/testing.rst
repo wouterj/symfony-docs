@@ -4,9 +4,11 @@
 Testing
 =======
 
-Whenever you write a new line of code, you also potentially add new bugs.
-To build better and more reliable applications, you should test your code
-using both functional and unit tests.
+Whenever you write a new line of code, there is a risk you add new bugs. You
+can manually test your code each time you change something, but it'll slow down
+your process and there is a higher risk you forget to test things. In order
+to avoid this and build better, more reliable applications, you should test
+your code using automated tests.
 
 The PHPUnit Testing Framework
 -----------------------------
