@@ -30,11 +30,11 @@ Update the route definition accordingly::
 The move is pretty straightforward and makes a lot of sense as soon as you
 create more pages but you might have noticed a non-desirable side-effect...
 The ``LeapYearController`` class is *always* instantiated, even if the
-requested URL does not match the ``leap_year`` route. This is bad for one main
-reason: performance wise, all controllers for all routes must now be
+requested URL does not match the ``leap_year`` route. This is bad for one
+main reason: performance wise, all controllers for all routes must now be
 instantiated for every request. It would be better if controllers were
-lazy-loaded so that only the controller associated with the matched route is
-instantiated.
+lazy-loaded so that only the controller associated with the matched route
+is instantiated.
 
 To solve this issue, and a bunch more, let's install and use the HttpKernel
 component:
@@ -45,8 +45,8 @@ component:
 
 The HttpKernel component has many interesting features, but the one we need
 right now is the *controller resolver*. A controller resolver knows how to
-determine the controller to execute and the arguments to pass to it, based on
-a Request object. All controller resolvers implement the following interface::
+determine the controller to execute and the arguments to pass to it, based
+on a Request object. All controller resolvers implement the following interface::
 
     namespace Symfony\Component\HttpKernel\Controller;
 
@@ -58,10 +58,10 @@ a Request object. All controller resolvers implement the following interface::
     }
 
 The ``getController()`` method relies on the same convention as the one we
-have defined earlier: the ``_controller`` request attribute must contain the
-controller associated with the Request. Besides the built-in PHP callbacks,
-``getController()`` also supports strings composed of a class name followed by
-two colons and a method name as a valid callback, like 'class::method'::
+have defined earlier: the ``_controller`` request attribute must contain
+the controller associated with the Request. Besides the built-in PHP callbacks,
+``getController()`` also supports strings composed of a class name followed
+by two colons and a method name as a valid callback, like 'class::method'::
 
     $routes->add('leap_year', new Routing\Route('/is_leap_year/{year}', array(
         'year' => null,
@@ -87,8 +87,8 @@ resolver from HttpKernel::
     for a Route for instance.
 
 Now, let's see how the controller arguments are guessed. ``getArguments()``
-introspects the controller signature to determine which arguments to pass to
-it by using the native PHP `reflection`_.
+introspects the controller signature to determine which arguments to pass
+to it by using the native PHP `reflection`_.
 
 The ``indexAction()`` method needs the Request object as an argument.
 ```getArguments()`` knows when to inject it properly if it is type-hinted
@@ -105,16 +105,16 @@ attribute::
 
     public function indexAction($year)
 
-You can also inject the Request and some attributes at the same time (as the
-matching is done on the argument name or a type hint, the arguments order does
-not matter)::
+You can also inject the Request and some attributes at the same time (as
+the matching is done on the argument name or a type hint, the arguments order
+does not matter)::
 
     public function indexAction(Request $request, $year)
 
     public function indexAction($year, Request $request)
 
-Finally, you can also define default values for any argument that matches an
-optional attribute of the Request::
+Finally, you can also define default values for any argument that matches
+an optional attribute of the Request::
 
     public function indexAction($year = 2012)
 
@@ -140,9 +140,9 @@ method is not defined, an argument has no matching attribute, ...).
 .. note::
 
     With the great flexibility of the default controller resolver, you might
-    wonder why someone would want to create another one (why would there be an
-    interface if not?). Two examples: in Symfony, ``getController()`` is
-    enhanced to support `controllers as services`_; and in
+    wonder why someone would want to create another one (why would there
+    be an interface if not?). Two examples: in Symfony, ``getController()``
+    is enhanced to support `controllers as services`_; and in
     `FrameworkExtraBundle`_, ``getArguments()`` is enhanced to support
     parameter converters, where request attributes are converted to objects
     automatically.
@@ -190,8 +190,8 @@ Let's conclude with the new version of our framework::
 
     $response->send();
 
-Think about it once more: our framework is more robust and more flexible than
-ever and it still has less than 40 lines of code.
+Think about it once more: our framework is more robust and more flexible
+than ever and it still has less than 40 lines of code.
 
 .. _`reflection`: http://php.net/reflection
 .. _`FrameworkExtraBundle`: http://symfony.com/doc/current/bundles/SensioFrameworkExtraBundle/annotations/converters.html

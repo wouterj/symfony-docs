@@ -2,19 +2,20 @@ The EventDispatcher Component
 =============================
 
 Our framework is still missing a major characteristic of any good framework:
-*extensibility*. Being extensible means that the developer should be able to
-easily hook into the framework life cycle to modify the way the request is
-handled.
+*extensibility*. Being extensible means that the developer should be able
+to easily hook into the framework life cycle to modify the way the request
+is handled.
 
 What kind of hooks are we talking about? Authentication or caching for
 instance. To be flexible, hooks must be plug-and-play; the ones you "register"
 for an application are different from the next one depending on your specific
-needs. Many software have a similar concept like Drupal or Wordpress. In some
-languages, there is even a standard like `WSGI`_ in Python or `Rack`_ in Ruby.
+needs. Many software have a similar concept like Drupal or Wordpress. In
+some languages, there is even a standard like `WSGI`_ in Python or `Rack`_
+in Ruby.
 
 As there is no standard for PHP, we are going to use a well-known design
-pattern, the *Mediator*, to allow any kind of behaviors to be attached to our
-framework; the Symfony EventDispatcher Component implements a lightweight
+pattern, the *Mediator*, to allow any kind of behaviors to be attached to
+our framework; the Symfony EventDispatcher Component implements a lightweight
 version of this pattern:
 
 .. code-block:: bash
@@ -22,10 +23,10 @@ version of this pattern:
     $ composer require symfony/event-dispatcher
 
 How does it work? The *dispatcher*, the central object of the event dispatcher
-system, notifies *listeners* of an *event* dispatched to it. Put another way:
-your code dispatches an event to the dispatcher, the dispatcher notifies all
-registered listeners for the event, and each listener do whatever it wants
-with the event.
+system, notifies *listeners* of an *event* dispatched to it. Put another
+way: your code dispatches an event to the dispatcher, the dispatcher notifies
+all registered listeners for the event and each listener do whatever it
+wants with the event.
 
 As an example, let's create a listener that transparently adds the Google
 Analytics code to all responses.
@@ -150,11 +151,11 @@ the registration of a listener for the ``response`` event::
     Analytics code just before the body tag.
 
 As you can see, ``addListener()`` associates a valid PHP callback to a named
-event (``response``); the event name must be the same as the one used in the
-``dispatch()`` call.
+event (``response``); the event name must be the same as the one used in
+the ``dispatch()`` call.
 
-In the listener, we add the Google Analytics code only if the response is not
-a redirection, if the requested format is HTML, and if the response content
+In the listener, we add the Google Analytics code only if the response is
+not a redirection, if the requested format is HTML and if the response content
 type is HTML (these conditions demonstrate the ease of manipulating the
 Request and Response data from your code).
 
@@ -175,8 +176,8 @@ Depending on whether you have added this piece of code before the previous
 listener registration or after it, you will have the wrong or the right value
 for the ``Content-Length`` header. Sometimes, the order of the listeners
 matter but by default, all listeners are registered with the same priority,
-``0``. To tell the dispatcher to run a listener early, change the priority to
-a positive number; negative numbers can be used for low priority listeners.
+``0``. To tell the dispatcher to run a listener early, change the priority
+to a positive number; negative numbers can be used for low priority listeners.
 Here, we want the ``Content-Length`` listener to be executed last, so change
 the priority to ``-255``::
 
@@ -255,8 +256,8 @@ there is a solution: use subscribers instead of listeners::
     $dispatcher->addSubscriber(new Simplex\GoogleListener());
 
 A subscriber knows about all the events it is interested in and pass this
-information to the dispatcher via the ``getSubscribedEvents()`` method. Have a
-look at the new version of the ``GoogleListener``::
+information to the dispatcher via the ``getSubscribedEvents()`` method. Have
+a look at the new version of the ``GoogleListener``::
 
     // example.com/src/Simplex/GoogleListener.php
 
@@ -297,10 +298,11 @@ And here is the new version of ``ContentLengthListener``::
     A single subscriber can host as many listeners as you want on as many
     events as needed.
 
-To make your framework truly flexible, don't hesitate to add more events; and
-to make it more awesome out of the box, add more listeners. Again, this book
-is not about creating a generic framework, but one that is tailored to your
-needs. Stop whenever you see fit, and further evolve the code from there.
+To make your framework truly flexible, don't hesitate to add more events;
+and to make it more awesome out of the box, add more listeners. Again, this
+book is not about creating a generic framework, but one that is tailored
+to your needs. Stop whenever you see fit and further evolve the code from
+there.
 
 .. _`WSGI`: http://www.python.org/dev/peps/pep-0333/#middleware-components-that-play-both-sides
 .. _`Rack`: http://rack.rubyforge.org/

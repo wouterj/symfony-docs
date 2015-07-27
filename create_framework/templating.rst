@@ -3,14 +3,14 @@ Templating
 
 The astute reader has noticed that our framework hardcodes the way specific
 "code" (the templates) is run. For simple pages like the ones we have created
-so far, that's not a problem, but if you want to add more logic, you would be
-forced to put the logic into the template itself, which is probably not a good
-idea, especially if you still have the separation of concerns principle in
-mind.
+so far, that's not a problem, but if you want to add more logic, you would
+be forced to put the logic into the template itself, which is probably not
+a good idea, especially if you still have the separation of concerns principle
+in mind.
 
 Let's separate the template code from the logic by adding a new layer: the
-controller: *The controller's mission is to generate a Response based on the
-information conveyed by the client's Request.*
+controller: *The controller's mission is to generate a Response based on
+the information conveyed by the client's Request.*
 
 Change the template rendering part of the framework to read as follows::
 
@@ -36,8 +36,8 @@ about the Request that is not directly related to the HTTP Request data.
 
 You can now create the ``render_template()`` function, a generic controller
 that renders a template when there is no specific logic. To keep the same
-template as before, request attributes are extracted before the template is
-rendered::
+template as before, request attributes are extracted before the template
+is rendered::
 
     function render_template($request)
     {
@@ -49,12 +49,12 @@ rendered::
     }
 
 As ``render_template`` is used as an argument to the PHP ``call_user_func()``
-function, we can replace it with any valid PHP `callbacks`_. This allows us to
-use a function, an anonymous function, or a method of a class as a
+function, we can replace it with any valid PHP `callbacks`_. This allows
+us to use a function, an anonymous function or a method of a class as a
 controller... your choice.
 
-As a convention, for each route, the associated controller is configured via
-the ``_controller`` route attribute::
+As a convention, for each route, the associated controller is configured
+via the ``_controller`` route attribute::
 
     $routes->add('hello', new Routing\Route('/hello/{name}', array(
         'name' => 'World',
@@ -80,8 +80,8 @@ controller, you can still use the ``render_template()`` to render a template::
         }
     )));
 
-This is rather flexible as you can change the Response object afterwards and
-you can even pass additional arguments to the template::
+This is rather flexible as you can change the Response object afterwards
+and you can even pass additional arguments to the template::
 
     $routes->add('hello', new Routing\Route('/hello/{name}', array(
         'name' => 'World',
@@ -170,10 +170,10 @@ framework does not need to be modified in any way, just create a new
 
     return $routes;
 
-The ``is_leap_year()`` function returns ``true`` when the given year is a leap
-year, ``false`` otherwise. If the year is ``null``, the current year is
-tested. The controller is simple: it gets the year from the request
-attributes, pass it to the `is_leap_year()`` function, and according to the
+The ``is_leap_year()`` function returns ``true`` when the given year is a
+leap year, ``false`` otherwise. If the year is ``null``, the current year
+is tested. The controller is simple: it gets the year from the request
+attributes, pass it to the `is_leap_year()`` function and according to the
 return value it creates a new Response object.
 
 As always, you can decide to stop here and use the framework as is; it's

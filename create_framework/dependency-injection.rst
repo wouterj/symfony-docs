@@ -62,9 +62,9 @@ So, moving code from the front controller to the framework class makes our
 framework more configurable, but at the same time, it introduces a lot of
 issues:
 
-* We are not able to register custom listeners anymore as the dispatcher is
-  not available outside the Framework class (an easy workaround could be the
-  adding of a ``Framework::getEventDispatcher()`` method);
+* We are not able to register custom listeners anymore as the dispatcher
+  is not available outside the Framework class (an easy workaround could
+  be the adding of a ``Framework::getEventDispatcher()`` method);
 
 * We have lost the flexibility we had before; you cannot change the
   implementation of the ``UrlMatcher`` or of the ``ControllerResolver``
@@ -83,8 +83,8 @@ framework so that we had total control of its creation and configuration).
 
 Does it mean that we have to make a choice between flexibility, customization,
 ease of testing and not to copy and paste the same code into each application
-front controller? As you might expect, there is a solution. We can solve all
-these issues and some more by using the Symfony dependency injection
+front controller? As you might expect, there is a solution. We can solve
+all these issues and some more by using the Symfony dependency injection
 container:
 
 .. code-block:: bash
@@ -132,9 +132,9 @@ them. Objects will be created on-demand when you access them from the
 container or when the container needs them to create other objects.
 
 For instance, to create the router listener, we tell Symfony that its class
-name is ``Symfony\Component\HttpKernel\EventListener\RouterListener``, and
-that its constructor takes a matcher object (``new Reference('matcher')``). As
-you can see, each object is referenced by a name, a string that uniquely
+name is ``Symfony\Component\HttpKernel\EventListener\RouterListener`` and
+that its constructor takes a matcher object (``new Reference('matcher')``).
+As you can see, each object is referenced by a name, a string that uniquely
 identifies each object. The name allows us to get an object and to reference
 it in other object definitions.
 
@@ -161,8 +161,8 @@ The front controller is now only about wiring everything together::
 
     $response->send();
 
-As all the objects are now created in the dependency injection container, the
-framework code should be the previous simple version::
+As all the objects are now created in the dependency injection container,
+the framework code should be the previous simple version::
 
     // example.com/src/Simplex/Framework.php
 
@@ -176,8 +176,8 @@ framework code should be the previous simple version::
 
 .. note::
 
-    If you want a light alternative for your container, consider `Pimple`_, a
-    simple dependency injection container in about 60 lines of PHP code.
+    If you want a light alternative for your container, consider `Pimple`_,
+    a simple dependency injection container in about 60 lines of PHP code.
 
 Now, here is how you can register a custom listener in the front controller::
 
@@ -186,16 +186,16 @@ Now, here is how you can register a custom listener in the front controller::
         ->addMethodCall('addSubscriber', array(new Reference('listener.string_response')))
     ;
 
-Beside describing your objects, the dependency injection container can also be
-configured via parameters. Let's create one that defines if we are in debug
-mode or not::
+Beside describing your objects, the dependency injection container can also
+be configured via parameters. Let's create one that defines if we are in
+debug mode or not::
 
     $sc->setParameter('debug', true);
 
     echo $sc->getParameter('debug');
 
-These parameters can be used when defining object definitions. Let's make the
-charset configurable::
+These parameters can be used when defining object definitions. Let's make
+the charset configurable::
 
     $sc->register('listener.response', 'Symfony\Component\HttpKernel\EventListener\ResponseListener')
         ->setArguments(array('%charset%'))
@@ -223,18 +223,18 @@ definitions, from scope support to dumping a container to a plain PHP class,
 and much more. The Symfony dependency injection container is really powerful
 and is able to manage any kind of PHP class.
 
-Don't yell at me if you don't want to use a dependency injection container in
-your framework. If you don't like it, don't use it. It's your framework, not
-mine.
+Don't yell at me if you don't want to use a dependency injection container
+in your framework. If you don't like it, don't use it. It's your framework,
+not mine.
 
-This is (already) the last chapter of this book on creating a framework on top
-of the Symfony components. I'm aware that many topics have not been covered
+This is (already) the last chapter of this book on creating a framework on
+top of the Symfony components. I'm aware that many topics have not been covered
 in great details, but hopefully it gives you enough information to get started
 on your own and to better understand how the Symfony framework works
 internally.
 
 If you want to learn more, read the source code of the `Silex`_
-micro-framework, and especially its `Application`_ class.
+micro-framework and especially its `Application`_ class.
 
 Have fun!
 

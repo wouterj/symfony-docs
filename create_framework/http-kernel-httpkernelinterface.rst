@@ -18,8 +18,8 @@ goal by making our framework implement ``HttpKernelInterface``::
 
 ``HttpKernelInterface`` is probably the most important piece of code in the
 HttpKernel component, no kidding. Frameworks and applications that implement
-this interface are fully interoperable. Moreover, a lot of great features will
-come with it for free.
+this interface are fully interoperable. Moreover, a lot of great features
+will come with it for free.
 
 Update your framework so that it implements this interface::
 
@@ -39,11 +39,11 @@ Update your framework so that it implements this interface::
         }
     }
 
-Even if this change looks trivial, it brings us a lot! Let's talk about one of
-the most impressive one: transparent `HTTP caching`_ support.
+Even if this change looks trivial, it brings us a lot! Let's talk about one
+of the most impressive one: transparent `HTTP caching`_ support.
 
-The ``HttpCache`` class implements a fully-featured reverse proxy, written in
-PHP; it implements ``HttpKernelInterface`` and wraps another
+The ``HttpCache`` class implements a fully-featured reverse proxy, written
+in PHP; it implements ``HttpKernelInterface`` and wraps another
 ``HttpKernelInterface`` instance::
 
     // example.com/web/front.php
@@ -78,8 +78,8 @@ to cache a response for 10 seconds, use the ``Response::setTtl()`` method::
 .. tip::
 
     If, like me, you are running your framework from the command line by
-    simulating requests (``Request::create('/is_leap_year/2012')``), you can
-    easily debug Response instances by dumping their string representation
+    simulating requests (``Request::create('/is_leap_year/2012')``), you
+    can easily debug Response instances by dumping their string representation
     (``echo $response;``) as it displays all headers as well as the response
     content.
 
@@ -91,14 +91,14 @@ content and check that the number only changes every 10 seconds::
 .. note::
 
     When deploying to your production environment, keep using the Symfony
-    reverse proxy (great for shared hosting) or even better, switch to a more
-    efficient reverse proxy like `Varnish`_.
+    reverse proxy (great for shared hosting) or even better, switch to a
+    more efficient reverse proxy like `Varnish`_.
 
-Using HTTP cache headers to manage your application cache is very powerful and
-allows you to tune finely your caching strategy as you can use both the
-expiration and the validation models of the HTTP specification. If you are not
-comfortable with these concepts, read the `HTTP caching`_ chapter of the
-Symfony documentation.
+Using HTTP cache headers to manage your application cache is very powerful
+and allows you to tune finely your caching strategy as you can use both the
+expiration and the validation models of the HTTP specification. If you are
+not comfortable with these concepts, read the `HTTP caching`_ chapter of
+the Symfony documentation.
 
 The Response class contains many other methods that let you configure the
 HTTP cache very easily. One of the most powerful is ``setCache()`` as it
@@ -121,9 +121,9 @@ abstracts the most frequently used caching strategies into one simple array::
     $response->setMaxAge(10);
     $response->setSharedMaxAge(10);
 
-When using the validation model, the ``isNotModified()`` method allows you to
-easily cut on the response time by short-circuiting the response generation as
-early as possible::
+When using the validation model, the ``isNotModified()`` method allows you
+to easily cut on the response time by short-circuiting the response generation
+as early as possible::
 
     $response->setETag('whatever_you_compute_as_an_etag');
 
@@ -134,11 +134,11 @@ early as possible::
 
     return $response;
 
-Using HTTP caching is great, but what if you cannot cache the whole page? What
-if you can cache everything but some sidebar that is more dynamic that the
-rest of the content? Edge Side Includes (`ESI`_) to the rescue! Instead of
-generating the whole content in one go, ESI allows you to mark a region of a
-page as being the content of a sub-request call::
+Using HTTP caching is great, but what if you cannot cache the whole page?
+What if you can cache everything but some sidebar that is more dynamic that
+the rest of the content? Edge Side Includes (`ESI`_) to the rescue! Instead
+of generating the whole content in one go, ESI allows you to mark a region
+of a page as being the content of a sub-request call::
 
     This is the content of your page
 
@@ -146,9 +146,9 @@ page as being the content of a sub-request call::
 
     Some other content
 
-For ESI tags to be supported by HttpCache, you need to pass it an instance of
-the ``ESI`` class. The ``ESI`` class automatically parses ESI tags and makes
-sub-requests to convert them to their proper content::
+For ESI tags to be supported by HttpCache, you need to pass it an instance
+of the ``ESI`` class. The ``ESI`` class automatically parses ESI tags and
+makes sub-requests to convert them to their proper content::
 
     $framework = new HttpKernel\HttpCache\HttpCache(
         $framework,
@@ -158,13 +158,13 @@ sub-requests to convert them to their proper content::
 
 .. note::
 
-    For ESI to work, you need to use a reverse proxy that supports it like the
-    Symfony implementation. `Varnish`_ is the best alternative and it is
-    Open-Source.
+    For ESI to work, you need to use a reverse proxy that supports it like
+    the Symfony implementation. `Varnish`_ is the best alternative and it
+    is Open-Source.
 
-When using complex HTTP caching strategies and/or many ESI include tags, it
-can be hard to understand why and when a resource should be cached or not. To
-ease debugging, you can enable the debug mode::
+When using complex HTTP caching strategies and/or many ESI include tags,
+it can be hard to understand why and when a resource should be cached or
+not. To ease debugging, you can enable the debug mode::
 
     $framework = new HttpCache($framework, new Store(__DIR__.'/../cache'), new ESI(), array('debug' => true));
 
@@ -182,8 +182,8 @@ HttpCache has many features like support for the
 extensions as defined in RFC 5861.
 
 With the addition of a single interface, our framework can now benefit from
-the many features built into the HttpKernel component; HTTP caching being just
-one of them but an important one as it can make your applications fly!
+the many features built into the HttpKernel component; HTTP caching being
+just one of them but an important one as it can make your applications fly!
 
 .. _`HTTP caching`: http://symfony.com/doc/current/book/http_cache.html
 .. _`ESI`: http://en.wikipedia.org/wiki/Edge_Side_Includes

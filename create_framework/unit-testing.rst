@@ -3,12 +3,12 @@ Unit Testing
 
 You might have noticed some subtle but nonetheless important bugs in the
 framework we built in the previous chapter. When creating a framework, you
-must be sure that it behaves as advertised. If not, all the applications based
-on it will exhibit the same bugs. The good news is that whenever you fix a
-bug, you are fixing a bunch of applications too.
+must be sure that it behaves as advertised. If not, all the applications
+based on it will exhibit the same bugs. The good news is that whenever you
+fix a bug, you are fixing a bunch of applications too.
 
-Today's mission is to write unit tests for the framework we have created by
-using `PHPUnit`_. Create a PHPUnit configuration file in
+Today's mission is to write unit tests for the framework we have created
+by using `PHPUnit`_. Create a PHPUnit configuration file in
 ``example.com/phpunit.xml.dist``:
 
 .. code-block:: xml
@@ -34,15 +34,15 @@ using `PHPUnit`_. Create a PHPUnit configuration file in
     </phpunit>
 
 This configuration defines sensible defaults for most PHPUnit settings; more
-interesting, the autoloader is used to bootstrap the tests, and tests will be
-stored under the ``example.com/tests/`` directory.
+interesting, the autoloader is used to bootstrap the tests and tests will
+be stored under the ``example.com/tests/`` directory.
 
-Now, let's write a test for "not found" resources. To avoid the creation of
-all dependencies when writing tests and to really just unit-test what we want,
-we are going to use `test doubles`_. Test doubles are easier to create when we
-rely on interfaces instead of concrete classes. Fortunately, Symfony provides
-such interfaces for core objects like the URL matcher and the controller
-resolver. Modify the framework to make use of them::
+Now, let's write a test for "not found" resources. To avoid the creation
+of all dependencies when writing tests and to really just unit-test what
+we want, we are going to use `test doubles`_. Test doubles are easier to
+create when we rely on interfaces instead of concrete classes. Fortunately,
+Symfony provides such interfaces for core objects like the URL matcher and
+the controller resolver. Modify the framework to make use of them::
 
     // example.com/src/Simplex/Framework.php
 
@@ -108,8 +108,8 @@ We are now ready to write our first test::
     }
 
 This test simulates a request that does not match any route. As such, the
-``match()`` method returns a ``ResourceNotFoundException`` exception and we
-are testing that our framework converts this exception to a 404 response.
+``match()`` method returns a ``ResourceNotFoundException`` exception and
+we are testing that our framework converts this exception to a 404 response.
 
 Executing this test is as simple as running ``phpunit`` from the
 ``example.com`` directory:
@@ -168,8 +168,8 @@ Response::
     }
 
 In this test, we simulate a route that matches and returns a simple
-controller. We check that the response status is 200 and that its content is
-the one we have set in the controller.
+controller. We check that the response status is 200 and that its content
+is the one we have set in the controller.
 
 To check that we have covered all possible use cases, run the PHPUnit test
 coverage feature (you need to enable `XDebug`_ first):
@@ -178,14 +178,14 @@ coverage feature (you need to enable `XDebug`_ first):
 
     $ phpunit --coverage-html=cov/
 
-Open ``example.com/cov/src/Simplex/Framework.php.html`` in a browser and check
-that all the lines for the Framework class are green (it means that they have
-been visited when the tests were executed).
+Open ``example.com/cov/src/Simplex/Framework.php.html`` in a browser and
+check that all the lines for the Framework class are green (it means that
+they have been visited when the tests were executed).
 
-Thanks to the simple object-oriented code that we have written so far, we have
-been able to write unit-tests to cover all possible use cases of our
-framework; test doubles ensured that we were actually testing our code and not
-Symfony code.
+Thanks to the simple object-oriented code that we have written so far, we
+have been able to write unit-tests to cover all possible use cases of our
+framework; test doubles ensured that we were actually testing our code and
+not Symfony code.
 
 Now that we are confident (again) about the code we have written, we can
 safely think about the next batch of features we want to add to our framework.

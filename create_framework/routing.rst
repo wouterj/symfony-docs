@@ -39,49 +39,38 @@ template as follows::
 
 Now, we are in good shape to add new features.
 
-One very important aspect of any website is the form of its URLs. Thanks to
-the URL map, we have decoupled the URL from the code that generates the
-associated response, but it is not yet flexible enough. For instance, we might
-want to support dynamic paths to allow embedding data directly into the URL
-instead of relying on a query string:
+One very important aspect of any website is the form of its URLs. Thanks
+to the URL map, we have decoupled the URL from the code that generates the
+associated response, but it is not yet flexible enough. For instance, we
+might want to support dynamic paths to allow embedding data directly into
+the URL instead of relying on a query string:
 
-    # Before
-    /hello?name=Fabien
+# Before
+/hello?name=Fabien
 
-    # After
-    /hello/Fabien
-
-To support this feature, add the Symfony Routing component as a dependency:
-
+# After
+/hello/Fabien
 .. code-block:: bash
 
-    $ composer require symfony/routing
+$ composer require symfony/routing
 
-Instead of an array for the URL map, the Routing component relies on a
-``RouteCollection`` instance::
+use Symfony\Component\Routing\RouteCollection;
 
-    use Symfony\Component\Routing\RouteCollection;
+$routes = new RouteCollection();
 
-    $routes = new RouteCollection();
+use Symfony\Component\Routing\Route;
 
-Let's add a route that describe the ``/hello/SOMETHING`` URL and add another
-one for the simple ``/bye`` one::
-
-    use Symfony\Component\Routing\Route;
-
-    $routes->add('hello', new Route('/hello/{name}', array('name' => 'World')));
-    $routes->add('bye', new Route('/bye'));
-
-Each entry in the collection is defined by a name (``hello``) and a ``Route``
-instance, which is defined by a route pattern (``/hello/{name}``) and an array
-of default values for route attributes (``array('name' => 'World')``).
+$routes->add('hello', new Route('/hello/{name}', array('name' => 'World')));
+$routes->add('bye', new Route('/bye'));
+instance, which is defined by a route pattern (``/hello/{name}``) and an
+array of default values for route attributes (``array('name' => 'World')``).
 
 .. note::
 
-    Read the official `documentation`_ for the Routing component to learn more
-    about its many features like URL generation, attribute requirements, HTTP
-    method enforcements, loaders for YAML or XML files, dumpers to PHP or
-    Apache rewrite rules for enhanced performance, and much more.
+    Read the official `documentation`_ for the Routing component to learn
+    more about its many features like URL generation, attribute requirements,
+    HTTP method enforcements, loaders for YAML or XML files, dumpers to PHP
+    or Apache rewrite rules for enhanced performance and much more.
 
 Based on the information stored in the ``RouteCollection`` instance, a
 ``UrlMatcher`` instance can match URL paths::
@@ -118,8 +107,9 @@ The ``match()`` method takes a request path and returns an array of attributes
 
 .. note::
 
-    Even if we don't strictly need the request context in our examples, it is
-    used in real-world applications to enforce method requirements and more.
+    Even if we don't strictly need the request context in our examples, it
+    is used in real-world applications to enforce method requirements and
+    more.
 
 The URL matcher throws an exception when none of the routes match::
 
@@ -184,16 +174,16 @@ There are a few new things in the code:
 
       return $routes;
 
-  We now have a clear separation between the configuration (everything
-  specific to our application in ``app.php``) and the framework (the generic
-  code that powers our application in ``front.php``).
+We now have a clear separation between the configuration (everything
+specific to our application in ``app.php``) and the framework (the generic
+code that powers our application in ``front.php``).
 
 With less than 30 lines of code, we have a new framework, more powerful and
 more flexible than the previous one. Enjoy!
 
 Using the Routing component has one big additional benefit: the ability to
-generate URLs based on Route definitions. When using both URL matching and URL
-generation in your code, changing the URL patterns should have no other
+generate URLs based on Route definitions. When using both URL matching and
+URL generation in your code, changing the URL patterns should have no other
 impact. Want to know how to use the generator? Insanely easy::
 
     use Symfony\Component\Routing;
@@ -211,12 +201,11 @@ generate absolute URLs::
 
 .. tip::
 
-    Concerned about performance? Based on your route definitions, create a
-    highly optimized URL matcher class that can replace the default
+    Concerned about performance? Based on your route definitions, create
+    a highly optimized URL matcher class that can replace the default
     ``UrlMatcher``::
 
-        $dumper = new Routing\Matcher\Dumper\PhpMatcherDumper($routes);
-
-        echo $dumper->dump();
+    $dumper = new Routing\Matcher\Dumper\PhpMatcherDumper($routes);
+    echo $dumper->dump();
 
 .. _`documentation`: http://symfony.com/doc/current/components/routing.html

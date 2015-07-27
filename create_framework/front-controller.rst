@@ -17,10 +17,10 @@ goodbye::
     $response = new Response('Goodbye!');
     $response->send();
 
-As you can see for yourself, much of the code is exactly the same as the one
-we have written for the first page. Let's extract the common code that we can
-share between all our pages. Code sharing sounds like a good plan to create
-our first "real" framework!
+As you can see for yourself, much of the code is exactly the same as the
+one we have written for the first page. Let's extract the common code that
+we can share between all our pages. Code sharing sounds like a good plan
+to create our first "real" framework!
 
 The PHP way of doing the refactoring would probably be the creation of an
 include file::
@@ -55,18 +55,18 @@ And for the "Goodbye" page::
     $response->setContent('Goodbye!');
     $response->send();
 
-We have indeed moved most of the shared code into a central place, but it does
-not feel like a good abstraction, does it? We still have the ``send()`` method
-for all pages, our pages do not look like templates, and we are still not able
-to test this code properly.
+We have indeed moved most of the shared code into a central place, but it
+does not feel like a good abstraction, does it? We still have the ``send()``
+method for all pages, our pages do not look like templates and we are still
+not able to test this code properly.
 
 Moreover, adding a new page means that we need to create a new PHP script,
 which name is exposed to the end user via the URL
-(``http://127.0.0.1:4321/bye.php``): there is a direct mapping between the PHP
-script name and the client URL. This is because the dispatching of the request
-is done by the web server directly. It might be a good idea to move this
-dispatching to our code for better flexibility. This can be easily achieved by
-routing all client requests to a single PHP script.
+(``http://127.0.0.1:4321/bye.php``): there is a direct mapping between the
+PHP script name and the client URL. This is because the dispatching of the
+request is done by the web server directly. It might be a good idea to move
+this dispatching to our code for better flexibility. This can be easily achieved
+by routing all client requests to a single PHP script.
 
 .. tip::
 
@@ -110,8 +110,8 @@ And here is for instance the new ``hello.php`` script::
 In the ``front.php`` script, ``$map`` associates URL paths with their
 corresponding PHP script paths.
 
-As a bonus, if the client asks for a path that is not defined in the URL map,
-we return a custom 404 page; you are now in control of your website.
+As a bonus, if the client asks for a path that is not defined in the URL
+map, we return a custom 404 page; you are now in control of your website.
 
 To access a page, you must now use the ``front.php`` script:
 
@@ -123,9 +123,10 @@ To access a page, you must now use the ``front.php`` script:
 
 .. tip::
 
-    Most web servers like Apache or nginx are able to rewrite the incoming URLs
-    and remove the front controller script so that your users will be able to
-    type ``http://127.0.0.1:4321/hello?name=Fabien``, which looks much better.
+    Most web servers like Apache or nginx are able to rewrite the incoming
+    URLs and remove the front controller script so that your users will be
+    able to type ``http://127.0.0.1:4321/hello?name=Fabien``, which looks
+    much better.
 
 The trick is the usage of the ``Request::getPathInfo()`` method which returns
 the path of the Request by removing the front controller script name including
@@ -138,9 +139,9 @@ its sub-directories (only if needed -- see above tip).
     like ``$request = Request::create('/hello?name=Fabien');`` where the
     argument is the URL path you want to simulate.
 
-Now that the web server always access the same script (``front.php``) for all
-pages, we can secure the code further by moving all other PHP files outside the
-web root directory:
+Now that the web server always access the same script (``front.php``) for
+all pages, we can secure the code further by moving all other PHP files outside
+the web root directory:
 
 .. code-block:: text
 
@@ -157,8 +158,8 @@ web root directory:
 Now, configure your web server root directory to point to ``web/`` and all
 other files won't be accessible from the client anymore.
 
-To test your changes in a browser (``http://localhost:4321/?name=Fabien``), run
-the PHP built-in server:
+To test your changes in a browser (``http://localhost:4321/?name=Fabien``),
+run the PHP built-in server:
 
 .. code-block:: bash
 
@@ -226,9 +227,9 @@ We have the first version of our framework::
 
     $response->send();
 
-Adding a new page is a two step process: add an entry in the map and create a
-PHP template in ``src/pages/``. From a template, get the Request data via the
-``$request`` variable and tweak the Response headers via the ``$response``
+Adding a new page is a two step process: add an entry in the map and create
+a PHP template in ``src/pages/``. From a template, get the Request data via
+the ``$request`` variable and tweak the Response headers via the ``$response``
 variable.
 
 .. note::

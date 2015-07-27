@@ -1,19 +1,19 @@
 The Separation of Concerns
 ==========================
 
-One down-side of our framework right now is that we need to copy and paste the
-code in ``front.php`` each time we create a new website. 40 lines of code is
-not that much, but it would be nice if we could wrap this code into a proper
-class. It would bring us better *reusability* and easier testing to name just
-a few benefits.
+One down-side of our framework right now is that we need to copy and paste
+the code in ``front.php`` each time we create a new website. 40 lines of
+code is not that much, but it would be nice if we could wrap this code into
+a proper class. It would bring us better *reusability* and easier testing
+to name just a few benefits.
 
 If you have a closer look at the code, ``front.php`` has one input, the
-Request, and one output, the Response. Our framework class will follow this
-simple principle: the logic is about creating the Response associated with a
-Request.
+Request and one output, the Response. Our framework class will follow this
+simple principle: the logic is about creating the Response associated with
+a Request.
 
-Let's create our very own namespace for our framework: ``Simplex``. Move the
-request handling logic into its own ``Simplex\\Framework`` class::
+Let's create our very own namespace for our framework: ``Simplex``. Move
+the request handling logic into its own ``Simplex\\Framework`` class::
 
     // example.com/src/Simplex/Framework.php
 
@@ -76,8 +76,8 @@ And update ``example.com/web/front.php`` accordingly::
 To wrap up the refactoring, let's move everything but routes definition from
 ``example.com/src/app.php`` into yet another namespace: ``Calendar``.
 
-For the classes defined under the ``Simplex`` and ``Calendar`` namespaces to
-be autoloaded, update the ``composer.json`` file:
+For the classes defined under the ``Simplex`` and ``Calendar`` namespaces
+to be autoloaded, update the ``composer.json`` file:
 
 .. code-block:: javascript
 
@@ -150,7 +150,7 @@ To sum up, here is the new file layout:
 
     example.com
     ├── composer.json
-    ├── composer.lock    
+    ├── composer.lock
     ├── src
     │   ├── app.php
     │   └── Simplex
@@ -165,16 +165,16 @@ To sum up, here is the new file layout:
     └── web
         └── front.php
 
-That's it! Our application has now four different layers and each of them has
-a well defined goal:
+That's it! Our application has now four different layers and each of them
+has a well defined goal:
 
 * ``web/front.php``: The front controller; the only exposed PHP code that
   makes the interface with the client (it gets the Request and sends the
-  Response) and provides the boiler-plate code to initialize the framework and
-  our application;
+  Response) and provides the boiler-plate code to initialize the framework
+  and our application;
 
-* ``src/Simplex``: The reusable framework code that abstracts the handling of
-  incoming Requests (by the way, it makes your controllers/templates easily
+* ``src/Simplex``: The reusable framework code that abstracts the handling
+  of incoming Requests (by the way, it makes your controllers/templates easily
   testable -- more about that later on);
 
 * ``src/Calendar``: Our application specific code (the controllers and the

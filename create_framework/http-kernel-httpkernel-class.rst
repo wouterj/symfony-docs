@@ -9,16 +9,16 @@ means that the listener has to call a regular controller. But what if the
 error controller throws an exception? You will end up in an infinite loop.
 There should be an easier way, right?
 
-Enter the ``HttpKernel`` class. Instead of solving the same problem over and
-over again and instead of reinventing the wheel each time, the ``HttpKernel``
-class is a generic, extensible, and flexible implementation of
+Enter the ``HttpKernel`` class. Instead of solving the same problem over
+and over again and instead of reinventing the wheel each time, the ``HttpKernel``
+class is a generic, extensible and flexible implementation of
 ``HttpKernelInterface``.
 
-This class is very similar to the framework class we have written so far: it
-dispatches events at some strategic points during the handling of the request,
-it uses a controller resolver to choose the controller to dispatch the request
-to, and as an added bonus, it takes care of edge cases and provides great
-feedback when a problem arises.
+This class is very similar to the framework class we have written so far:
+it dispatches events at some strategic points during the handling of the
+request, it uses a controller resolver to choose the controller to dispatch
+the request to and as an added bonus, it takes care of edge cases and provides
+great feedback when a problem arises.
 
 Here is the new framework code::
 
@@ -64,8 +64,8 @@ framework: it matches the incoming request and populates the request
 attributes with route parameters.
 
 Our code is now much more concise and surprisingly more robust and more
-powerful than ever. For instance, use the built-in ``ExceptionListener`` to
-make your error management configurable::
+powerful than ever. For instance, use the built-in ``ExceptionListener``
+to make your error management configurable::
 
     $errorHandler = function (HttpKernel\Exception\FlattenException $exception) {
         $msg = 'Something went wrong! ('.$exception->getMessage().')';
@@ -74,10 +74,10 @@ make your error management configurable::
     };
     $dispatcher->addSubscriber(new HttpKernel\EventListener\ExceptionListener($errorHandler));
 
-``ExceptionListener`` gives you a ``FlattenException`` instance instead of the
-thrown ``Exception`` instance to ease exception manipulation and display. It
-can take any valid controller as an exception handler, so you can create an
-ErrorController class instead of using a Closure::
+``ExceptionListener`` gives you a ``FlattenException`` instance instead of
+the thrown ``Exception`` instance to ease exception manipulation and display.
+It can take any valid controller as an exception handler, so you can create
+an ErrorController class instead of using a Closure::
 
     $listener = new HttpKernel\EventListener\ExceptionListener('Calendar\\Controller\\ErrorController::exceptionAction');
     $dispatcher->addSubscriber($listener);
@@ -106,8 +106,8 @@ if your controller throws an exception, HttpKernel will handle it nicely.
 
 In chapter two, we talked about the ``Response::prepare()`` method, which
 ensures that a Response is compliant with the HTTP specification. It is
-probably a good idea to always call it just before sending the Response to the
-client; that's what the ``ResponseListener`` does::
+probably a good idea to always call it just before sending the Response to
+the client; that's what the ``ResponseListener`` does::
 
     $dispatcher->addSubscriber(new HttpKernel\EventListener\ResponseListener('UTF-8'));
 
@@ -117,8 +117,8 @@ support for streamed responses? Just subscribe to
 
     $dispatcher->addSubscriber(new HttpKernel\EventListener\StreamedResponseListener());
 
-And in your controller, return a ``StreamedResponse`` instance instead of a
-``Response`` instance.
+And in your controller, return a ``StreamedResponse`` instance instead of
+a ``Response`` instance.
 
 .. tip::
 
@@ -143,9 +143,9 @@ instead of a full Response object::
     }
 
 To implement this feature, we are going to listen to the ``kernel.view``
-event, which is triggered just after the controller has been called. Its goal
-is to convert the controller return value to a proper Response instance, but
-only if needed::
+event, which is triggered just after the controller has been called. Its
+goal is to convert the controller return value to a proper Response instance,
+but only if needed::
 
     // example.com/src/Simplex/StringResponseListener.php
 
@@ -187,8 +187,8 @@ Don't forget to register it in the front controller::
     exception with a nice message: ``The controller must return a response
     (Nope, this is not a leap year. given).``.
 
-At this point, our whole framework code is as compact as possible and it is
-mainly composed of an assembly of existing libraries. Extending is a matter
+At this point, our whole framework code is as compact as possible and it
+is mainly composed of an assembly of existing libraries. Extending is a matter
 of registering event listeners/subscribers.
 
 Hopefully, you now have a better understanding of why the simple looking
@@ -198,7 +198,7 @@ out of the box, with no efforts. And because HttpKernel is actually the code
 that powers the Symfony and Silex frameworks, you have the best of both
 worlds: a custom framework, tailored to your needs, but based on a rock-solid
 and well maintained low-level architecture that has been proven to work for
-many websites; a code that has been audited for security issues and that has
-proven to scale well.
+many websites; a code that has been audited for security issues and that
+has proven to scale well.
 
 .. _`Internals`: http://symfony.com/doc/current/book/internals.html#events
