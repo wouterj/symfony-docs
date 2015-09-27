@@ -41,16 +41,21 @@ The Voter Interface
 A custom voter needs to implement
 :class:`Symfony\\Component\\Security\\Core\\Authorization\\Voter\\VoterInterface`
 or extend :class:`Symfony\\Component\\Security\\Core\\Authorization\\Voter\\AbstractVoter`,
-which makes creating a voter even easier.
+which makes creating a voter even easier::
 
-.. code-block:: php
+    use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 
     abstract class AbstractVoter implements VoterInterface
     {
-        abstract protected function getSupportedClasses();
-        abstract protected function getSupportedAttributes();
-        abstract protected function isGranted($attribute, $object, $user = null);
+        abstract protected function supports($attribute, $class);
+        abstract protected function voteOnAttribute($attribute, $object, TokenInterface $token);
     }
+
+.. versionadded:: 2.8
+    The methods ``supports()`` and ``voteOnAttribute()`` were introduced in
+    Symfony 2.8. Prior to version 2.8, you had to implement the
+    ``getSupportedClasses()``, ``getSupportedAttributes()`` and ``isGranted()``
+    methods instead. See older versions of this documentation for more information.
 
 In this example, the voter will check if the user has access to a specific
 object according to your custom conditions (e.g. they must be the owner of
@@ -63,15 +68,14 @@ Creating the custom Voter
 -------------------------
 
 The goal is to create a voter that checks if a user has access to view or
-edit a particular object. Here's an example implementation:
-
-.. code-block:: php
+edit a particular object. Here's an example implementation::
 
     // src/AppBundle/Security/Authorization/Voter/PostVoter.php
     namespace AppBundle\Security\Authorization\Voter;
 
-    use Symfony\Component\Security\Core\Authorization\Voter\AbstractVoter;
     use AppBundle\Entity\User;
+    use Symfony\Component\Security\Core\Authorization\Voter\AbstractVoter;
+    use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
     use Symfony\Component\Security\Core\User\UserInterface;
 
     class PostVoter extends AbstractVoter
@@ -79,18 +83,16 @@ edit a particular object. Here's an example implementation:
         const VIEW = 'view';
         const EDIT = 'edit';
 
-        protected function getSupportedAttributes()
+        protected function supports($attribute, $class)
         {
-            return array(self::VIEW, self::EDIT);
+            return in_array($array(self::VIEW, self::EDIT)
+                && $this->isClassInstanceOf($class, 'AppBundle\Entity\Post');
         }
 
-        protected function getSupportedClasses()
+        protected function voteOnAttribute($attribute, $post, $token)
         {
-            return array('AppBundle\Entity\Post');
-        }
+            $user = $token->getUser();
 
-        protected function isGranted($attribute, $post, $user = null)
-        {
             // make sure there is a user object (i.e. that the user is logged in)
             if (!$user instanceof UserInterface) {
                 return false;
@@ -130,22 +132,20 @@ the security layer.
 
 To recap, here's what's expected from the three abstract methods:
 
-:method:`Symfony\\Component\\Security\\Core\\Authorization\\Voter\\AbstractVoter::getSupportedClasses`
-    It tells Symfony that your voter should be called whenever an object of one
-    of the given classes is passed to ``isGranted()``. For example, if you return
-    ``array('AppBundle\Model\Product')``, Symfony will call your voter when a
-    ``Product`` object is passed to ``isGranted()``.
+:method:`Symfony\\Component\\Security\\Core\\Authorization\\Voter\\AbstractVoter::supports`
+    This method is used to check if the passed attribute and class is supported
+    by the current voter. If it does, ``true`` should be returned and ``false``
+    in all other cases.
 
-:method:`Symfony\\Component\\Security\\Core\\Authorization\\Voter\\AbstractVoter::getSupportedAttributes`
-    It tells Symfony that your voter should be called whenever one of these
-    strings is passed as the first argument to ``isGranted()``. For example, if
-    you return ``array('CREATE', 'READ')``, then Symfony will call your voter
-    when one of these is passed to ``isGranted()``.
+    To check if the class is equal to some class or if it implements it, use
+    the
+    :method:`Symfony\\Component\\Security\\Core\\Authorization\\Voter\\AbstractVoter::isClassInstanceOf`
+    helper method.
 
-:method:`Symfony\\Component\\Security\\Core\\Authorization\\Voter\\AbstractVoter::isGranted`
-    It implements the business logic that verifies whether or not a given user is
-    allowed access to a given attribute (e.g. ``CREATE`` or ``READ``) on a given
-    object. This method must return a boolean.
+:method:`Symfony\\Component\\Security\\Core\\Authorization\\Voter\\AbstractVoter::voteOnAttribute`
+    It implements the business logic that verifies whether or not a given
+    Security token is allowed access to a given attribute (e.g. ``CREATE`` or
+    ``READ``) on a given object. This method must return a boolean.
 
 .. note::
 

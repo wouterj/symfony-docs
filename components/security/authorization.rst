@@ -87,24 +87,20 @@ Voters
 
 Voters are instances
 of :class:`Symfony\\Component\\Security\\Core\\Authorization\\Voter\\VoterInterface`,
-which means they have to implement a few methods which allows the decision
-manager to use them:
-
-``supportsAttribute($attribute)``
-    will be used to check if the voter knows how to handle the given attribute;
-
-``supportsClass($class)``
-    will be used to check if the voter is able to grant or deny access for
-    an object of the given class;
-
-``vote(TokenInterface $token, $object, array $attributes)``
-    this method will do the actual voting and return a value equal to one
-    of the class constants of :class:`Symfony\\Component\\Security\\Core\\Authorization\\Voter\\VoterInterface`,
-    i.e. ``VoterInterface::ACCESS_GRANTED``, ``VoterInterface::ACCESS_DENIED``
-    or ``VoterInterface::ACCESS_ABSTAIN``;
+which means they have to implement a ``vote()`` methods which allows the decision
+manager to use them. This method returns a constant of the
+:class:`Symfony\\Component\\Security\\Core\\Authorization\\Voter\\VoterInterface`,
+depending on whether it grants (``VoterInterface::ACCESS_GRANTED``) or denies
+(``VoterInterface::ACCESS_DENIED``) access. It returns
+``VoterInterface::ACCESS_ABSTAIN`` if it can't vote (e.g. because the attribute
+or class is not supported by the voter).
 
 The Security component contains some standard voters which cover many use
 cases:
+
+ * `AuthenticatedVoter`_
+ * `RoleVoter`_
+ * `RoleHierarchyVoter`_
 
 AuthenticatedVoter
 ~~~~~~~~~~~~~~~~~~
