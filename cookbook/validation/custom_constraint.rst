@@ -91,17 +91,19 @@ Using custom validators is very easy, just as the ones provided by Symfony itsel
 
     .. code-block:: php-annotations
 
-        // src/AppBundle/Entity/AcmeEntity.php
-        use Symfony\Component\Validator\Constraints as Assert;
-        use AppBundle\Validator\Constraints as AcmeAssert;
+        // src/AppBundle/Entity/Author.php
 
-        class AcmeEntity
+        // ...
+        use Symfony\Component\Validator\Constraints as Assert;
+        use AppBundle\Validator\Constraints as AppAssert;
+
+        class Author
         {
             // ...
 
             /**
              * @Assert\NotBlank
-             * @AcmeAssert\ContainsAlphanumeric
+             * @AppAssert\ContainsAlphanumeric
              */
             protected $name;
 
@@ -111,7 +113,7 @@ Using custom validators is very easy, just as the ones provided by Symfony itsel
     .. code-block:: yaml
 
         # src/AppBundle/Resources/config/validation.yml
-        AppBundle\Entity\AcmeEntity:
+        AppBundle\Entity\Author:
             properties:
                 name:
                     - NotBlank: ~
@@ -125,7 +127,7 @@ Using custom validators is very easy, just as the ones provided by Symfony itsel
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xsi:schemaLocation="http://symfony.com/schema/dic/constraint-mapping http://symfony.com/schema/dic/constraint-mapping/constraint-mapping-1.0.xsd">
 
-            <class name="AppBundle\Entity\AcmeEntity">
+            <class name="AppBundle\Entity\Author">
                 <property name="name">
                     <constraint name="NotBlank" />
                     <constraint name="AppBundle\Validator\Constraints\ContainsAlphanumeric" />
@@ -135,12 +137,14 @@ Using custom validators is very easy, just as the ones provided by Symfony itsel
 
     .. code-block:: php
 
-        // src/AppBundle/Entity/AcmeEntity.php
+        // src/AppBundle/Entity/Author.php
+
+        // ...
         use Symfony\Component\Validator\Mapping\ClassMetadata;
         use Symfony\Component\Validator\Constraints\NotBlank;
         use AppBundle\Validator\Constraints\ContainsAlphanumeric;
 
-        class AcmeEntity
+        class Author
         {
             public $name;
 
@@ -232,7 +236,7 @@ With this, the validator ``validate()`` method gets an object as its first argum
         }
     }
 
-Note that a class constraint validator is applied to the class itself, and
+Note that a class constraint validator is applied to the class itself and
 not to the property:
 
 .. configuration-block::
@@ -240,9 +244,9 @@ not to the property:
     .. code-block:: php-annotations
 
         /**
-         * @AcmeAssert\ContainsAlphanumeric
+         * @AppAssert\ContainsAlphanumeric
          */
-        class AcmeEntity
+        class Author
         {
             // ...
         }
@@ -250,13 +254,13 @@ not to the property:
     .. code-block:: yaml
 
         # src/AppBundle/Resources/config/validation.yml
-        AppBundle\Entity\AcmeEntity:
+        AppBundle\Entity\Author:
             constraints:
                 - AppBundle\Validator\Constraints\ContainsAlphanumeric: ~
 
     .. code-block:: xml
 
         <!-- src/AppBundle/Resources/config/validation.xml -->
-        <class name="AppBundle\Entity\AcmeEntity">
+        <class name="AppBundle\Entity\Author">
             <constraint name="AppBundle\Validator\Constraints\ContainsAlphanumeric" />
         </class>

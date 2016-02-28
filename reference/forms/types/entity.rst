@@ -54,7 +54,7 @@ The ``entity`` type has just one required option: the entity which should
 be listed inside the choice field::
 
     $builder->add('users', 'entity', array(
-        'class' => 'AcmeHelloBundle:User',
+        'class'    => 'AppBundle:User',
         'property' => 'username',
     ));
 
@@ -75,7 +75,7 @@ the ``query_builder`` option. The easiest way to use the option is as follows::
     // ...
 
     $builder->add('users', 'entity', array(
-        'class' => 'AcmeHelloBundle:User',
+        'class'         => 'AppBundle:User',
         'query_builder' => function (EntityRepository $er) {
             return $er->createQueryBuilder('u')
                 ->orderBy('u.username', 'ASC');
@@ -94,7 +94,7 @@ as a form option) and ``getUsers`` returns a collection of ``User`` entities,
 then you can supply the ``choices`` option directly::
 
     $builder->add('users', 'entity', array(
-        'class' => 'AcmeHelloBundle:User',
+        'class'   => 'AppBundle:User',
         'choices' => $group->getUsers(),
     ));
 
@@ -108,9 +108,9 @@ class
 
 **type**: ``string`` **required**
 
-The class of your entity (e.g. ``AcmeStoreBundle:Category``). This can be
-a fully-qualified class name (e.g. ``Acme\StoreBundle\Entity\Category``)
-or the short alias name (as shown prior).
+The class of your entity (e.g. ``AppBundle:User``). This can be a
+fully-qualified class name (e.g. ``AppBundle\Entity\User``) or the short alias
+name (as shown prior).
 
 .. include:: /reference/forms/types/options/data_class.rst.inc
 

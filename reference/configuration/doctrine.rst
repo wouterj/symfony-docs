@@ -14,16 +14,16 @@ Full Default Configuration
 
         doctrine:
             dbal:
-                default_connection:   default
+                default_connection: default
                 types:
                     # A collection of custom types
                     # Example
                     some_custom_type:
-                        class:                Acme\HelloBundle\MyCustomType
-                        commented:            true
+                        class:     AppBundle\Doctrine\CustomType
+                        commented: true
                 # If enabled all tables not prefixed with sf2_ will be ignored by the schema
                 # tool. This is for custom tables which should not be altered automatically.
-                #schema_filter:        ^sf2_
+                #schema_filter: ^sf2_
 
                 connections:
                     # A collection of different named connections (e.g. default, conn2, etc)
@@ -160,17 +160,17 @@ Full Default Configuration
                             # a collection of string functions
                             string_functions:
                                 # example
-                                # test_string: Acme\HelloBundle\DQL\StringFunction
+                                # test_string: AppBundle\Doctrine\DQL\StringFunction
 
                             # a collection of numeric functions
                             numeric_functions:
                                 # example
-                                # test_numeric: Acme\HelloBundle\DQL\NumericFunction
+                                # test_numeric: AppBundle\Doctrine\DQL\NumericFunction
 
                             # a collection of datetime functions
                             datetime_functions:
                                 # example
-                                # test_datetime: Acme\HelloBundle\DQL\DatetimeFunction
+                                # test_datetime: AppBundle\Doctrine\DQL\DatetimeFunction
 
                         # Register SQL Filters in the entity manager
                         filters:
@@ -214,7 +214,7 @@ Full Default Configuration
                         <doctrine:mapping-type name="enum">string</doctrine:mapping-type>
                     </doctrine:connection>
                     <doctrine:connection name="conn1" />
-                    <doctrine:type name="custom">Acme\HelloBundle\MyCustomType</doctrine:type>
+                    <doctrine:type name="custom">AppBundle\Doctrine\CustomType</doctrine:type>
                 </doctrine:dbal>
 
                 <doctrine:orm
@@ -238,19 +238,19 @@ Full Default Configuration
                             class="Doctrine\Common\Cache\MemcacheCache"
                         />
 
-                        <doctrine:mapping name="AcmeHelloBundle" />
+                        <doctrine:mapping name="AppBundle" />
 
                         <doctrine:dql>
                             <doctrine:string-function name="test_string">
-                                Acme\HelloBundle\DQL\StringFunction
+                                AppBundle\Doctrine\DQL\StringFunction
                             </doctrine:string-function>
 
                             <doctrine:numeric-function name="test_numeric">
-                                Acme\HelloBundle\DQL\NumericFunction
+                                AppBundle\Doctrine\DQL\NumericFunction
                             </doctrine:numeric-function>
 
                             <doctrine:datetime-function name="test_datetime">
-                                Acme\HelloBundle\DQL\DatetimeFunction
+                                AppBundle\Doctrine\DQL\DatetimeFunction
                             </doctrine:datetime-function>
                         </doctrine:dql>
                     </doctrine:entity-manager>
@@ -339,11 +339,10 @@ that exist in the DIC (for example ``%kernel.root_dir%``).
 prefix
 ......
 
-A common namespace prefix that all entities of this mapping share. This
-prefix should never conflict with prefixes of other defined mappings otherwise
-some of your entities cannot be found by Doctrine. This option defaults
-to the bundle namespace + ``Entity``, for example for an application bundle
-called AcmeHelloBundle prefix would be ``Acme\HelloBundle\Entity``.
+A common namespace prefix that all entities of this mapping share. This prefix
+should never conflict with prefixes of other defined mappings otherwise some of
+your entities cannot be found by Doctrine. This option defaults to the bundle
+namespace + ``Entity`` (e.g. ``AppBundle\Entity`` for the AppBundle).
 
 alias
 .....
@@ -404,7 +403,7 @@ The following block shows all possible configuration keys:
                 mapping_types:
                     enum: string
                 types:
-                    custom: Acme\HelloBundle\MyCustomType
+                    custom: AppBundle\Doctrine\CustomType
                 # the DBAL keepSlave option
                 keep_slave:           false
 
@@ -441,7 +440,7 @@ The following block shows all possible configuration keys:
 
                     <doctrine:option key="foo">bar</doctrine:option>
                     <doctrine:mapping-type name="enum">string</doctrine:mapping-type>
-                    <doctrine:type name="custom">Acme\HelloBundle\MyCustomType</doctrine:type>
+                    <doctrine:type name="custom">AppBundle\Doctrine\CustomType</doctrine:type>
                 </doctrine:dbal>
             </doctrine:config>
         </container>

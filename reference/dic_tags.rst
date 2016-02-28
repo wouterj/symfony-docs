@@ -119,7 +119,7 @@ And then register it as a tagged service:
     .. code-block:: yaml
 
         services:
-            acme.my_worker:
+            app.my_worker:
                 class: MyWorker
                 tags:
                     - { name: assetic.factory_worker }
@@ -132,7 +132,7 @@ And then register it as a tagged service:
             xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
             <services>
-                <service id="acme.my_worker" class="MyWorker">
+                <service id="app.my_worker" class="MyWorker">
                     <tag name="assetic.factory_worker" />
                 </service>
             </services>
@@ -141,7 +141,7 @@ And then register it as a tagged service:
     .. code-block:: php
 
         $container
-            ->register('acme.my_worker', 'MyWorker')
+            ->register('app.my_worker', 'MyWorker')
             ->addTag('assetic.factory_worker')
         ;
 
@@ -178,7 +178,7 @@ Second, define a service:
     .. code-block:: yaml
 
         services:
-            acme.my_filter:
+            app.my_filter:
                 class: MyFilter
                 tags:
                     - { name: assetic.filter, alias: my_filter }
@@ -191,7 +191,7 @@ Second, define a service:
             xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
             <services>
-                <service id="acme.my_filter" class="MyFilter">
+                <service id="app.my_filter" class="MyFilter">
                     <tag name="assetic.filter" alias="my_filter" />
                 </service>
             </services>
@@ -200,7 +200,7 @@ Second, define a service:
     .. code-block:: php
 
         $container
-            ->register('acme.my_filter', 'MyFilter')
+            ->register('app.my_filter', 'MyFilter')
             ->addTag('assetic.filter', array('alias' => 'my_filter'))
         ;
 
@@ -209,7 +209,7 @@ Finally, apply the filter:
 .. code-block:: twig
 
     {% javascripts
-        '@AcmeBaseBundle/Resources/public/js/global.js'
+        '@AppBundle/Resources/public/js/global.js'
         filter='my_filter'
     %}
         <script src="{{ asset_url }}"></script>
@@ -329,8 +329,8 @@ files during the cache clearing process.
 In order to register your custom cache clearer, first you must create a
 service class::
 
-    // src/Acme/MainBundle/Cache/MyClearer.php
-    namespace Acme\MainBundle\Cache;
+    // src/AppBundle/Cache/MyClearer.php
+    namespace AppBundle\Cache;
 
     use Symfony\Component\HttpKernel\CacheClearer\CacheClearerInterface;
 
@@ -338,9 +338,8 @@ service class::
     {
         public function clear($cacheDir)
         {
-            // clear your cache
+            // ... clear your cache
         }
-
     }
 
 Then register this class and tag it with ``kernel.cache_clearer``:
@@ -350,8 +349,8 @@ Then register this class and tag it with ``kernel.cache_clearer``:
     .. code-block:: yaml
 
         services:
-            my_cache_clearer:
-                class: Acme\MainBundle\Cache\MyClearer
+            app.cache_clearer:
+                class: AppBundle\Cache\MyClearer
                 tags:
                     - { name: kernel.cache_clearer }
 
@@ -363,7 +362,7 @@ Then register this class and tag it with ``kernel.cache_clearer``:
             xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
             <services>
-                <service id="my_cache_clearer" class="Acme\MainBundle\Cache\MyClearer">
+                <service id="app.cache_clearer" class="AppBundle\Cache\MyClearer">
                     <tag name="kernel.cache_clearer" />
                 </service>
             </services>
@@ -372,7 +371,7 @@ Then register this class and tag it with ``kernel.cache_clearer``:
     .. code-block:: php
 
         $container
-            ->register('my_cache_clearer', 'Acme\MainBundle\Cache\MyClearer')
+            ->register('app.cache_clearer', 'AppBundle\Cache\MyClearer')
             ->addTag('kernel.cache_clearer')
         ;
 
@@ -392,8 +391,8 @@ is generated dynamically.
 To register your own cache warmer, first create a service that implements
 the :class:`Symfony\\Component\\HttpKernel\\CacheWarmer\\CacheWarmerInterface` interface::
 
-    // src/Acme/MainBundle/Cache/MyCustomWarmer.php
-    namespace Acme\MainBundle\Cache;
+    // src/AppBundle/Cache/MyCustomWarmer.php
+    namespace AppBundle\Cache;
 
     use Symfony\Component\HttpKernel\CacheWarmer\CacheWarmerInterface;
 
@@ -423,8 +422,8 @@ tag:
     .. code-block:: yaml
 
         services:
-            main.warmer.my_custom_warmer:
-                class: Acme\MainBundle\Cache\MyCustomWarmer
+            app.cache_warmer:
+                class: AppBundle\Cache\MyCustomWarmer
                 tags:
                     - { name: kernel.cache_warmer, priority: 0 }
 
@@ -436,8 +435,8 @@ tag:
             xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
             <services>
-                <service id="main.warmer.my_custom_warmer"
-                    class="Acme\MainBundle\Cache\MyCustomWarmer"
+                <service id="app.cache_warmer"
+                    class="AppBundle\Cache\MyCustomWarmer"
                 >
                     <tag name="kernel.cache_warmer" priority="0" />
                 </service>
@@ -447,7 +446,7 @@ tag:
     .. code-block:: php
 
         $container
-            ->register('main.warmer.my_custom_warmer', 'Acme\MainBundle\Cache\MyCustomWarmer')
+            ->register('app.cache_warmer', 'AppBundle\Cache\MyCustomWarmer')
             ->addTag('kernel.cache_warmer', array('priority' => 0))
         ;
 
@@ -927,8 +926,8 @@ Now, register your loader as a service and tag it with ``translation.loader``:
     .. code-block:: yaml
 
         services:
-            main.translation.my_custom_loader:
-                class: Acme\MainBundle\Translation\MyCustomLoader
+            app.translation_loader:
+                class: AppBundle\Translation\MyCustomLoader
                 tags:
                     - { name: translation.loader, alias: bin }
 
@@ -940,10 +939,9 @@ Now, register your loader as a service and tag it with ``translation.loader``:
             xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
             <services>
-                <service
-                    id="main.translation.my_custom_loader"
-                    class="Acme\MainBundle\Translation\MyCustomLoader">
-
+                <service id="app.translation_loader"
+                    class="AppBundle\Translation\MyCustomLoader"
+                >
                     <tag name="translation.loader" alias="bin" />
                 </service>
             </services>
@@ -952,10 +950,7 @@ Now, register your loader as a service and tag it with ``translation.loader``:
     .. code-block:: php
 
         $container
-            ->register(
-                'main.translation.my_custom_loader',
-                'Acme\MainBundle\Translation\MyCustomLoader'
-            )
+            ->register('app.translation_loader', 'AppBundle\Translation\MyCustomLoader')
             ->addTag('translation.loader', array('alias' => 'bin'))
         ;
 
@@ -995,8 +990,8 @@ You can create your own extractor by creating a class that implements
 and tagging the service with ``translation.extractor``. The tag has one
 required option: ``alias``, which defines the name of the extractor::
 
-    // src/Acme/DemoBundle/Translation/FooExtractor.php
-    namespace Acme\DemoBundle\Translation;
+    // src/AppBundle/Translation/FooExtractor.php
+    namespace AppBundle\Translation;
 
     use Symfony\Component\Translation\Extractor\ExtractorInterface;
     use Symfony\Component\Translation\MessageCatalogue;
@@ -1027,8 +1022,8 @@ required option: ``alias``, which defines the name of the extractor::
     .. code-block:: yaml
 
         services:
-            acme_demo.translation.extractor.foo:
-                class: Acme\DemoBundle\Translation\FooExtractor
+            app.foo_translation_extractor:
+                class: AppBundle\Translation\FooExtractor
                 tags:
                     - { name: translation.extractor, alias: foo }
 
@@ -1040,10 +1035,9 @@ required option: ``alias``, which defines the name of the extractor::
             xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
             <services>
-                <service
-                    id="acme_demo.translation.extractor.foo"
-                    class="Acme\DemoBundle\Translation\FooExtractor">
-
+                <service id="app.foo_translation_extractor"
+                    class="AppBundle\Translation\FooExtractor"
+                >
                     <tag name="translation.extractor" alias="foo" />
                 </service>
             </services>
@@ -1051,11 +1045,10 @@ required option: ``alias``, which defines the name of the extractor::
 
     .. code-block:: php
 
-        $container->register(
-            'acme_demo.translation.extractor.foo',
-            'Acme\DemoBundle\Translation\FooExtractor'
-        )
-            ->addTag('translation.extractor', array('alias' => 'foo'));
+        $container
+            ->register('app.foo_translation_extractor', 'AppBundle\Translation\FooExtractor')
+            ->addTag('translation.extractor', array('alias' => 'foo'))
+        ;
 
 translation.dumper
 ------------------
@@ -1091,8 +1084,8 @@ This is the name that's used to determine which dumper should be used.
     .. code-block:: yaml
 
         services:
-            acme_demo.translation.dumper.json:
-                class: Acme\DemoBundle\Translation\JsonFileDumper
+            app.json_translation_dumper:
+                class: AppBundle\Translation\JsonFileDumper
                 tags:
                     - { name: translation.dumper, alias: json }
 
@@ -1105,8 +1098,8 @@ This is the name that's used to determine which dumper should be used.
 
             <services>
                 <service
-                    id="acme_demo.translation.dumper.json"
-                    class="Acme\DemoBundle\Translation\JsonFileDumper">
+                    id="app.json_translation_dumper"
+                    class="AppBundle\Translation\JsonFileDumper">
 
                     <tag name="translation.dumper" alias="json" />
                 </service>
@@ -1116,8 +1109,8 @@ This is the name that's used to determine which dumper should be used.
     .. code-block:: php
 
         $container->register(
-            'acme_demo.translation.dumper.json',
-            'Acme\DemoBundle\Translation\JsonFileDumper'
+            'app.json_translation_dumper',
+            'AppBundle\Translation\JsonFileDumper'
         )
             ->addTag('translation.dumper', array('alias' => 'json'));
 
@@ -1229,8 +1222,8 @@ the new loader and tag it with ``twig.loader``:
     .. code-block:: yaml
 
         services:
-            acme.demo_bundle.loader.some_twig_loader:
-                class: Acme\DemoBundle\Loader\SomeTwigLoader
+            app.twig_loader:
+                class: AppBundle\Loader\SomeTwigLoader
                 tags:
                     - { name: twig.loader }
 
@@ -1243,8 +1236,8 @@ the new loader and tag it with ``twig.loader``:
 
             <services>
                 <service
-                    id="acme.demo_bundle.loader.some_twig_loader"
-                    class="Acme\DemoBundle\Loader\SomeTwigLoader">
+                    id="app.twig_loader"
+                    class="AppBundle\Loader\SomeTwigLoader">
 
                     <tag name="twig.loader" />
                 </service>
@@ -1254,10 +1247,7 @@ the new loader and tag it with ``twig.loader``:
     .. code-block:: php
 
         $container
-            ->register(
-                'acme.demo_bundle.loader.some_twig_loader',
-                'Acme\DemoBundle\Loader\SomeTwigLoader'
-            )
+            ->register('app.twig_loader', 'AppBundle\Loader\SomeTwigLoader')
             ->addTag('twig.loader')
         ;
 

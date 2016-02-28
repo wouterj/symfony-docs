@@ -17,7 +17,7 @@ TwigBundle Configuration ("twig")
                     - form_div_layout.html.twig
 
                     # Example:
-                    - MyBundle::form.html.twig
+                    - AcmeFormBundle::form.html.twig
             globals:
 
                 # Examples:
@@ -69,7 +69,7 @@ TwigBundle Configuration ("twig")
                 </twig:form>
                 <twig:global key="foo" id="bar" type="service" />
                 <twig:global key="pi">3.14</twig:global>
-                <twig:exception-controller>AcmeFooBundle:Exception:showException</twig:exception-controller>
+                <twig:exception-controller>AppBundle:Exception:showException</twig:exception-controller>
                 <twig:path namespace="foo_bar">%kernel.root_dir%/../vendor/acme/foo-bar/templates</twig:path>
             </twig:config>
         </container>
@@ -93,7 +93,7 @@ TwigBundle Configuration ("twig")
              'charset'              => '%kernel.charset%',
              'debug'                => '%kernel.debug%',
              'strict_variables'     => false,
-             'exception_controller' => 'AcmeFooBundle:Exception:showException',
+             'exception_controller' => 'AppBundle:Exception:showException',
              'optimizations'        => true,
              'paths' => array(
                  '%kernel.root_dir%/../vendor/acme/foo-bar/templates' => 'foo_bar',

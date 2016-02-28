@@ -18,7 +18,7 @@ can do this without creating a controller:
 
     .. code-block:: yaml
 
-        acme_privacy:
+        privacy:
             path: /privacy
             defaults:
                 _controller: FrameworkBundle:Template:template
@@ -32,7 +32,7 @@ can do this without creating a controller:
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
 
-            <route id="acme_privacy" path="/privacy">
+            <route id="privacy" path="/privacy">
                 <default key="_controller">FrameworkBundle:Template:template</default>
                 <default key="template">static/privacy.html.twig</default>
             </route>
@@ -44,9 +44,9 @@ can do this without creating a controller:
         use Symfony\Component\Routing\Route;
 
         $collection = new RouteCollection();
-        $collection->add('acme_privacy', new Route('/privacy', array(
-            '_controller'  => 'FrameworkBundle:Template:template',
-            'template'     => 'static/privacy.html.twig',
+        $collection->add('privacy', new Route('/privacy', array(
+            '_controller' => 'FrameworkBundle:Template:template',
+            'template'    => 'static/privacy.html.twig',
         )));
 
         return $collection;
@@ -64,7 +64,7 @@ this is probably only useful if you'd like to cache this page partial (see
 
     .. code-block:: html+twig
 
-        {{ render(url('acme_privacy')) }}
+        {{ render(url('privacy')) }}
 
     .. code-block:: html+php
 
@@ -73,7 +73,7 @@ this is probably only useful if you'd like to cache this page partial (see
         ?>
 
         <?php echo $view['actions']->render(
-            $view['router']->generate('acme_privacy', array(), UrlGeneratorInterface::ABSOLUTE_URL)
+            $view['router']->generate('privacy', array(), UrlGeneratorInterface::ABSOLUTE_URL)
         ) ?>
 
 .. _cookbook-templating-no-controller-caching:
@@ -93,7 +93,7 @@ other variables in your route, you can control exactly how your page is cached:
 
     .. code-block:: yaml
 
-        acme_privacy:
+        privacy:
             path: /privacy
             defaults:
                 _controller:  FrameworkBundle:Template:template
@@ -109,7 +109,7 @@ other variables in your route, you can control exactly how your page is cached:
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
 
-            <route id="acme_privacy" path="/privacy">
+            <route id="privacy" path="/privacy">
                 <default key="_controller">FrameworkBundle:Template:template</default>
                 <default key="template">static/privacy.html.twig</default>
                 <default key="maxAge">86400</default>
@@ -123,11 +123,11 @@ other variables in your route, you can control exactly how your page is cached:
         use Symfony\Component\Routing\Route;
 
         $collection = new RouteCollection();
-        $collection->add('acme_privacy', new Route('/privacy', array(
-            '_controller'  => 'FrameworkBundle:Template:template',
-            'template'     => 'static/privacy.html.twig',
-            'maxAge'       => 86400,
-            'sharedAge' => 86400,
+        $collection->add('privacy', new Route('/privacy', array(
+            '_controller' => 'FrameworkBundle:Template:template',
+            'template'    => 'static/privacy.html.twig',
+            'maxAge'      => 86400,
+            'sharedAge'   => 86400,
         )));
 
         return $collection;

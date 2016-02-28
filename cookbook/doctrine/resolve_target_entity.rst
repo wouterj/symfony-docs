@@ -39,9 +39,8 @@ brevity) to explain how to set up and use the ``ResolveTargetEntityListener``.
 
 A Customer entity::
 
-    // src/Acme/AppBundle/Entity/Customer.php
-
-    namespace Acme\AppBundle\Entity;
+    // src/AppBundle/Entity/Customer.php
+    namespace AppBundle\Entity;
 
     use Doctrine\ORM\Mapping as ORM;
     use Acme\CustomerBundle\Entity\Customer as BaseCustomer;
@@ -53,14 +52,12 @@ A Customer entity::
      */
     class Customer extends BaseCustomer implements InvoiceSubjectInterface
     {
-        // In this example, any methods defined in the InvoiceSubjectInterface
-        // are already implemented in the BaseCustomer
+        // ...
     }
 
 An Invoice entity::
 
     // src/Acme/InvoiceBundle/Entity/Invoice.php
-
     namespace Acme\InvoiceBundle\Entity;
 
     use Doctrine\ORM\Mapping AS ORM;
@@ -84,7 +81,6 @@ An Invoice entity::
 An InvoiceSubjectInterface::
 
     // src/Acme/InvoiceBundle/Model/InvoiceSubjectInterface.php
-
     namespace Acme\InvoiceBundle\Model;
 
     /**
@@ -118,7 +114,7 @@ about the replacement:
             orm:
                 # ...
                 resolve_target_entities:
-                    Acme\InvoiceBundle\Model\InvoiceSubjectInterface: Acme\AppBundle\Entity\Customer
+                    Acme\InvoiceBundle\Model\InvoiceSubjectInterface: AppBundle\Entity\Customer
 
     .. code-block:: xml
 
@@ -132,7 +128,7 @@ about the replacement:
             <doctrine:config>
                 <doctrine:orm>
                     <!-- ... -->
-                    <doctrine:resolve-target-entity interface="Acme\InvoiceBundle\Model\InvoiceSubjectInterface">Acme\AppBundle\Entity\Customer</doctrine:resolve-target-entity>
+                    <doctrine:resolve-target-entity interface="Acme\InvoiceBundle\Model\InvoiceSubjectInterface">AppBundle\Entity\Customer</doctrine:resolve-target-entity>
                 </doctrine:orm>
             </doctrine:config>
         </container>
@@ -144,7 +140,7 @@ about the replacement:
             'orm' => array(
                 // ...
                 'resolve_target_entities' => array(
-                    'Acme\InvoiceBundle\Model\InvoiceSubjectInterface' => 'Acme\AppBundle\Entity\Customer',
+                    'Acme\InvoiceBundle\Model\InvoiceSubjectInterface' => 'AppBundle\Entity\Customer',
                 ),
             ),
         ));

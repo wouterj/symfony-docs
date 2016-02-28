@@ -333,20 +333,19 @@ Importing Configuration with ``imports``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 So far, you've placed your ``app.mailer`` service container definition directly
-in the application configuration file (e.g. ``app/config/config.yml``). Of
-course, since the ``Mailer`` class itself lives inside the AcmeHelloBundle, it
-makes more sense to put the ``app.mailer`` container definition inside the
-bundle as well.
+in the application configuration file (e.g. ``app/config/config.yml``). If your
+app will have many services, you might want to split the many service
+definitions into multiple files. Fortunately, services definition files can
+import other files.
 
-First, move the ``app.mailer`` container definition into a new container resource
-file inside AcmeHelloBundle. If the ``Resources`` or ``Resources/config``
-directories don't exist, create them.
+First, move the ``app.mailer`` container definition into a new configuration
+file (e.g. ``app/config/services/mail.yml``):
 
 .. configuration-block::
 
     .. code-block:: yaml
 
-        # src/Acme/HelloBundle/Resources/config/services.yml
+        # app/config/services/mail.yml
         parameters:
             app.mailer.transport: sendmail
 
@@ -357,7 +356,7 @@ directories don't exist, create them.
 
     .. code-block:: xml
 
-        <!-- src/Acme/HelloBundle/Resources/config/services.xml -->
+        <!-- app/config/services/mail.xml -->
         <?xml version="1.0" encoding="UTF-8" ?>
         <container xmlns="http://symfony.com/schema/dic/services"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -377,7 +376,7 @@ directories don't exist, create them.
 
     .. code-block:: php
 
-        // src/Acme/HelloBundle/Resources/config/services.php
+        // app/config/services/mail.php
         use Symfony\Component\DependencyInjection\Definition;
 
         $container->setParameter('app.mailer.transport', 'sendmail');
@@ -387,18 +386,16 @@ directories don't exist, create them.
             array('%app.mailer.transport%')
         ));
 
-The definition itself hasn't changed, only its location. Of course the service
-container doesn't know about the new resource file. Fortunately, you can
-easily import the resource file using the ``imports`` key in the application
-configuration.
+The definition itself hasn't changed, only its location. Now, you can import
+this file in the mail file using the ``imports`` key:
 
 .. configuration-block::
 
     .. code-block:: yaml
 
-        # app/config/config.yml
+        # app/config/services.yml
         imports:
-            - { resource: '@AcmeHelloBundle/Resources/config/services.yml' }
+            - { resource: 'services/mail.yml' }
 
     .. code-block:: xml
 
@@ -410,23 +407,32 @@ configuration.
                 http://symfony.com/schema/dic/services/services-1.0.xsd">
 
             <imports>
-                <import resource="@AcmeHelloBundle/Resources/config/services.xml"/>
+                <import resource="services/mail.xml"/>
             </imports>
         </container>
 
     .. code-block:: php
 
         // app/config/config.php
-        $loader->import('@AcmeHelloBundle/Resources/config/services.php');
+        $loader->import('services/mail.php');
 
 .. include:: /components/dependency_injection/_imports-parameters-note.rst.inc
 
 The ``imports`` directive allows your application to include service container
 configuration resources from any other location (most commonly from bundles).
 The ``resource`` location, for files, is the absolute path to the resource
-file. The special ``@AcmeHelloBundle`` syntax resolves the directory path
-of the AcmeHelloBundle bundle. This helps you specify the path to the resource
-without worrying later if you move the AcmeHelloBundle to a different directory.
+file.
+
+.. tip::
+
+    If you take a look at the ``app/config/config.yml`` file, you'll discover
+    that the main ``app/config/services.yml`` file is imported in the main
+    configuration as well.
+
+.. seealso::
+
+    You can read more about importing and organizing configuration files in
+    ":doc:`/cookbook/configuration/configuration_organization`".
 
 .. index::
    single: Service Container; Extension configuration

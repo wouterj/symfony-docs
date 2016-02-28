@@ -49,15 +49,15 @@ Each part will be explained in the next section.
 
             encoders:
                 # Examples:
-                Acme\DemoBundle\Entity\User1: sha512
-                Acme\DemoBundle\Entity\User2:
+                AppBundle\Entity\ApiUser: sha512
+                AppBundle\Entity\User:
                     algorithm:           sha512
                     encode_as_base64:    true
                     iterations:          5000
 
                 # PBKDF2 encoder
                 # see the note about PBKDF2 below for details on security and speed
-                Acme\Your\Class\Name:
+                AppBundle\Entity\User:
                     algorithm:            pbkdf2
                     hash_algorithm:       sha512
                     encode_as_base64:     true
@@ -65,18 +65,18 @@ Each part will be explained in the next section.
                     key_length:           40
 
                 # Example options/values for what a custom encoder might look like
-                Acme\DemoBundle\Entity\User3:
+                AppBundle\Entity\User:
                     id:                   my.encoder.id
 
                 # BCrypt encoder
                 # see the note about bcrypt below for details on specific dependencies
-                Acme\DemoBundle\Entity\User4:
+                AppBundle\Entity\User:
                     algorithm:            bcrypt
                     cost:                 13
 
                 # Plaintext encoder
                 # it does not do any encoding
-                Acme\DemoBundle\Entity\User5:
+                AppBundle\Entity\User:
                     algorithm:            plaintext
                     ignore_case:          false
 

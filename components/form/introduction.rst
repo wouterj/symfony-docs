@@ -402,8 +402,8 @@ is created from the form factory.
 
     .. code-block:: php-symfony
 
-        // src/Acme/TaskBundle/Controller/DefaultController.php
-        namespace Acme\TaskBundle\Controller;
+        // src/AppBundle/Controller/DefaultController.php
+        namespace AppBundle\Controller;
 
         use Symfony\Bundle\FrameworkBundle\Controller\Controller;
         use Symfony\Component\HttpFoundation\Request;
@@ -419,7 +419,7 @@ is created from the form factory.
                     ->add('dueDate', 'date')
                     ->getForm();
 
-                return $this->render('AcmeTaskBundle:Default:new.html.twig', array(
+                return $this->render('task/new.html.twig', array(
                     'form' => $form->createView(),
                 ));
             }

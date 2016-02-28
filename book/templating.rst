@@ -381,7 +381,7 @@ Template Naming and Locations
 
 .. versionadded:: 2.2
     Namespaced path support was introduced in 2.2, allowing for template names
-    like ``@AcmeDemo/layout.html.twig``. See :doc:`/cookbook/templating/namespaced_paths`
+    like ``@App/layout.html.twig``. See :doc:`/cookbook/templating/namespaced_paths`
     for more details.
 
 By default, templates can live in two different locations:

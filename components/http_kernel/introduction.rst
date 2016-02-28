@@ -249,10 +249,10 @@ will be called after another event - ``kernel.controller`` - is dispatched.
     information is typically placed on the ``Request`` via the ``RouterListener``).
     This string is then transformed into a PHP callable by doing the following:
 
-    a) The ``AcmeDemoBundle:Default:index`` format of the ``_controller`` key
+    a) The ``AppBundle:Default:index`` format of the ``_controller`` key
        is changed to another string that contains the full class and method
        name of the controller by following the convention used in Symfony - e.g.
-       ``Acme\DemoBundle\Controller\DefaultController::indexAction``. This transformation
+       ``AppBundle\Controller\DefaultController::indexAction``. This transformation
        is specific to the :class:`Symfony\\Bundle\\FrameworkBundle\\Controller\\ControllerResolver`
        sub-class used by the Symfony Framework.
 
