@@ -49,7 +49,7 @@ recognizes several strategies:
 ``unanimous``
     only grant access if none of the voters has denied access;
 
-.. code-block:: php
+Usage of the available options in detail::
 
     use Symfony\Component\Security\Core\Authorization\AccessDecisionManager;
 
@@ -101,9 +101,7 @@ The :class:`Symfony\\Component\\Security\\Core\\Authorization\\Voter\\Authentica
 voter supports the attributes ``IS_AUTHENTICATED_FULLY``, ``IS_AUTHENTICATED_REMEMBERED``,
 and ``IS_AUTHENTICATED_ANONYMOUSLY`` and grants access based on the current
 level of authentication, i.e. is the user fully authenticated, or only based
-on a "remember-me" cookie, or even authenticated anonymously?
-
-.. code-block:: php
+on a "remember-me" cookie, or even authenticated anonymously?::
 
     use Symfony\Component\Security\Core\Authentication\AuthenticationTrustResolver;
     use Symfony\Component\Security\Core\Authentication\Token\AnonymousToken;

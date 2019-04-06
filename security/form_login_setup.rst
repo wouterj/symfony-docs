@@ -38,6 +38,7 @@ and your generated code may be slightly different:
      created: templates/security/login.html.twig
 
 .. versionadded:: 1.8
+
     Support for login form authentication was added to ``make:auth`` in MakerBundle 1.8.
 
 This generates the following: 1) a login route & controller, 2) a template that
@@ -253,7 +254,7 @@ a traditional HTML form that submits to ``/login``:
 
     .. code-block:: php
 
-        // app/config/security.php
+        // config/packages/security.php
         use App\Security\LoginFormAuthenticator;
 
         $container->loadFromExtension('security', [

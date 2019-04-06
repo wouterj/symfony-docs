@@ -16,9 +16,9 @@ application behavior.
 .. best-practice::
 
     Define the infrastructure-related configuration options as
-    :doc:`environment variables </configuration/external_parameters>`. During
-    development, use the ``.env`` and ``.env.local`` files at the root of your project
-    to set these.
+    :doc:`environment variables </configuration/environment_variables>`. During
+    development, use the ``.env`` and ``.env.local`` files at the root of your
+    project to set these.
 
 By default, Symfony adds these types of options to the ``.env`` file when
 installing new dependencies in the app:
@@ -100,8 +100,8 @@ paginated results.
     Use constants to define configuration options that rarely change.
 
 The traditional approach for defining configuration options has caused many
-Symfony apps to include an option like the following, which would be used
-to control the number of posts to display on the blog homepage:
+Symfony applications to include an option like the following, which would be
+used to control the number of posts to display on the blog homepage:
 
 .. code-block:: yaml
 

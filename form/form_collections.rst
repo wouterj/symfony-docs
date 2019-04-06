@@ -490,7 +490,7 @@ you will learn about next!).
             <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                 xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
-                                http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+                                https://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
                 <entity name="App\Entity\Task">
                     <!-- ... -->
@@ -515,6 +515,7 @@ you will learn about next!).
 
         // src/Entity/Task.php
 
+        // ...
         public function addTag(Tag $tag)
         {
             // for a many-to-many association:
@@ -635,7 +636,7 @@ the relationship between the removed ``Tag`` and ``Task`` object.
     ``Tag`` is properly removed.
 
     In Doctrine, you have two sides of the relationship: the owning side and the
-    inverse side. Normally in this case you'll have a many-to-many relationship
+    inverse side. Normally in this case you'll have a many-to-one relationship
     and the deleted tags will disappear and persist correctly (adding new
     tags also works effortlessly).
 
@@ -648,7 +649,6 @@ the relationship between the removed ``Tag`` and ``Task`` object.
     is handling the "update" of your Task::
 
         // src/Controller/TaskController.php
-
         use App\Entity\Task;
         use Doctrine\Common\Collections\ArrayCollection;
 

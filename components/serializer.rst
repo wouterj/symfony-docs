@@ -245,23 +245,30 @@ The definition of serialization can be specified using annotations, XML
 or YAML. The :class:`Symfony\\Component\\Serializer\\Mapping\\Factory\\ClassMetadataFactory`
 that will be used by the normalizer must be aware of the format to use.
 
-Initialize the :class:`Symfony\\Component\\Serializer\\Mapping\\Factory\\ClassMetadataFactory`
-like the following::
+The following code shows how to initialize the :class:`Symfony\\Component\\Serializer\\Mapping\\Factory\\ClassMetadataFactory`
+for each format:
 
-    use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactory;
-    // For annotations
+* Annotations in PHP files::
+
     use Doctrine\Common\Annotations\AnnotationReader;
+    use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactory;
     use Symfony\Component\Serializer\Mapping\Loader\AnnotationLoader;
-    // For XML
-    // use Symfony\Component\Serializer\Mapping\Loader\XmlFileLoader;
-    // For YAML
-    // use Symfony\Component\Serializer\Mapping\Loader\YamlFileLoader;
 
     $classMetadataFactory = new ClassMetadataFactory(new AnnotationLoader(new AnnotationReader()));
-    // For XML
-    // $classMetadataFactory = new ClassMetadataFactory(new XmlFileLoader('/path/to/your/definition.xml'));
-    // For YAML
-    // $classMetadataFactory = new ClassMetadataFactory(new YamlFileLoader('/path/to/your/definition.yaml'));
+
+* XML files::
+
+    use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactory;
+    use Symfony\Component\Serializer\Mapping\Loader\YamlFileLoader;
+
+    $classMetadataFactory = new ClassMetadataFactory(new YamlFileLoader('/path/to/your/definition.yaml'));
+
+* YAML files::
+
+    use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactory;
+    use Symfony\Component\Serializer\Mapping\Loader\XmlFileLoader;
+
+    $classMetadataFactory = new ClassMetadataFactory(new XmlFileLoader('/path/to/your/definition.xml'));
 
 .. _component-serializer-attributes-groups-annotations:
 
@@ -392,26 +399,30 @@ As for groups, attributes can be selected during both the serialization and dese
 Ignoring Attributes
 -------------------
 
-.. note::
+As an option, there's a way to ignore attributes from the origin object.
+To remove those attributes provide an array via the ``ignored_attributes``
+key in the ``context`` parameter of the desired serializer method::
 
-    Using attribute groups instead of the :method:`Symfony\\Component\\Serializer\\Normalizer\\AbstractNormalizer::setIgnoredAttributes`
-    method is considered best practice.
-
-As an option, there's a way to ignore attributes from the origin object. To remove
-those attributes use the
-:method:`Symfony\\Component\\Serializer\\Normalizer\\AbstractNormalizer::setIgnoredAttributes`
-method on the normalizer definition::
-
+    use Acme\Person;
     use Symfony\Component\Serializer\Serializer;
     use Symfony\Component\Serializer\Encoder\JsonEncoder;
     use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 
+    $person = new Person();
+    $person->setName('foo');
+    $person->setAge(99);
+
     $normalizer = new ObjectNormalizer();
-    $normalizer->setIgnoredAttributes(['age']);
     $encoder = new JsonEncoder();
 
     $serializer = new Serializer([$normalizer], [$encoder]);
-    $serializer->serialize($person, 'json'); // Output: {"name":"foo","sportsperson":false}
+    $serializer->serialize($person, 'json', ['ignored_attributes' => 'age']); // Output: {"name":"foo"}
+
+.. deprecated:: 4.2
+
+    The :method:`Symfony\\Component\\Serializer\\Normalizer\\AbstractNormalizer::setIgnoredAttributes`
+    method that was used as an alternative to the ``ignored_attributes`` option
+    was deprecated in Symfony 4.2.
 
 .. _component-serializer-converting-property-names-when-serializing-and-deserializing:
 
@@ -762,7 +773,7 @@ The ``CsvEncoder`` encodes to and decodes from CSV.
 You can pass the context key ``as_collection`` in order to have the results
 always as a collection.
 
-.. versionadded:: 4.2
+.. deprecated:: 4.2
 
     Relying on the default value ``false`` is deprecated since Symfony 4.2.
 
@@ -966,9 +977,9 @@ Here, we set it to 2 for the ``$child`` property:
 
     .. code-block:: php-annotations
 
-        use Symfony\Component\Serializer\Annotation\MaxDepth;
-
         namespace Acme;
+
+        use Symfony\Component\Serializer\Annotation\MaxDepth;
 
         class MyObj
         {
@@ -1233,12 +1244,12 @@ When using the component standalone, an implementation of :class:`Symfony\\Compo
 (usually an instance of :class:`Symfony\\Component\\PropertyInfo\\PropertyInfoExtractor`) must be passed as the 4th
 parameter of the ``ObjectNormalizer``::
 
+    namespace Acme;
+
     use Symfony\Component\PropertyInfo\Extractor\ReflectionExtractor;
     use Symfony\Component\Serializer\Serializer;
     use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
     use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
-
-    namespace Acme;
 
     class ObjectOuter
     {

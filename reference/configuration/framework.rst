@@ -312,7 +312,7 @@ doubling them to prevent Symfony from interpreting them as container parameters)
             xmlns:framework="http://symfony.com/schema/dic/symfony"
             xsi:schemaLocation="http://symfony.com/schema/dic/services
                 https://symfony.com/schema/dic/services/services-1.0.xsd
-                https://symfony.com/schema/dic/symfony https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
+                http://symfony.com/schema/dic/symfony https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
 
             <framework:config ide="myide://open?url=file://%%f&line=%%l"/>
         </container>
@@ -762,7 +762,7 @@ strict_requirements
 
 **type**: ``mixed`` **default**: ``true``
 
-Determines the routing generator behaviour. When generating a route that
+Determines the routing generator behavior. When generating a route that
 has specific :doc:`requirements </routing/requirements>`, the generator
 can behave differently in case the used parameters do not meet these requirements.
 
@@ -1796,7 +1796,7 @@ strict_email
 
 **type**: ``Boolean`` **default**: ``false``
 
-.. versionadded:: 4.1
+.. deprecated:: 4.1
 
     The ``strict_email`` option was deprecated in Symfony 4.1. Use the new
     ``email_validation_mode`` option instead.
@@ -2261,7 +2261,7 @@ A list of workflows to be created by the framework extension:
 
 .. seealso::
 
-    See also the article about :doc:`using workflows in Symfony apps </workflow>`.
+    See also the article about :doc:`using workflows in Symfony applications </workflow>`.
 
 .. _reference-workflows-enabled:
 

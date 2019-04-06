@@ -27,7 +27,7 @@ Move into your project directory and run this command:
 .. code-block:: terminal
 
     $ cd your-project/
-    $ composer require symfony/web-server-bundle --dev
+    $ composer require --dev symfony/web-server-bundle
 
 Starting the Web Server
 -----------------------
@@ -109,8 +109,7 @@ you have to pass the correct location using the ``--docroot`` option:
 Stopping the Server
 -------------------
 
-When you are finished, you can stop the web server using the ``server:stop``
-command:
+When you finish your work, you can stop the web server with the following command:
 
 .. code-block:: terminal
 

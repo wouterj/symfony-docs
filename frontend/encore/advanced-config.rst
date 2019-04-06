@@ -100,6 +100,30 @@ prefer to build configs separately, pass the ``--config-name`` option:
 
     $ yarn encore dev --config-name firstConfig
 
+Next, define the output directories of each build:
+
+.. code-block:: yaml
+
+    # config/packages/webpack_encore.yaml
+    webpack_encore:
+        output_path: '%kernel.public_dir%/public/default_build'
+        builds:
+            firstConfig: '%kernel.public_dir%/public/first_build'
+            secondConfig: '%kernel.public_dir%/public/second_build'
+
+Finally, use the third optional parameter of the ``encore_entry_*_tags()``
+functions to specify which build to use:
+
+.. code-block:: twig
+
+    {# Using the entrypoints.json file located in ./public/first_build #}
+    {{ encore_entry_script_tags('app', null, 'firstConfig') }}
+    {{ encore_entry_link_tags('global', null, 'firstConfig') }}
+
+    {# Using the entrypoints.json file located in ./public/second_build #}
+    {{ encore_entry_script_tags('mobile', null, 'secondConfig') }}
+    {{ encore_entry_link_tags('mobile', null, 'secondConfig') }}
+
 Generating a Webpack Configuration Object without using the Command-Line Interface
 ----------------------------------------------------------------------------------
 
@@ -145,6 +169,47 @@ normally use from the command-line interface:
         https: true,
         keepPublicPath: true,
     });
+
+Having the full control on Loaders Rules
+----------------------------------------
+
+The method ``configureLoaderRule()`` provides a clean way to configure Webpack loaders rules (``module.rules``, see `Configuration <https://webpack.js.org/concepts/loaders/#configuration>`_).
+
+This is a low-level method. All your modifications will be applied just before pushing the loaders rules to Webpack.
+It means that you can override the default configuration provided by Encore, which may break things. Be careful when using it.
+
+One use might be to configure the ``eslint-loader`` to lint Vue files too.
+The following code is equivalent:
+
+.. code-block:: javascript
+
+    // Manually
+    const webpackConfig = Encore.getWebpackConfig();
+
+    const eslintLoader = webpackConfig.module.rules.find(rule => rule.loader === 'eslint-loader');
+    eslintLoader.test = /\.(jsx?|vue)$/;
+
+    return webpackConfig;
+
+    // Using Encore.configureLoaderRule()
+    Encore.configureLoaderRule('eslint', loaderRule => {
+        loaderRule.test = /\.(jsx?|vue)$/
+    });
+
+    return Encore.getWebpackConfig();
+
+The following loaders are configurable with ``configureLoaderRule()``:
+  - ``javascript`` (alias ``js``)
+  - ``css``
+  - ``images``
+  - ``fonts``
+  - ``sass`` (alias ``scss``)
+  - ``less``
+  - ``stylus``
+  - ``vue``
+  - ``eslint``
+  - ``typescript`` (alias ``ts``)
+  - ``handlebars``
 
 .. _`configuration options`: https://webpack.js.org/configuration/
 .. _`Webpack's watchOptions`: https://webpack.js.org/configuration/watch/#watchoptions

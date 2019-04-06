@@ -46,7 +46,7 @@ Kernel Name
 **type**: ``string`` **default**: ``src`` (i.e. the directory name holding
 the kernel class)
 
-.. versionadded:: 4.2
+.. deprecated:: 4.2
 
     The ``kernel.name`` parameter and the ``Kernel::getName()`` method were
     deprecated in Symfony 4.2. If you need a unique ID for your kernels use the
@@ -61,17 +61,23 @@ The name of the kernel isn't usually directly important - it's used in the
 generation of cache files - and you probably will only change it when
 :doc:`using applications with multiple kernels </configuration/multiple_kernels>`.
 
+.. _configuration-kernel-project-directory:
+
 Project Directory
 ~~~~~~~~~~~~~~~~~
 
 **type**: ``string`` **default**: the directory of the project ``composer.json``
 
-This returns the root directory of your Symfony project. It's calculated as
-the directory where the main ``composer.json`` file is stored.
+This returns the root directory of your Symfony project, which is used by
+applications to perform operations with file paths relative to the project's
+root directory.
 
-If for some reason the ``composer.json`` file is not stored at the root of your
-project, you can override the :method:`Symfony\\Component\\HttpKernel\\Kernel::getProjectDir`
-method to return the right project directory::
+By default, its value is calculated automatically as the directory where the
+main ``composer.json`` file is stored. If you don't use Composer, or have moved
+the ``composer.json`` file location or have deleted it entirely (for example in
+the production servers), you can override the
+:method:`Symfony\\Component\\HttpKernel\\Kernel::getProjectDir` method to return
+the right project directory::
 
     // src/Kernel.php
     use Symfony\Component\HttpKernel\Kernel as BaseKernel;
@@ -81,9 +87,9 @@ method to return the right project directory::
     {
         // ...
 
-        public function getProjectDir()
+        public function getProjectDir(): string
         {
-            return realpath(__DIR__.'/../');
+            return \dirname(__DIR__);
         }
     }
 

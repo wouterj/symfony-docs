@@ -16,7 +16,7 @@ using `PHPUnit`_. Create a PHPUnit configuration file in
     <?xml version="1.0" encoding="UTF-8"?>
     <phpunit
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/5.1/phpunit.xsd"
+        xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/5.1/phpunit.xsd"
         backupGlobals="false"
         colors="true"
         bootstrap="vendor/autoload.php"
@@ -57,13 +57,13 @@ resolver. Modify the framework to make use of them::
     class Framework
     {
         protected $matcher;
-        protected $resolver;
+        protected $controllerResolver;
         protected $argumentResolver;
 
         public function __construct(UrlMatcherInterface $matcher, ControllerResolverInterface $resolver, ArgumentResolverInterface $argumentResolver)
         {
             $this->matcher = $matcher;
-            $this->resolver = $resolver;
+            $this->controllerResolver = $resolver;
             $this->argumentResolver = $argumentResolver;
         }
 

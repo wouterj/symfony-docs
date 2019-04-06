@@ -68,7 +68,7 @@ implements the :class:`Symfony\\Component\\Config\\Definition\\ConfigurationInte
         }
     }
 
-.. versionadded:: 4.2
+.. deprecated:: 4.2
 
     Not passing the root node name to ``TreeBuilder`` was deprecated in Symfony 4.2.
 
@@ -396,7 +396,7 @@ has a certain value:
     (``null``, ``true``, ``false``), provide a replacement value in case
     the value is ``*.``
 
-.. code-block:: php
+The following example shows these methods in practice::
 
     $rootNode
         ->children()
@@ -476,7 +476,7 @@ In YAML you may have:
 .. code-block:: yaml
 
     # This value is only used for the search results page.
-    entries_per_page:     25
+    entries_per_page: 25
 
 and in XML:
 

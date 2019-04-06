@@ -239,7 +239,7 @@ manual steps:
 
 #. Move the original PHP source code from ``src/AppBundle/*``, except bundle
    specific files (like ``AppBundle.php`` and ``DependencyInjection/``), to
-   ``src/``. Remove ``src/AppBundle/``.
+   ``src/``.
 
    In addition to moving the files, update the ``autoload`` and ``autoload-dev``
    values of the ``composer.json`` file as `shown in this example`_ to use
@@ -265,8 +265,13 @@ manual steps:
 #. Update the ``bin/console`` script `copying Symfony's bin/console source`_
    and changing anything according to your original console script.
 
+#. Remove ``src/AppBundle/``.
+
 #. Remove the ``bin/symfony_requirements`` script and if you need a replacement
    for it, use the new `Symfony Requirements Checker`_.
+
+#. Update the ``.gitignore`` file to replace the existing ``var/logs/`` entry
+   by ``var/log/``, which is the new name for the log directory.
 
 Customizing Flex Paths
 ----------------------
