@@ -2,11 +2,8 @@
    single: UID
    single: Components; UID
 
-The UID Component
-=================
-
-    The UID component provides utilities to work with `unique identifiers`_ (UIDs)
-    such as UUIDs and ULIDs.
+Generating Unique Identifiers (UID)
+===================================
 
 .. versionadded:: 5.1
 
@@ -16,11 +13,13 @@ The UID Component
 Installation
 ------------
 
+While building application, you often need to generate unique identifiers
+to use for your entities. Symfony provides a lightweight UID component that
+works with `unique identifiers`_ (UIDs) such as UUIDs and ULIDs.
+
 .. code-block:: terminal
 
     $ composer require symfony/uid
-
-.. include:: /components/require_autoload.rst.inc
 
 UUIDs
 -----
