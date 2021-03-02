@@ -99,49 +99,42 @@ Symfony tests have access to a special container that includes both the
 public services and the non-removed :ref:`private services <container-public>`
 services::
 
-    public function testSomething()
+    // tests/Service/AcmeServiceTest.php
+    namespace App\Tests\Service;
+
+    use App\Service\AcmeService;
+    use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+
+    class AcmeServiceTest extends KernelTestCase
     {
-        // this call is needed; otherwise the container will be empty
-        self::bootKernel();
+        public function testSomething()
+        {
+            // this call is needed; otherwise the container will be empty
+            self::bootKernel();
 
-        $container = self::$container;
-        $someService = $container->get('the-service-ID');
+            $container = self::$container;
+            $someService = $container->get(AcmeService::class);
 
-        $result = $someService->something();
-        $this->assertTrue($result);
+            $result = $someService->something();
+            $this->assertTrue($result);
+        }
     }
 
-Mocking Services
-~~~~~~~~~~~~~~~~
+.. tip::
 
-TODO
+    To run your application tests, the ``KernelTestCase`` class needs to know which
+    is the application kernel to bootstrap it. The kernel class is usually
+    defined in the ``KERNEL_CLASS`` environment variable (included in the
+    default ``.env.test`` file provided by Symfony Flex):
 
-.. _functional-tests:
-
-Application Tests
------------------
-
-Application tests check the integration of the different layers of an
-application (from the routing to the views). They are no different from unit
-tests as far as PHPUnit is concerned, but they have a very specific workflow:
-
-* Make a request;
-* Click on a link or submit a form;
-* Test the response;
-* Rinse and repeat.
-
-Before creating your first test, install the ``symfony/test-pack`` which
-requires multiple packages providing some of the utilities used in the
-tests:
-
-.. code-block:: terminal
-
-    $ composer require --dev symfony/test-pack
+    If your use case is more complex, you can also override the
+    ``createKernel()`` or ``getKernelClass()`` methods of your functional test,
+    which take precedence over the ``KERNEL_CLASS`` env var.
 
 Set-up your Test Environment
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The Client used by application tests creates a Kernel that runs in a special
+The tests creates a Kernel that runs in a special
 ``test`` environment. Since Symfony loads the ``config/packages/test/*.yaml``
 in the ``test`` environment, you can tweak any of your application's settings
 specifically for testing.
@@ -189,7 +182,7 @@ You can also use a different environment entirely, or override the default
 debug mode (``true``) by passing each as options to the ``createClient()``
 method::
 
-    $client = static::createClient([
+    self::bootKernel([
         'environment' => 'my_test_env',
         'debug'       => false,
     ]);
@@ -253,7 +246,7 @@ that ensures that each test is run with the same unmodified database:
 
     $ composer require --dev dama/doctrine-test-bundle
 
-Now, enable it as a PHPUnit extension or listener:
+Now, enable it as a PHPUnit extension:
 
 .. code-block:: xml
 
@@ -326,8 +319,32 @@ Empty the database and reload *all* the fixture classes with:
 
 For more information, read the `DoctrineFixturesBundle documentation`_.
 
-Write Your First Functional Test
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.. _functional-tests:
+
+Application Tests
+-----------------
+
+Application tests check the integration of all the different layers of the
+application (from the routing to the views). They are no different from unit tests
+or integration tests as far as PHPUnit is concerned, but they have a very specific
+workflow:
+
+* Make a request;
+* Click on a link or submit a form;
+* Test the response;
+* Rinse and repeat.
+
+Before creating your first test, install the ``symfony/test-pack`` which
+requires multiple packages providing some of the utilities used in the
+tests:
+
+.. code-block:: terminal
+
+    $ composer require --dev symfony/test-pack
+
+
+Write Your First Application Test
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Application tests are PHP files that typically live in the ``tests/Controller``
 directory of your application. If you want to test the pages handled by your
@@ -352,17 +369,6 @@ As an example, a test could look like this::
             $this->assertEquals(200, $client->getResponse()->getStatusCode());
         }
     }
-
-.. tip::
-
-    To run your application tests, the ``WebTestCase`` class needs to know which
-    is the application kernel to bootstrap it. The kernel class is usually
-    defined in the ``KERNEL_CLASS`` environment variable (included in the
-    default ``.env.test`` file provided by Symfony):
-
-    If your use case is more complex, you can also override the
-    ``createKernel()`` or ``getKernelClass()`` methods of your functional test,
-    which take precedence over the ``KERNEL_CLASS`` env var.
 
 In the above example, you validated that the HTTP response was successful. The
 next step is to validate that the page actually contains the expected content.
