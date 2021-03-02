@@ -39,13 +39,13 @@ application's tests with the same command as before.
 
 PHPUnit is configured by the ``phpunit.xml.dist`` file in the root of your application.
 
-.. tip::
-
-    Use the ``--coverage-*`` command options to generate code coverage reports.
-    Read the PHPUnit manual to learn more about `code coverage analysis`_.
-
 Types of Tests
 --------------
+
+To get a common language and shared context, it is important to define a what different
+types of tests really mean. Symfony will use the following definition. If you have
+learned something different, that is not necessarily wrong. It is just different
+from what the Symfony documentation is using.
 
 `Unit Tests`_
     These tests ensure that *individual* units of source code (e.g. a single
@@ -54,15 +54,11 @@ Types of Tests
 `Integration Tests`_
     These tests test a combination of classes and commonly interact with
     Symfony's service container. These tests do not yet cover the full
-    working application, those are called *Functional tests*.
+    working application, those are called *Application tests*.
 
-`Functional Tests`_
-    Functional tests test the behavior of a complete application. They
+`Application Tests`_
+    Application tests test the behavior of a complete application. They
     make HTTP requests and test that the response is as expected.
-
-`End to End Tests (E2E)`_
-    At last, end to end tests test the application as a real user. They use
-    a real browser and real integrations with external services.
 
 Unit Tests
 ----------
@@ -152,10 +148,10 @@ TODO
 
 .. _functional-tests:
 
-Functional Tests
+Application Tests
 ----------------
 
-Functional tests check the integration of the different layers of an
+Application tests check the integration of the different layers of an
 application (from the routing to the views). They are no different from unit
 tests as far as PHPUnit is concerned, but they have a very specific workflow:
 
@@ -175,7 +171,7 @@ tests:
 Set-up your Test Environment
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The Client used by functional tests creates a Kernel that runs in a special
+The Client used by application tests creates a Kernel that runs in a special
 ``test`` environment. Since Symfony loads the ``config/packages/test/*.yaml``
 in the ``test`` environment, you can tweak any of your application's settings
 specifically for testing.
@@ -363,7 +359,7 @@ For more information, read the `DoctrineFixturesBundle documentation`_.
 Write Your First Functional Test
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Functional tests are PHP files that typically live in the ``tests/Controller``
+Application tests are PHP files that typically live in the ``tests/Controller``
 directory of your application. If you want to test the pages handled by your
 ``PostController`` class, start by creating a new ``PostControllerTest.php``
 file that extends a special ``WebTestCase`` class.
@@ -389,7 +385,7 @@ As an example, a test could look like this::
 
 .. tip::
 
-    To run your functional tests, the ``WebTestCase`` class needs to know which
+    To run your application tests, the ``WebTestCase`` class needs to know which
     is the application kernel to bootstrap it. The kernel class is usually
     defined in the ``KERNEL_CLASS`` environment variable (included in the
     default ``.env.test`` file provided by Symfony):
@@ -482,7 +478,7 @@ returns a ``Crawler`` instance.
 
 .. tip::
 
-    Hardcoding the request URLs is a best practice for functional tests. If the
+    Hardcoding the request URLs is a best practice for application tests. If the
     test generates URLs using the Symfony router, it won't detect any change
     made to the application URLs which may impact the end users.
 
@@ -698,7 +694,7 @@ You can also override HTTP headers on a per request basis::
 Reporting Exceptions
 ....................
 
-Debugging exceptions in functional tests may be difficult because by default
+Debugging exceptions in application tests may be difficult because by default
 they are caught and you need to look at the logs to see which exception was
 thrown. Disabling catching of exceptions in the test client allows the exception
 to be reported by PHPUnit::
