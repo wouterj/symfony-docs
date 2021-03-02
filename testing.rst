@@ -15,35 +15,29 @@ Symfony integrates with an independent library called `PHPUnit`_ to give you a
 rich testing framework. This article won't cover PHPUnit itself, which has its
 own excellent `documentation`_.
 
-Before creating your first test, install the `PHPUnit Bridge component`_, which
-wraps the original PHPUnit binary to provide additional features:
+Before creating your first test, install the PHPUnit with the following command:
 
 .. code-block:: terminal
 
-    $ composer require --dev symfony/phpunit-bridge
+    $ composer require --dev phpunit/phpunit
 
-After the library downloads, try executing PHPUnit by running (the first time
-you run this, it will download PHPUnit itself and make its classes available in
-your app):
+After the library is installed, try executing PHPUnit by running:
 
 .. code-block:: terminal
 
-    $ ./bin/phpunit
+    $ ./vendor/bin/phpunit
 
 .. note::
 
-    The ``./bin/phpunit`` command is created by :ref:`Symfony Flex <symfony-flex>`
-    when installing the ``phpunit-bridge`` package. If the command is missing, you
-    can remove the package (``composer remove symfony/phpunit-bridge``) and install
-    it again. Another solution is to remove the project's ``symfony.lock`` file and
-    run ``composer install`` to force the execution of all Symfony Flex recipes.
+    :ref:`Symfony Flex <symfony-flex>` has automatically created ``phpunit.xml.dist``
+    and ``tests/bootstrap.php``. If the files are missing, you can remove the package
+    (``composer remove phpunit/phpunit``) and install it again.
 
 Each test is a PHP class that should live in the ``tests/`` directory of
 your application. If you follow this rule, then you can run all of your
 application's tests with the same command as before.
 
-PHPUnit is configured by the ``phpunit.xml.dist`` file in the root of your
-Symfony application.
+PHPUnit is configured by the ``phpunit.xml.dist`` file in the root of your application.
 
 .. tip::
 
@@ -1030,7 +1024,6 @@ Learn more
 
 .. _`PHPUnit`: https://phpunit.de/
 .. _`documentation`: https://phpunit.readthedocs.io/
-.. _`PHPUnit Bridge component`: https://symfony.com/components/PHPUnit%20Bridge
 .. _`Writing Tests for PHPUnit`: https://phpunit.readthedocs.io/en/stable/writing-tests-for-phpunit.html
 .. _`unit test`: https://en.wikipedia.org/wiki/Unit_testing
 .. _`$_SERVER`: https://www.php.net/manual/en/reserved.variables.server.php
