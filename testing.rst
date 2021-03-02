@@ -91,24 +91,11 @@ You can run tests using the ``./vendor/bin/phpunit`` command:
 Integration Tests
 -----------------
 
-TODO: KernelTestCase
+An integration test will test a larger part of your application compared to a unit
+test. Integration tests will use the Kernel to fetch a service from the dependency
+injection container.
 
-Accessing the Container
-~~~~~~~~~~~~~~~~~~~~~~~
-
-You can get the same container used in the application, which only includes
-the public services::
-
-    public function testSomething()
-    {
-        $kernel = self::bootKernel();
-        $container = $kernel->getContainer();
-        $someService = $container->get('the-service-ID');
-
-        // ...
-    }
-
-Symfony tests also have access to a special container that includes both the
+Symfony tests have access to a special container that includes both the
 public services and the non-removed :ref:`private services <container-public>`
 services::
 
@@ -118,28 +105,11 @@ services::
         self::bootKernel();
 
         $container = self::$container;
-        // $someService = $container->get('the-service-ID');
+        $someService = $container->get('the-service-ID');
 
-        // ...
+        $result = $someService->something();
+        $this->assertTrue($result);
     }
-
-.. TODO is this really different from self::$container and how to access
-   this in KernelTestCase?
-
-    Finally, for the most rare edge-cases, Symfony includes a special container
-    which provides access to all services, public and private. This special
-    container is a service that can be get via the normal container::
-
-        public function testSomething()
-        {
-            $client = self::createClient();
-            $normalContainer = $client->getContainer();
-            $specialContainer = $normalContainer->get('test.service_container');
-
-            // $somePrivateService = $specialContainer->get('the-service-ID');
-
-            // ...
-        }
 
 Mocking Services
 ~~~~~~~~~~~~~~~~
@@ -149,7 +119,7 @@ TODO
 .. _functional-tests:
 
 Application Tests
-----------------
+-----------------
 
 Application tests check the integration of the different layers of an
 application (from the routing to the views). They are no different from unit
