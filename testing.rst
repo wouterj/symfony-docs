@@ -65,7 +65,7 @@ Unit Tests
 
 A `unit test`_ ensures that individual units of source code (e.g. a single
 class or some specific method in some class) meet their design and behave
-as intended. Writing Symfony unit tests is no different from writing
+as intended. Writing unit tests is a Symfony application no different from writing
 standard PHPUnit unit tests. You can learn about it in the PHPUnit
 documentation: `Writing Tests for PHPUnit`_.
 
@@ -75,18 +75,18 @@ of your application for unit tests. So, if you're testing a class in the
 Autoloading is automatically enabled via the ``vendor/autoload.php`` file
 (as configured by default in the ``phpunit.xml.dist`` file).
 
-You can run tests using the ``bin/phpunit`` command:
+You can run tests using the ``./vendor/bin/phpunit`` command:
 
 .. code-block:: terminal
 
     # run all tests of the application
-    $ php bin/phpunit
+    $ php ./vendor/bin/phpunit
 
     # run all tests in the Util/ directory
-    $ php bin/phpunit tests/Util
+    $ php ./vendor/bin/phpunit tests/Util
 
     # run tests for the Calculator class
-    $ php bin/phpunit tests/Util/CalculatorTest.php
+    $ php ./vendor/bin/phpunit tests/Util/CalculatorTest.php
 
 Integration Tests
 -----------------
