@@ -5,3 +5,5 @@
 /_build/vendor
 /_build/output
 *.pyc
+/.phpdoc
+ast.dump
