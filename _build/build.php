@@ -16,7 +16,7 @@ use Symfony\Component\Console\Input\InputOption;
     ->setCode(function(InputInterface $input, OutputInterface $output) {
         $command = [
             'php',
-            'vendor/symfony/docs-builder/bin/console',
+            'vendor/bin/docs-builder',
             'build:docs',
             sprintf('--save-errors=%s', __DIR__.'/logs.txt'),
             __DIR__.'/../',
