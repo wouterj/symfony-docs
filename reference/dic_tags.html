@@ -1,0 +1,3483 @@
+        
+<!DOCTYPE html>
+<!--[if IE 8]>
+<html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" lang="en"> <!--<![endif]-->
+<head><base href="../">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            
+                                
+    
+    <link rel="stylesheet" href="assets/css/theme.css" type="text/css" />
+    <link rel="stylesheet" href="assets/css/highlightjs.css" type="text/css" />
+    <link rel="stylesheet" href="assets/css/badge_only.css" type="text/css" />
+
+</head>
+
+<body class="wy-body-for-nav">
+ <div class="wy-grid-for-nav">
+
+        <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+        <div class="wy-side-scroll">
+            <div class="wy-side-nav-search">
+                
+                                                                                                    
+                                                                                                                                                                        </div>
+
+            <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                                                                                                                                                                                                                                                                                                                            </div>
+        </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+                                                        
+
+        <div class="wy-nav-content">                <div class="rst-content">
+                                        <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">                            <div itemprop="articleBody">
+                                    <div class="section">
+<h1 id="built-in-symfony-service-tags">
+    Built-in Symfony Service Tags
+    <a class="headerlink" href="#built-in-symfony-service-tags" title="Permalink to this headline">¶</a>
+</h1>
+<p><a href="../service_container/tags.html" class="reference internal">Service tags</a> are the mechanism used by the
+<a href="../components/dependency_injection.html" class="reference internal">DependencyInjection component</a> to flag
+services that require special processing, like console commands or Twig extensions.</p>
+<p>This article shows the most common tags provided by Symfony components, but in
+your application there could be more tags available provided by third-party bundles.</p>
+<p>Run this command to display tagged services in your application:</p>
+<div translate="no" class="highlight-terminal highlight-bash notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs terminal bash"><span class="hljs-prompt">$ </span>php bin/console debug:container --tags</pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<p>To search for a specific tag, re-run this command with a search term:</p>
+<div translate="no" class="highlight-terminal highlight-bash notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs terminal bash"><span class="hljs-prompt">$ </span>php bin/console debug:container --tag=form.type</pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="section">
+<h2 id="assets-package">
+    assets.package
+    <a class="headerlink" href="#assets-package" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>Purpose</strong>: Add an asset package to the application</p>
+<div class="admonition admonition-versionadded ">
+    <p class="admonition-title">
+                                    <span>5.3</span>
+    </p><p>The <code translate="no" class="notranslate">assets.package</code> tag was introduced in Symfony 5.3.</p>
+</div>
+<p>This is an alternative way to declare an <a href="../components/asset.html#asset-packages" class="reference internal">asset package</a>.
+The name of the package is set in this order:</p>
+<ul>
+    <li>first, the <code translate="no" class="notranslate">package</code> attribute of the tag;</li>
+<li>then, the value returned by the static method <code translate="no" class="notranslate">getDefaultPackageName()</code> if defined;</li>
+<li>finally, the service name.</li>
+</ul>
+<div class="configuration-block">
+    <div role="tablist" aria-label="Configuration formats" class="configuration-tabs configuration-tabs-length-3">
+                    <button role="tab" type="button" data-language="yaml"
+                aria-controls="configuration-block-tabpanel-7369cb5d34610ab149fa957990fe9dc201df7b7a" aria-selected="true"
+                data-active="true" >
+                <span>YAML</span>
+            </button>
+                    <button role="tab" type="button" data-language="xml"
+                aria-controls="configuration-block-tabpanel-2cb3c834da8eabbd73bfa4556f5b38e24ab6ca3a" aria-selected="false"
+                 tabindex="-1">
+                <span>XML</span>
+            </button>
+                    <button role="tab" type="button" data-language="php"
+                aria-controls="configuration-block-tabpanel-aa7ece68a70c288b390fb26a692bf48f92104fe4" aria-selected="false"
+                 tabindex="-1">
+                <span>PHP</span>
+            </button>
+            </div>
+
+            <div role="tabpanel" id="configuration-block-tabpanel-7369cb5d34610ab149fa957990fe9dc201df7b7a" aria-label="YAML" class="configuration-codeblock" data-language="yaml" style="">
+            <div translate="no" class="highlight-yaml notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1
+2
+3
+4</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs yaml"><span class="hljs-attr">services:</span>
+    <span class="hljs-string">App\Assets\AvatarPackage:</span>
+        <span class="hljs-attr">tags:</span>
+            <span class="hljs-bullet">-</span> <span class="hljs-string">{</span> <span class="hljs-attr">name:</span> <span class="hljs-string">assets.package,</span> <span class="hljs-attr">package:</span> <span class="hljs-string">avatars</span> <span class="hljs-string">}</span></pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+        </div>
+            <div role="tabpanel" id="configuration-block-tabpanel-2cb3c834da8eabbd73bfa4556f5b38e24ab6ca3a" aria-label="XML" class="configuration-codeblock" data-language="xml" style="display: none">
+            <div translate="no" class="highlight-xml notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs xml"><span class="hljs-meta">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">container</span> <span class="hljs-attr">xmlns</span>=<span class="hljs-string">"http://symfony.com/schema/dic/services"</span>
+    <span class="hljs-attr">xmlns:xsi</span>=<span class="hljs-string">"http://www.w3.org/2001/XMLSchema-instance"</span>
+    <span class="hljs-attr">xsi:schemaLocation</span>=<span class="hljs-string">"http://symfony.com/schema/dic/services
+        https://symfony.com/schema/dic/services/services-1.0.xsd"</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">services</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">service</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"App\Assets\AvatarPackage"</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">tag</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"assets.package"</span> <span class="hljs-attr">package</span>=<span class="hljs-string">"avatars"</span>/&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">service</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">services</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">container</span>&gt;</span></pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+        </div>
+            <div role="tabpanel" id="configuration-block-tabpanel-aa7ece68a70c288b390fb26a692bf48f92104fe4" aria-label="PHP" class="configuration-codeblock" data-language="php" style="display: none">
+            <div translate="no" class="highlight-php notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1
+2
+3
+4
+5
+6</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs php"><span class="hljs-keyword">use</span> <span class="hljs-title">App</span>\<span class="hljs-title">Assets</span>\<span class="hljs-title">AvatarPackage</span>;
+
+<span class="hljs-variable"><span class="hljs-variable-other-marker">$</span>container</span>
+    -&gt;<span class="hljs-title invoke__">register</span>(AvatarPackage::<span class="hljs-variable language_">class</span>)
+    -&gt;<span class="hljs-title invoke__">addTag</span>(<span class="hljs-string">'assets.package'</span>, [<span class="hljs-string">'package'</span> =&gt; <span class="hljs-string">'avatars'</span>])
+;</pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+        </div>
+    </div>
+<p>Now you can use the <code translate="no" class="notranslate">avatars</code> package in your templates:</p>
+<div translate="no" class="highlight-html+twig highlight-twig notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs html+twig twig"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"</span></span></span><span class="hljs-template-variable">{{ asset('...', 'avatars') }}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">"</span>&gt;</span></span></pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+</div>
+<div class="section">
+<h2 id="auto-alias">
+    auto_alias
+    <a class="headerlink" href="#auto-alias" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>Purpose</strong>: Define aliases based on the value of container parameters</p>
+<p>Consider the following configuration that defines three different but related
+services:</p>
+<div class="configuration-block">
+    <div role="tablist" aria-label="Configuration formats" class="configuration-tabs configuration-tabs-length-3">
+                    <button role="tab" type="button" data-language="yaml"
+                aria-controls="configuration-block-tabpanel-4ddca2efc7ceabdb94e6c2db395378842d425e1b" aria-selected="true"
+                data-active="true" >
+                <span>YAML</span>
+            </button>
+                    <button role="tab" type="button" data-language="xml"
+                aria-controls="configuration-block-tabpanel-420702c8b1c02775f3cbc4384f2be12c4f8d7394" aria-selected="false"
+                 tabindex="-1">
+                <span>XML</span>
+            </button>
+                    <button role="tab" type="button" data-language="php"
+                aria-controls="configuration-block-tabpanel-5d25336b7a14484727d5d91370c5fbe790234ee7" aria-selected="false"
+                 tabindex="-1">
+                <span>PHP</span>
+            </button>
+            </div>
+
+            <div role="tabpanel" id="configuration-block-tabpanel-4ddca2efc7ceabdb94e6c2db395378842d425e1b" aria-label="YAML" class="configuration-codeblock" data-language="yaml" style="">
+            <div translate="no" class="highlight-yaml notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1
+2
+3
+4
+5
+6
+7</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs yaml"><span class="hljs-attr">services:</span>
+    <span class="hljs-attr">app.mysql_lock:</span>
+        <span class="hljs-attr">class:</span> <span class="hljs-string">App\Lock\MysqlLock</span>
+    <span class="hljs-attr">app.postgresql_lock:</span>
+        <span class="hljs-attr">class:</span> <span class="hljs-string">App\Lock\PostgresqlLock</span>
+    <span class="hljs-attr">app.sqlite_lock:</span>
+        <span class="hljs-attr">class:</span> <span class="hljs-string">App\Lock\SqliteLock</span></pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+        </div>
+            <div role="tabpanel" id="configuration-block-tabpanel-420702c8b1c02775f3cbc4384f2be12c4f8d7394" aria-label="XML" class="configuration-codeblock" data-language="xml" style="display: none">
+            <div translate="no" class="highlight-xml notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs xml"><span class="hljs-meta">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">container</span> <span class="hljs-attr">xmlns</span>=<span class="hljs-string">"http://symfony.com/schema/dic/services"</span>
+    <span class="hljs-attr">xmlns:xsi</span>=<span class="hljs-string">"http://www.w3.org/2001/XMLSchema-instance"</span>
+    <span class="hljs-attr">xsi:schemaLocation</span>=<span class="hljs-string">"http://symfony.com/schema/dic/services
+        https://symfony.com/schema/dic/services/services-1.0.xsd"</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">services</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">service</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"app.mysql_lock"</span>
+            <span class="hljs-attr">class</span>=<span class="hljs-string">"App\Lock\MysqlLock"</span>/&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">service</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"app.postgresql_lock"</span>
+            <span class="hljs-attr">class</span>=<span class="hljs-string">"App\Lock\PostgresqlLock"</span>/&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">service</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"app.sqlite_lock"</span>
+            <span class="hljs-attr">class</span>=<span class="hljs-string">"App\Lock\SqliteLock"</span>/&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">services</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">container</span>&gt;</span></pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+        </div>
+            <div role="tabpanel" id="configuration-block-tabpanel-5d25336b7a14484727d5d91370c5fbe790234ee7" aria-label="PHP" class="configuration-codeblock" data-language="php" style="display: none">
+            <div translate="no" class="highlight-php notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs php"><span class="hljs-comment">// config/services.php</span>
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">Symfony</span>\<span class="hljs-title">Component</span>\<span class="hljs-title">DependencyInjection</span>\<span class="hljs-title">Loader</span>\<span class="hljs-title">Configurator</span>;
+
+<span class="hljs-keyword">use</span> <span class="hljs-title">App</span>\<span class="hljs-title">Lock</span>\<span class="hljs-title">MysqlLock</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">App</span>\<span class="hljs-title">Lock</span>\<span class="hljs-title">PostgresqlLock</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">App</span>\<span class="hljs-title">Lock</span>\<span class="hljs-title">SqliteLock</span>;
+
+<span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(ContainerConfigurator <span class="hljs-variable"><span class="hljs-variable-other-marker">$</span>container</span>)</span> </span>{
+    <span class="hljs-variable"><span class="hljs-variable-other-marker">$</span>services</span> = <span class="hljs-variable"><span class="hljs-variable-other-marker">$</span>container</span>-&gt;<span class="hljs-title invoke__">services</span>();
+
+    <span class="hljs-variable"><span class="hljs-variable-other-marker">$</span>services</span>-&gt;<span class="hljs-title invoke__">set</span>(<span class="hljs-string">'app.mysql_lock'</span>, MysqlLock::<span class="hljs-variable language_">class</span>);
+    <span class="hljs-variable"><span class="hljs-variable-other-marker">$</span>services</span>-&gt;<span class="hljs-title invoke__">set</span>(<span class="hljs-string">'app.postgresql_lock'</span>, PostgresqlLock::<span class="hljs-variable language_">class</span>);
+    <span class="hljs-variable"><span class="hljs-variable-other-marker">$</span>services</span>-&gt;<span class="hljs-title invoke__">set</span>(<span class="hljs-string">'app.sqlite_lock'</span>, SqliteLock::<span class="hljs-variable language_">class</span>);
+};</pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+        </div>
+    </div>
+<p>Instead of dealing with these three services, your application needs a generic
+<code translate="no" class="notranslate">app.lock</code> service that will be an alias to one of these services, depending on
+some configuration. Thanks to the <code translate="no" class="notranslate">auto_alias</code> option, you can automatically create
+that alias based on the value of a configuration parameter.</p>
+<p>Considering that a configuration parameter called <code translate="no" class="notranslate">database_type</code> exists. Then,
+the generic <code translate="no" class="notranslate">app.lock</code> service can be defined as follows:</p>
+<div class="configuration-block">
+    <div role="tablist" aria-label="Configuration formats" class="configuration-tabs configuration-tabs-length-3">
+                    <button role="tab" type="button" data-language="yaml"
+                aria-controls="configuration-block-tabpanel-ae37e03ebab6cc275c6890f3285b1223f954b7d2" aria-selected="true"
+                data-active="true" >
+                <span>YAML</span>
+            </button>
+                    <button role="tab" type="button" data-language="xml"
+                aria-controls="configuration-block-tabpanel-2078c5ce8c51ca1ef2c610213b6d7b2d50bc56a7" aria-selected="false"
+                 tabindex="-1">
+                <span>XML</span>
+            </button>
+                    <button role="tab" type="button" data-language="php"
+                aria-controls="configuration-block-tabpanel-1dfab1deac0049a8da942b2b1576f6207b9c522a" aria-selected="false"
+                 tabindex="-1">
+                <span>PHP</span>
+            </button>
+            </div>
+
+            <div role="tabpanel" id="configuration-block-tabpanel-ae37e03ebab6cc275c6890f3285b1223f954b7d2" aria-label="YAML" class="configuration-codeblock" data-language="yaml" style="">
+            <div translate="no" class="highlight-yaml notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs yaml"><span class="hljs-attr">services:</span>
+    <span class="hljs-attr">app.mysql_lock:</span>
+        <span class="hljs-comment"># ...</span>
+    <span class="hljs-attr">app.postgresql_lock:</span>
+        <span class="hljs-comment"># ...</span>
+    <span class="hljs-attr">app.sqlite_lock:</span>
+        <span class="hljs-comment"># ...</span>
+    <span class="hljs-attr">app.lock:</span>
+        <span class="hljs-attr">tags:</span>
+            <span class="hljs-bullet">-</span> <span class="hljs-string">{</span> <span class="hljs-attr">name:</span> <span class="hljs-string">auto_alias,</span> <span class="hljs-attr">format:</span> <span class="hljs-string">"app.%database_type%_lock"</span> <span class="hljs-string">}</span></pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+        </div>
+            <div role="tabpanel" id="configuration-block-tabpanel-2078c5ce8c51ca1ef2c610213b6d7b2d50bc56a7" aria-label="XML" class="configuration-codeblock" data-language="xml" style="display: none">
+            <div translate="no" class="highlight-xml notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs xml"><span class="hljs-meta">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">container</span> <span class="hljs-attr">xmlns</span>=<span class="hljs-string">"http://symfony.com/schema/dic/services"</span>
+    <span class="hljs-attr">xmlns:xsi</span>=<span class="hljs-string">"http://www.w3.org/2001/XMLSchema-instance"</span>
+    <span class="hljs-attr">xsi:schemaLocation</span>=<span class="hljs-string">"http://symfony.com/schema/dic/services
+        https://symfony.com/schema/dic/services/services-1.0.xsd"</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">services</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">service</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"app.mysql_lock"</span>
+            <span class="hljs-attr">class</span>=<span class="hljs-string">"App\Lock\MysqlLock"</span>/&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">service</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"app.postgresql_lock"</span>
+            <span class="hljs-attr">class</span>=<span class="hljs-string">"App\Lock\PostgresqlLock"</span>/&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">service</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"app.sqlite_lock"</span>
+            <span class="hljs-attr">class</span>=<span class="hljs-string">"App\Lock\SqliteLock"</span>/&gt;</span>
+
+        <span class="hljs-tag">&lt;<span class="hljs-name">service</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"app.lock"</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">tag</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"auto_alias"</span> <span class="hljs-attr">format</span>=<span class="hljs-string">"app.%database_type%_lock"</span>/&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">service</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">services</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">container</span>&gt;</span></pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+        </div>
+            <div role="tabpanel" id="configuration-block-tabpanel-1dfab1deac0049a8da942b2b1576f6207b9c522a" aria-label="PHP" class="configuration-codeblock" data-language="php" style="display: none">
+            <div translate="no" class="highlight-php notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs php"><span class="hljs-comment">// config/services.php</span>
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">Symfony</span>\<span class="hljs-title">Component</span>\<span class="hljs-title">DependencyInjection</span>\<span class="hljs-title">Loader</span>\<span class="hljs-title">Configurator</span>;
+
+<span class="hljs-keyword">use</span> <span class="hljs-title">App</span>\<span class="hljs-title">Lock</span>\<span class="hljs-title">MysqlLock</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">App</span>\<span class="hljs-title">Lock</span>\<span class="hljs-title">PostgresqlLock</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">App</span>\<span class="hljs-title">Lock</span>\<span class="hljs-title">SqliteLock</span>;
+
+<span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(ContainerConfigurator <span class="hljs-variable"><span class="hljs-variable-other-marker">$</span>container</span>)</span> </span>{
+    <span class="hljs-variable"><span class="hljs-variable-other-marker">$</span>services</span> = <span class="hljs-variable"><span class="hljs-variable-other-marker">$</span>container</span>-&gt;<span class="hljs-title invoke__">services</span>();
+
+    <span class="hljs-variable"><span class="hljs-variable-other-marker">$</span>services</span>-&gt;<span class="hljs-title invoke__">set</span>(<span class="hljs-string">'app.mysql_lock'</span>, MysqlLock::<span class="hljs-variable language_">class</span>);
+    <span class="hljs-variable"><span class="hljs-variable-other-marker">$</span>services</span>-&gt;<span class="hljs-title invoke__">set</span>(<span class="hljs-string">'app.postgresql_lock'</span>, PostgresqlLock::<span class="hljs-variable language_">class</span>);
+    <span class="hljs-variable"><span class="hljs-variable-other-marker">$</span>services</span>-&gt;<span class="hljs-title invoke__">set</span>(<span class="hljs-string">'app.sqlite_lock'</span>, SqliteLock::<span class="hljs-variable language_">class</span>);
+
+    <span class="hljs-variable"><span class="hljs-variable-other-marker">$</span>services</span>-&gt;<span class="hljs-title invoke__">set</span>(<span class="hljs-string">'app.lock'</span>)
+        -&gt;<span class="hljs-title invoke__">tag</span>(<span class="hljs-string">'auto_alias'</span>, [<span class="hljs-string">'format'</span> =&gt; <span class="hljs-string">'app.%database_type%_lock'</span>])
+    ;
+};</pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+        </div>
+    </div>
+<p>The <code translate="no" class="notranslate">format</code> option defines the expression used to construct the name of the service
+to alias. This expression can use any container parameter (as usual,
+wrapping their names with <code translate="no" class="notranslate">%</code> characters).</p>
+<div class="admonition admonition-note ">
+    <p class="admonition-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" width="24" height="24" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>
+                <span>Note</span>
+    </p><p>When using the <code translate="no" class="notranslate">auto_alias</code> tag, it's not mandatory to define the aliased
+services as private. However, doing that (like in the above example) makes
+sense most of the times to prevent accessing those services directly instead
+of using the generic service alias.</p>
+</div>
+<div class="admonition admonition-versionadded ">
+    <p class="admonition-title">
+                                    <span>5.1</span>
+    </p><p>In Symfony versions prior to 5.1, you needed to manually add the
+<code translate="no" class="notranslate">Symfony<wbr>\Component<wbr>\DependencyInjection<wbr>\Compiler<wbr>\AutoAliasServicePass</code>
+compiler pass to the container for this feature to work. This compiler pass
+is now added automatically.</p>
+</div>
+</div>
+<div class="section">
+<h2 id="console-command">
+    console.command
+    <a class="headerlink" href="#console-command" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>Purpose</strong>: Add a command to the application</p>
+<p>For details on registering your own commands in the service container, read
+<a href="../console/commands_as_services.html" class="reference internal">How to Define Commands as Services</a>.</p>
+</div>
+<div class="section">
+<h2 id="container-hot-path">
+    container.hot_path
+    <a class="headerlink" href="#container-hot-path" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>Purpose</strong>: Add to list of always needed services</p>
+<p>This tag identifies the services that are always needed. It is only applied to
+a very short list of bootstrapping services (like <code translate="no" class="notranslate">router</code>, <code translate="no" class="notranslate">event_dispatcher</code>,
+<code translate="no" class="notranslate">http_kernel</code>, <code translate="no" class="notranslate">request_stack</code>, etc.). Then, it is propagated to all dependencies
+of these services, with a special case for event listeners, where only listed events
+are propagated to their related listeners.</p>
+<p>It will replace, in cache for generated service factories, the PHP autoload by
+plain inlined <code translate="no" class="notranslate">include_once</code>. The benefit is a complete bypass of the autoloader
+for services and their class hierarchy. The result is a significant performance improvement.</p>
+<p>Use this tag with great caution, you have to be sure that the tagged service is always used.</p>
+<span id="dic-tags-container-nopreload"></span>
+</div>
+<div class="section">
+<h2 id="container-no-preload">
+    container.no_preload
+    <a class="headerlink" href="#container-no-preload" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>Purpose</strong>: Remove a class from the list of classes preloaded by PHP</p>
+<div class="admonition admonition-versionadded ">
+    <p class="admonition-title">
+                                    <span>5.1</span>
+    </p><p>The <code translate="no" class="notranslate">container.no_preload</code> tag was introduced in Symfony 5.1.</p>
+</div>
+<p>Add this tag to a service and its class won't be preloaded when using
+<a href="https://www.php.net/manual/en/opcache.configuration.php#ini.opcache.preload" class="reference external" rel="external noopener noreferrer" target="_blank">PHP class preloading</a>:</p>
+<div class="configuration-block">
+    <div role="tablist" aria-label="Configuration formats" class="configuration-tabs configuration-tabs-length-3">
+                    <button role="tab" type="button" data-language="yaml"
+                aria-controls="configuration-block-tabpanel-770e23cec0ab70d9641c5f0b8931f7ad4ca63dd5" aria-selected="true"
+                data-active="true" >
+                <span>YAML</span>
+            </button>
+                    <button role="tab" type="button" data-language="xml"
+                aria-controls="configuration-block-tabpanel-22e0f993d2c818ec01dcb4b0714d60f4a19d0d3c" aria-selected="false"
+                 tabindex="-1">
+                <span>XML</span>
+            </button>
+                    <button role="tab" type="button" data-language="php"
+                aria-controls="configuration-block-tabpanel-6c12ca266d6c104bc80862127ba2b33bc0d7f323" aria-selected="false"
+                 tabindex="-1">
+                <span>PHP</span>
+            </button>
+            </div>
+
+            <div role="tabpanel" id="configuration-block-tabpanel-770e23cec0ab70d9641c5f0b8931f7ad4ca63dd5" aria-label="YAML" class="configuration-codeblock" data-language="yaml" style="">
+            <div translate="no" class="highlight-yaml notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1
+2
+3</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs yaml"><span class="hljs-attr">services:</span>
+    <span class="hljs-string">App\SomeNamespace\SomeService:</span>
+        <span class="hljs-attr">tags:</span> <span class="hljs-string">['container.no_preload']</span></pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+        </div>
+            <div role="tabpanel" id="configuration-block-tabpanel-22e0f993d2c818ec01dcb4b0714d60f4a19d0d3c" aria-label="XML" class="configuration-codeblock" data-language="xml" style="display: none">
+            <div translate="no" class="highlight-xml notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs xml"><span class="hljs-meta">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">container</span> <span class="hljs-attr">xmlns</span>=<span class="hljs-string">"http://symfony.com/schema/dic/services"</span>
+    <span class="hljs-attr">xmlns:xsi</span>=<span class="hljs-string">"http://www.w3.org/2001/XMLSchema-instance"</span>
+    <span class="hljs-attr">xsi:schemaLocation</span>=<span class="hljs-string">"http://symfony.com/schema/dic/services
+        https://symfony.com/schema/dic/services/services-1.0.xsd"</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">services</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">service</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"App\SomeNamespace\SomeService"</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">tag</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"container.no_preload"</span>/&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">service</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">services</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">container</span>&gt;</span></pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+        </div>
+            <div role="tabpanel" id="configuration-block-tabpanel-6c12ca266d6c104bc80862127ba2b33bc0d7f323" aria-label="PHP" class="configuration-codeblock" data-language="php" style="display: none">
+            <div translate="no" class="highlight-php notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1
+2
+3
+4
+5
+6</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs php"><span class="hljs-keyword">use</span> <span class="hljs-title">App</span>\<span class="hljs-title">SomeNamespace</span>\<span class="hljs-title">SomeService</span>;
+
+<span class="hljs-variable"><span class="hljs-variable-other-marker">$</span>container</span>
+    -&gt;<span class="hljs-title invoke__">register</span>(SomeService::<span class="hljs-variable language_">class</span>)
+    -&gt;<span class="hljs-title invoke__">addTag</span>(<span class="hljs-string">'container.no_preload'</span>)
+;</pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+        </div>
+    </div>
+<p>If you add some service tagged with <code translate="no" class="notranslate">container.no_preload</code> as an argument of
+another service, the <code translate="no" class="notranslate">container.no_preload</code> tag is applied automatically to
+that service too.</p>
+<span id="dic-tags-container-preload"></span>
+</div>
+<div class="section">
+<h2 id="container-preload">
+    container.preload
+    <a class="headerlink" href="#container-preload" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>Purpose</strong>: Add some class to the list of classes preloaded by PHP</p>
+<div class="admonition admonition-versionadded ">
+    <p class="admonition-title">
+                                    <span>5.1</span>
+    </p><p>The <code translate="no" class="notranslate">container.preload</code> tag was introduced in Symfony 5.1.</p>
+</div>
+<p>When using <a href="https://www.php.net/manual/en/opcache.configuration.php#ini.opcache.preload" class="reference external" rel="external noopener noreferrer" target="_blank">PHP class preloading</a>, this tag allows you to define which PHP
+classes should be preloaded. This can improve performance by making some of the
+classes used by your service always available for all requests (until the server
+is restarted):</p>
+<div class="configuration-block">
+    <div role="tablist" aria-label="Configuration formats" class="configuration-tabs configuration-tabs-length-3">
+                    <button role="tab" type="button" data-language="yaml"
+                aria-controls="configuration-block-tabpanel-74acdadec177c0ffa6492444921d719949519ace" aria-selected="true"
+                data-active="true" >
+                <span>YAML</span>
+            </button>
+                    <button role="tab" type="button" data-language="xml"
+                aria-controls="configuration-block-tabpanel-da3d81cd61e3c7e17b972713c0dd51e0f91ea071" aria-selected="false"
+                 tabindex="-1">
+                <span>XML</span>
+            </button>
+                    <button role="tab" type="button" data-language="php"
+                aria-controls="configuration-block-tabpanel-dfa2a7c8dc6d126f49ab8c9dbf204aca39f4efd7" aria-selected="false"
+                 tabindex="-1">
+                <span>PHP</span>
+            </button>
+            </div>
+
+            <div role="tabpanel" id="configuration-block-tabpanel-74acdadec177c0ffa6492444921d719949519ace" aria-label="YAML" class="configuration-codeblock" data-language="yaml" style="">
+            <div translate="no" class="highlight-yaml notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1
+2
+3
+4
+5
+6</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs yaml"><span class="hljs-attr">services:</span>
+    <span class="hljs-string">App\SomeNamespace\SomeService:</span>
+        <span class="hljs-attr">tags:</span>
+            <span class="hljs-bullet">-</span> <span class="hljs-string">{</span> <span class="hljs-attr">name:</span> <span class="hljs-string">'container.preload'</span><span class="hljs-string">,</span> <span class="hljs-attr">class:</span> <span class="hljs-string">'App\SomeClass'</span> <span class="hljs-string">}</span>
+            <span class="hljs-bullet">-</span> <span class="hljs-string">{</span> <span class="hljs-attr">name:</span> <span class="hljs-string">'container.preload'</span><span class="hljs-string">,</span> <span class="hljs-attr">class:</span> <span class="hljs-string">'App\Some\OtherClass'</span> <span class="hljs-string">}</span>
+            <span class="hljs-comment"># ...</span></pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+        </div>
+            <div role="tabpanel" id="configuration-block-tabpanel-da3d81cd61e3c7e17b972713c0dd51e0f91ea071" aria-label="XML" class="configuration-codeblock" data-language="xml" style="display: none">
+            <div translate="no" class="highlight-xml notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs xml"><span class="hljs-meta">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">container</span> <span class="hljs-attr">xmlns</span>=<span class="hljs-string">"http://symfony.com/schema/dic/services"</span>
+    <span class="hljs-attr">xmlns:xsi</span>=<span class="hljs-string">"http://www.w3.org/2001/XMLSchema-instance"</span>
+    <span class="hljs-attr">xsi:schemaLocation</span>=<span class="hljs-string">"http://symfony.com/schema/dic/services
+        https://symfony.com/schema/dic/services/services-1.0.xsd"</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">services</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">service</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"App\SomeNamespace\SomeService"</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">tag</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"container.preload"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"App\SomeClass"</span>/&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">tag</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"container.preload"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"App\Some\OtherClass"</span>/&gt;</span>
+            <span class="hljs-comment">&lt;!-- ... --&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">service</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">services</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">container</span>&gt;</span></pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+        </div>
+            <div role="tabpanel" id="configuration-block-tabpanel-dfa2a7c8dc6d126f49ab8c9dbf204aca39f4efd7" aria-label="PHP" class="configuration-codeblock" data-language="php" style="display: none">
+            <div translate="no" class="highlight-php notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs php"><span class="hljs-keyword">use</span> <span class="hljs-title">App</span>\<span class="hljs-title">Some</span>\<span class="hljs-title">OtherClass</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">App</span>\<span class="hljs-title">SomeClass</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">App</span>\<span class="hljs-title">SomeNamespace</span>\<span class="hljs-title">SomeService</span>;
+
+<span class="hljs-variable"><span class="hljs-variable-other-marker">$</span>container</span>
+    -&gt;<span class="hljs-title invoke__">register</span>(SomeService::<span class="hljs-variable language_">class</span>)
+    -&gt;<span class="hljs-title invoke__">addTag</span>(<span class="hljs-string">'container.preload'</span>, [<span class="hljs-string">'class'</span> =&gt; SomeClass::<span class="hljs-variable language_">class</span>])
+    -&gt;<span class="hljs-title invoke__">addTag</span>(<span class="hljs-string">'container.preload'</span>, [<span class="hljs-string">'class'</span> =&gt; OtherClass::<span class="hljs-variable language_">class</span>])
+    <span class="hljs-comment">// ...</span>
+;</pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+        </div>
+    </div>
+</div>
+<div class="section">
+<h2 id="controller-argument-value-resolver">
+    controller.argument_value_resolver
+    <a class="headerlink" href="#controller-argument-value-resolver" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>Purpose</strong>: Register a value resolver for controller arguments such as <code translate="no" class="notranslate">Request</code></p>
+<p>Value resolvers implement the
+<a href="https://github.com/symfony/symfony/blob/5.4/src/Symfony/Component/HttpKernel/Controller/ArgumentValueResolverInterface.php" class="reference external" title="Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface" rel="external noopener noreferrer" target="_blank">ArgumentValueResolverInterface</a>
+and are used to resolve argument values for controllers as described here:
+<a href="../controller/argument_value_resolver.html" class="reference internal">Extending Action Argument Resolving</a>.</p>
+</div>
+<div class="section">
+<h2 id="data-collector">
+    data_collector
+    <a class="headerlink" href="#data-collector" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>Purpose</strong>: Create a class that collects custom data for the profiler</p>
+<p>For details on creating your own custom data collection, read the
+<a href="../profiler.html#profiler-data-collector" class="reference internal">Profiler</a> article.</p>
+</div>
+<div class="section">
+<h2 id="doctrine-event-listener">
+    doctrine.event_listener
+    <a class="headerlink" href="#doctrine-event-listener" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>Purpose</strong>: Add a Doctrine event listener</p>
+<p>For details on creating Doctrine event listeners, read the
+<a href="../doctrine/events.html" class="reference internal">Doctrine events</a> article.</p>
+</div>
+<div class="section">
+<h2 id="doctrine-event-subscriber">
+    doctrine.event_subscriber
+    <a class="headerlink" href="#doctrine-event-subscriber" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>Purpose</strong>: Add a Doctrine event subscriber</p>
+<p>For details on creating Doctrine event subscribers, read the
+<a href="../doctrine/events.html" class="reference internal">Doctrine events</a> article.</p>
+<span id="dic-tags-form-type"></span>
+</div>
+<div class="section">
+<h2 id="form-type">
+    form.type
+    <a class="headerlink" href="#form-type" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>Purpose</strong>: Create a custom form field type</p>
+<p>For details on creating your own custom form type, read the
+<a href="../form/create_custom_field_type.html" class="reference internal">How to Create a Custom Form Field Type</a> article.</p>
+</div>
+<div class="section">
+<h2 id="form-type-extension">
+    form.type_extension
+    <a class="headerlink" href="#form-type-extension" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>Purpose</strong>: Create a custom &quot;form extension&quot;</p>
+<p>For details on creating Form type extensions, read the
+<a href="../form/create_form_type_extension.html" class="reference internal">How to Create a Form Type Extension</a> article.</p>
+<span id="reference-dic-type_guesser"></span>
+</div>
+<div class="section">
+<h2 id="form-type-guesser">
+    form.type_guesser
+    <a class="headerlink" href="#form-type-guesser" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>Purpose</strong>: Add your own logic for &quot;form type guessing&quot;</p>
+<p>This tag allows you to add your own logic to the <a href="../forms.html#form-type-guessing" class="reference internal">form guessing</a>
+process. By default, form guessing is done by &quot;guessers&quot; based on the validation
+metadata and Doctrine metadata (if you're using Doctrine) or Propel metadata
+(if you're using Propel).</p>
+<div class="admonition admonition-seealso ">
+    <p class="admonition-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" width="24" height="24" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" /></svg>
+                <span>See also</span>
+    </p><p>For information on how to create your own type guesser, see
+<a href="../form/type_guesser.html" class="reference internal">Creating a custom Type Guesser</a>.</p>
+</div>
+</div>
+<div class="section">
+<h2 id="kernel-cache-clearer">
+    kernel.cache_clearer
+    <a class="headerlink" href="#kernel-cache-clearer" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>Purpose</strong>: Register your service to be called during the cache clearing
+process</p>
+<p>Cache clearing occurs whenever you call <code translate="no" class="notranslate">cache:clear</code> command. If your
+bundle caches files, you should add a custom cache clearer for clearing those
+files during the cache clearing process.</p>
+<p>In order to register your custom cache clearer, first you must create a
+service class:</p>
+<div translate="no" class="highlight-php notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs php"><span class="hljs-comment">// src/Cache/MyClearer.php</span>
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">App</span>\<span class="hljs-title">Cache</span>;
+
+<span class="hljs-keyword">use</span> <span class="hljs-title">Symfony</span>\<span class="hljs-title">Component</span>\<span class="hljs-title">HttpKernel</span>\<span class="hljs-title">CacheClearer</span>\<span class="hljs-title">CacheClearerInterface</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyClearer</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">CacheClearerInterface</span>
+</span>{
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">clear</span><span class="hljs-params">(<span class="hljs-keyword">string</span> <span class="hljs-variable"><span class="hljs-variable-other-marker">$</span>cacheDirectory</span>)</span>
+    </span>{
+        <span class="hljs-comment">// clear your cache</span>
+    }
+}</pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<p>If you're using the <a href="../service_container.html#service-container-services-load-example" class="reference internal">default services.yaml configuration</a>,
+your service will be automatically tagged with <code translate="no" class="notranslate">kernel.cache_clearer</code>. But, you
+can also register it manually:</p>
+<div class="configuration-block">
+    <div role="tablist" aria-label="Configuration formats" class="configuration-tabs configuration-tabs-length-3">
+                    <button role="tab" type="button" data-language="yaml"
+                aria-controls="configuration-block-tabpanel-b3366f5eafe314157c97eace951c135ffa029cd0" aria-selected="true"
+                data-active="true" >
+                <span>YAML</span>
+            </button>
+                    <button role="tab" type="button" data-language="xml"
+                aria-controls="configuration-block-tabpanel-b1e7b30c6f2c616fb10e23b02275d42392c93a0d" aria-selected="false"
+                 tabindex="-1">
+                <span>XML</span>
+            </button>
+                    <button role="tab" type="button" data-language="php"
+                aria-controls="configuration-block-tabpanel-075ac327e1092182378d08d6a1ffe96e0fb82348" aria-selected="false"
+                 tabindex="-1">
+                <span>PHP</span>
+            </button>
+            </div>
+
+            <div role="tabpanel" id="configuration-block-tabpanel-b3366f5eafe314157c97eace951c135ffa029cd0" aria-label="YAML" class="configuration-codeblock" data-language="yaml" style="">
+            <div translate="no" class="highlight-yaml notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1
+2
+3</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs yaml"><span class="hljs-attr">services:</span>
+    <span class="hljs-string">App\Cache\MyClearer:</span>
+        <span class="hljs-attr">tags:</span> <span class="hljs-string">[kernel.cache_clearer]</span></pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+        </div>
+            <div role="tabpanel" id="configuration-block-tabpanel-b1e7b30c6f2c616fb10e23b02275d42392c93a0d" aria-label="XML" class="configuration-codeblock" data-language="xml" style="display: none">
+            <div translate="no" class="highlight-xml notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs xml"><span class="hljs-meta">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">container</span> <span class="hljs-attr">xmlns</span>=<span class="hljs-string">"http://symfony.com/schema/dic/services"</span>
+    <span class="hljs-attr">xmlns:xsi</span>=<span class="hljs-string">"http://www.w3.org/2001/XMLSchema-instance"</span>
+    <span class="hljs-attr">xsi:schemaLocation</span>=<span class="hljs-string">"http://symfony.com/schema/dic/services
+        https://symfony.com/schema/dic/services/services-1.0.xsd"</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">services</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">service</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"App\Cache\MyClearer"</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">tag</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"kernel.cache_clearer"</span>/&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">service</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">services</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">container</span>&gt;</span></pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+        </div>
+            <div role="tabpanel" id="configuration-block-tabpanel-075ac327e1092182378d08d6a1ffe96e0fb82348" aria-label="PHP" class="configuration-codeblock" data-language="php" style="display: none">
+            <div translate="no" class="highlight-php notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1
+2
+3
+4
+5
+6</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs php"><span class="hljs-keyword">use</span> <span class="hljs-title">App</span>\<span class="hljs-title">Cache</span>\<span class="hljs-title">MyClearer</span>;
+
+<span class="hljs-variable"><span class="hljs-variable-other-marker">$</span>container</span>
+    -&gt;<span class="hljs-title invoke__">register</span>(MyClearer::<span class="hljs-variable language_">class</span>)
+    -&gt;<span class="hljs-title invoke__">addTag</span>(<span class="hljs-string">'kernel.cache_clearer'</span>)
+;</pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+        </div>
+    </div>
+</div>
+<div class="section">
+<h2 id="kernel-cache-warmer">
+    kernel.cache_warmer
+    <a class="headerlink" href="#kernel-cache-warmer" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>Purpose</strong>: Register your service to be called during the cache warming
+process</p>
+<p>Cache warming occurs whenever you run the <code translate="no" class="notranslate">cache:warmup</code> or <code translate="no" class="notranslate">cache:clear</code>
+command (unless you pass <code translate="no" class="notranslate">--no-warmup</code> to <code translate="no" class="notranslate">cache:clear</code>). It is also run
+when handling the request, if it wasn't done by one of the commands yet.</p>
+<p>The purpose is to initialize any cache that will be needed by the application
+and prevent the first user from any significant &quot;cache hit&quot; where the cache
+is generated dynamically.</p>
+<p>To register your own cache warmer, first create a service that implements
+the <a href="https://github.com/symfony/symfony/blob/5.4/src/Symfony/Component/HttpKernel/CacheWarmer/CacheWarmerInterface.php" class="reference external" title="Symfony\Component\HttpKernel\CacheWarmer\CacheWarmerInterface" rel="external noopener noreferrer" target="_blank">CacheWarmerInterface</a> interface:</p>
+<div translate="no" class="highlight-php notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs php"><span class="hljs-comment">// src/Cache/MyCustomWarmer.php</span>
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">App</span>\<span class="hljs-title">Cache</span>;
+
+<span class="hljs-keyword">use</span> <span class="hljs-title">App</span>\<span class="hljs-title">Foo</span>\<span class="hljs-title">Bar</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">Symfony</span>\<span class="hljs-title">Component</span>\<span class="hljs-title">HttpKernel</span>\<span class="hljs-title">CacheWarmer</span>\<span class="hljs-title">CacheWarmerInterface</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyCustomWarmer</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">CacheWarmerInterface</span>
+</span>{
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">warmUp</span><span class="hljs-params">(<span class="hljs-variable"><span class="hljs-variable-other-marker">$</span>cacheDirectory</span>)</span>
+    </span>{
+        <span class="hljs-comment">// ... do some sort of operations to "warm" your cache</span>
+
+        <span class="hljs-variable"><span class="hljs-variable-other-marker">$</span>filesAndClassesToPreload</span> = [];
+        <span class="hljs-variable"><span class="hljs-variable-other-marker">$</span>filesAndClassesToPreload</span>[] = Bar::<span class="hljs-variable language_">class</span>;
+
+        <span class="hljs-keyword">foreach</span> (<span class="hljs-title invoke__">scandir</span>(<span class="hljs-variable"><span class="hljs-variable-other-marker">$</span>someCacheDir</span>) <span class="hljs-keyword">as</span> <span class="hljs-variable"><span class="hljs-variable-other-marker">$</span>file</span>) {
+            <span class="hljs-keyword">if</span> (!<span class="hljs-title invoke__">is_dir</span>(<span class="hljs-variable"><span class="hljs-variable-other-marker">$</span>file</span> = <span class="hljs-variable"><span class="hljs-variable-other-marker">$</span>someCacheDir</span>.<span class="hljs-string">'/'</span>.<span class="hljs-variable"><span class="hljs-variable-other-marker">$</span>file</span>)) {
+                <span class="hljs-variable"><span class="hljs-variable-other-marker">$</span>filesAndClassesToPreload</span>[] = <span class="hljs-variable"><span class="hljs-variable-other-marker">$</span>file</span>;
+            }
+        }
+
+        <span class="hljs-keyword">return</span> <span class="hljs-variable"><span class="hljs-variable-other-marker">$</span>filesAndClassesToPreload</span>;
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isOptional</span><span class="hljs-params">()</span>
+    </span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;
+    }
+}</pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<p>The <code translate="no" class="notranslate">warmUp()</code> method must return an array with the files and classes to
+preload. Files must be absolute paths and classes must be fully-qualified class
+names. The only restriction is that files must be stored in the cache directory.
+If you don't need to preload anything, return an empty array</p>
+<div class="admonition admonition-deprecated ">
+    <p class="admonition-title">
+                                    <span>5.1</span>
+    </p><p>Not returning an array from the <code translate="no" class="notranslate">warmUp()</code> method with the files to
+preload is deprecated since Symfony 5.1.</p>
+</div>
+<p>The <code translate="no" class="notranslate">isOptional()</code> method should return true if it's possible to use the
+application without calling this cache warmer. In Symfony, optional warmers
+are always executed by default (you can change this by using the
+<code translate="no" class="notranslate">--no-optional-warmers</code> option when executing the command).</p>
+<p>If you're using the <a href="../service_container.html#service-container-services-load-example" class="reference internal">default services.yaml configuration</a>,
+your service will be automatically tagged with <code translate="no" class="notranslate">kernel.cache_warmer</code>. But, you
+can also register it manually:</p>
+<div class="configuration-block">
+    <div role="tablist" aria-label="Configuration formats" class="configuration-tabs configuration-tabs-length-3">
+                    <button role="tab" type="button" data-language="yaml"
+                aria-controls="configuration-block-tabpanel-941e3b491132d794c2db7b06e08cfafbf1c2bed8" aria-selected="true"
+                data-active="true" >
+                <span>YAML</span>
+            </button>
+                    <button role="tab" type="button" data-language="xml"
+                aria-controls="configuration-block-tabpanel-6997a040bd0fe8da3344e26d84cb7ea926d52a77" aria-selected="false"
+                 tabindex="-1">
+                <span>XML</span>
+            </button>
+                    <button role="tab" type="button" data-language="php"
+                aria-controls="configuration-block-tabpanel-05158a962a9839a1bacc177a22caf7e99222ba0d" aria-selected="false"
+                 tabindex="-1">
+                <span>PHP</span>
+            </button>
+            </div>
+
+            <div role="tabpanel" id="configuration-block-tabpanel-941e3b491132d794c2db7b06e08cfafbf1c2bed8" aria-label="YAML" class="configuration-codeblock" data-language="yaml" style="">
+            <div translate="no" class="highlight-yaml notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1
+2
+3
+4</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs yaml"><span class="hljs-attr">services:</span>
+    <span class="hljs-string">App\Cache\MyCustomWarmer:</span>
+        <span class="hljs-attr">tags:</span>
+            <span class="hljs-bullet">-</span> <span class="hljs-string">{</span> <span class="hljs-attr">name:</span> <span class="hljs-string">kernel.cache_warmer,</span> <span class="hljs-attr">priority:</span> <span class="hljs-number">0</span> <span class="hljs-string">}</span></pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+        </div>
+            <div role="tabpanel" id="configuration-block-tabpanel-6997a040bd0fe8da3344e26d84cb7ea926d52a77" aria-label="XML" class="configuration-codeblock" data-language="xml" style="display: none">
+            <div translate="no" class="highlight-xml notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs xml"><span class="hljs-meta">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">container</span> <span class="hljs-attr">xmlns</span>=<span class="hljs-string">"http://symfony.com/schema/dic/services"</span>
+    <span class="hljs-attr">xmlns:xsi</span>=<span class="hljs-string">"http://www.w3.org/2001/XMLSchema-instance"</span>
+    <span class="hljs-attr">xsi:schemaLocation</span>=<span class="hljs-string">"http://symfony.com/schema/dic/services
+        https://symfony.com/schema/dic/services/services-1.0.xsd"</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">services</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">service</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"App\Cache\MyCustomWarmer"</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">tag</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"kernel.cache_warmer"</span> <span class="hljs-attr">priority</span>=<span class="hljs-string">"0"</span>/&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">service</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">services</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">container</span>&gt;</span></pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+        </div>
+            <div role="tabpanel" id="configuration-block-tabpanel-05158a962a9839a1bacc177a22caf7e99222ba0d" aria-label="PHP" class="configuration-codeblock" data-language="php" style="display: none">
+            <div translate="no" class="highlight-php notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1
+2
+3
+4
+5
+6</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs php"><span class="hljs-keyword">use</span> <span class="hljs-title">App</span>\<span class="hljs-title">Cache</span>\<span class="hljs-title">MyCustomWarmer</span>;
+
+<span class="hljs-variable"><span class="hljs-variable-other-marker">$</span>container</span>
+    -&gt;<span class="hljs-title invoke__">register</span>(MyCustomWarmer::<span class="hljs-variable language_">class</span>)
+    -&gt;<span class="hljs-title invoke__">addTag</span>(<span class="hljs-string">'kernel.cache_warmer'</span>, [<span class="hljs-string">'priority'</span> =&gt; <span class="hljs-number">0</span>])
+;</pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+        </div>
+    </div>
+<div class="admonition admonition-note ">
+    <p class="admonition-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" width="24" height="24" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>
+                <span>Note</span>
+    </p><p>The <code translate="no" class="notranslate">priority</code> is optional and its value is a positive or negative integer
+that defaults to <code translate="no" class="notranslate">0</code>. The higher the number, the earlier that warmers are
+executed.</p>
+</div>
+<div class="admonition admonition-caution ">
+    <p class="admonition-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" width="24" height="24" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
+                <span>Caution</span>
+    </p><p>If your cache warmer fails its execution because of any exception, Symfony
+won't try to execute it again for the next requests. Therefore, your
+application and/or bundles should be prepared for when the contents
+generated by the cache warmer are not available.</p>
+</div>
+<span id="core-cache-warmers"></span>
+<p>In addition to your own cache warmers, Symfony components and third-party
+bundles define cache warmers too for their own purposes. You can list them all
+with the following command:</p>
+<div translate="no" class="highlight-terminal highlight-bash notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs terminal bash"><span class="hljs-prompt">$ </span>php bin/console debug:container --tag=kernel.cache_warmer</pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<span id="dic-tags-kernel-event-listener"></span>
+</div>
+<div class="section">
+<h2 id="kernel-event-listener">
+    kernel.event_listener
+    <a class="headerlink" href="#kernel-event-listener" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>Purpose</strong>: To listen to different events/hooks in Symfony</p>
+<p>During the execution of a Symfony application, different events are triggered
+and you can also dispatch custom events. This tag allows you to <em>hook</em> your own
+classes into any of those events.</p>
+<p>For a full example of this listener, read the <a href="../event_dispatcher.html" class="reference internal">Events and Event Listeners</a>
+article.</p>
+<div class="section">
+<h3 id="core-event-listener-reference">
+    Core Event Listener Reference
+    <a class="headerlink" href="#core-event-listener-reference" title="Permalink to this headline">¶</a>
+</h3>
+<p>For the reference of Event Listeners associated with each kernel event,
+see the <a href="events.html" class="reference internal">Symfony Events Reference</a>.</p>
+<span id="dic-tags-kernel-event-subscriber"></span>
+</div>
+</div>
+<div class="section">
+<h2 id="kernel-event-subscriber">
+    kernel.event_subscriber
+    <a class="headerlink" href="#kernel-event-subscriber" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>Purpose</strong>: To subscribe to a set of different events/hooks in Symfony</p>
+<p>This is an alternative way to create an event listener, and is the recommended
+way (instead of using <code translate="no" class="notranslate">kernel.event_listener</code>). See <a href="../event_dispatcher.html#events-subscriber" class="reference internal">Events and Event Listeners</a>.</p>
+</div>
+<div class="section">
+<h2 id="kernel-fragment-renderer">
+    kernel.fragment_renderer
+    <a class="headerlink" href="#kernel-fragment-renderer" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>Purpose</strong>: Add a new HTTP content rendering strategy</p>
+<p>To add a new rendering strategy - in addition to the core strategies like
+<code translate="no" class="notranslate">EsiFragmentRenderer</code> - create a class that implements
+<a href="https://github.com/symfony/symfony/blob/5.4/src/Symfony/Component/HttpKernel/Fragment/FragmentRendererInterface.php" class="reference external" title="Symfony\Component\HttpKernel\Fragment\FragmentRendererInterface" rel="external noopener noreferrer" target="_blank">FragmentRendererInterface</a>,
+register it as a service, then tag it with <code translate="no" class="notranslate">kernel.fragment_renderer</code>.</p>
+</div>
+<div class="section">
+<h2 id="kernel-locale-aware">
+    kernel.locale_aware
+    <a class="headerlink" href="#kernel-locale-aware" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>Purpose</strong>: To access and use the current <a href="../translation.html#translation-locale" class="reference internal">locale</a></p>
+<p>Setting and retrieving the locale can be done via configuration or using
+container parameters, listeners, route parameters or the current request.</p>
+<p>Thanks to the <code translate="no" class="notranslate">Translation</code> contract, the locale can be set via services.</p>
+<p>To register your own locale aware service, first create a service that implements
+the <a href="https://github.com/symfony/symfony/blob/5.4/src/Symfony/Contracts/Translation/LocaleAwareInterface.php" class="reference external" title="Symfony\Contracts\Translation\LocaleAwareInterface" rel="external noopener noreferrer" target="_blank">LocaleAwareInterface</a> interface:</p>
+<div translate="no" class="highlight-php notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs php"><span class="hljs-comment">// src/Locale/MyCustomLocaleHandler.php</span>
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">App</span>\<span class="hljs-title">Locale</span>;
+
+<span class="hljs-keyword">use</span> <span class="hljs-title">Symfony</span>\<span class="hljs-title">Contracts</span>\<span class="hljs-title">Translation</span>\<span class="hljs-title">LocaleAwareInterface</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyCustomLocaleHandler</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">LocaleAwareInterface</span>
+</span>{
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">setLocale</span><span class="hljs-params">(<span class="hljs-variable"><span class="hljs-variable-other-marker">$</span>locale</span>)</span>
+    </span>{
+        <span class="hljs-variable"><span class="hljs-variable-other-marker">$</span>this</span>-&gt;locale = <span class="hljs-variable"><span class="hljs-variable-other-marker">$</span>locale</span>;
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getLocale</span><span class="hljs-params">()</span>
+    </span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-variable"><span class="hljs-variable-other-marker">$</span>this</span>-&gt;locale;
+    }
+}</pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<p>If you're using the <a href="../service_container.html#service-container-services-load-example" class="reference internal">default services.yaml configuration</a>,
+your service will be automatically tagged with <code translate="no" class="notranslate">kernel.locale_aware</code>. But, you
+can also register it manually:</p>
+<div class="configuration-block">
+    <div role="tablist" aria-label="Configuration formats" class="configuration-tabs configuration-tabs-length-3">
+                    <button role="tab" type="button" data-language="yaml"
+                aria-controls="configuration-block-tabpanel-7b81d4a59b489cb936145c0a41f08ea9c0db6ce3" aria-selected="true"
+                data-active="true" >
+                <span>YAML</span>
+            </button>
+                    <button role="tab" type="button" data-language="xml"
+                aria-controls="configuration-block-tabpanel-cc68ef748925ba5d6ba35fd7d0a649cc4baa2455" aria-selected="false"
+                 tabindex="-1">
+                <span>XML</span>
+            </button>
+                    <button role="tab" type="button" data-language="php"
+                aria-controls="configuration-block-tabpanel-82d8d314bb6f47743d8a5aff3732c9735eaa41dc" aria-selected="false"
+                 tabindex="-1">
+                <span>PHP</span>
+            </button>
+            </div>
+
+            <div role="tabpanel" id="configuration-block-tabpanel-7b81d4a59b489cb936145c0a41f08ea9c0db6ce3" aria-label="YAML" class="configuration-codeblock" data-language="yaml" style="">
+            <div translate="no" class="highlight-yaml notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1
+2
+3</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs yaml"><span class="hljs-attr">services:</span>
+    <span class="hljs-string">App\Locale\MyCustomLocaleHandler:</span>
+        <span class="hljs-attr">tags:</span> <span class="hljs-string">[kernel.locale_aware]</span></pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+        </div>
+            <div role="tabpanel" id="configuration-block-tabpanel-cc68ef748925ba5d6ba35fd7d0a649cc4baa2455" aria-label="XML" class="configuration-codeblock" data-language="xml" style="display: none">
+            <div translate="no" class="highlight-xml notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs xml"><span class="hljs-meta">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">container</span> <span class="hljs-attr">xmlns</span>=<span class="hljs-string">"http://symfony.com/schema/dic/services"</span>
+    <span class="hljs-attr">xmlns:xsi</span>=<span class="hljs-string">"http://www.w3.org/2001/XMLSchema-instance"</span>
+    <span class="hljs-attr">xsi:schemaLocation</span>=<span class="hljs-string">"http://symfony.com/schema/dic/services
+        https://symfony.com/schema/dic/services/services-1.0.xsd"</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">services</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">service</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"App\Locale\MyCustomLocaleHandler"</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">tag</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"kernel.locale_aware"</span>/&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">service</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">services</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">container</span>&gt;</span></pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+        </div>
+            <div role="tabpanel" id="configuration-block-tabpanel-82d8d314bb6f47743d8a5aff3732c9735eaa41dc" aria-label="PHP" class="configuration-codeblock" data-language="php" style="display: none">
+            <div translate="no" class="highlight-php notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1
+2
+3
+4
+5
+6</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs php"><span class="hljs-keyword">use</span> <span class="hljs-title">App</span>\<span class="hljs-title">Locale</span>\<span class="hljs-title">MyCustomLocaleHandler</span>;
+
+<span class="hljs-variable"><span class="hljs-variable-other-marker">$</span>container</span>
+    -&gt;<span class="hljs-title invoke__">register</span>(LocaleHandler::<span class="hljs-variable language_">class</span>)
+    -&gt;<span class="hljs-title invoke__">addTag</span>(<span class="hljs-string">'kernel.locale_aware'</span>)
+;</pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+        </div>
+    </div>
+</div>
+<div class="section">
+<h2 id="kernel-reset">
+    kernel.reset
+    <a class="headerlink" href="#kernel-reset" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>Purpose</strong>: Clean up services between requests</p>
+<p>In all main requests (not <a href="../components/http_kernel.html#http-kernel-sub-requests" class="reference internal">sub-requests</a>) except
+the first one, Symfony looks for any service tagged with the <code translate="no" class="notranslate">kernel.reset</code> tag
+to reinitialize their state. This is done by calling to the method whose name is
+configured in the <code translate="no" class="notranslate">method</code> argument of the tag.</p>
+<p>This is mostly useful when running your projects in application servers that
+reuse the Symfony application between requests to improve performance. This tag
+is applied for example to the built-in <a href="../profiler.html#profiler-data-collector" class="reference internal">data collectors</a>
+of the profiler to delete all their information.</p>
+<span id="dic_tags-mime"></span>
+</div>
+<div class="section">
+<h2 id="mime-mime-type-guesser">
+    mime.mime_type_guesser
+    <a class="headerlink" href="#mime-mime-type-guesser" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>Purpose</strong>: Add your own logic for guessing MIME types</p>
+<p>This tag is used to register your own <a href="../components/mime.html#components-mime-type-guess" class="reference internal">MIME type guessers</a>
+in case the guessers provided by the <a href="../components/mime.html" class="reference internal">Mime component</a>
+don't fit your needs.</p>
+<span id="dic_tags-monolog"></span>
+</div>
+<div class="section">
+<h2 id="monolog-logger">
+    monolog.logger
+    <a class="headerlink" href="#monolog-logger" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>Purpose</strong>: To use a custom logging channel with Monolog</p>
+<p>Monolog allows you to share its handlers between several logging channels.
+The logger service uses the channel <code translate="no" class="notranslate">app</code> but you can change the
+channel when injecting the logger in a service.</p>
+<div class="configuration-block">
+    <div role="tablist" aria-label="Configuration formats" class="configuration-tabs configuration-tabs-length-3">
+                    <button role="tab" type="button" data-language="yaml"
+                aria-controls="configuration-block-tabpanel-a2c885581bc360ef720da98de2c5f5c7b86b8b1d" aria-selected="true"
+                data-active="true" >
+                <span>YAML</span>
+            </button>
+                    <button role="tab" type="button" data-language="xml"
+                aria-controls="configuration-block-tabpanel-42b681d31470db1d2c0501ed2b0111339b364a34" aria-selected="false"
+                 tabindex="-1">
+                <span>XML</span>
+            </button>
+                    <button role="tab" type="button" data-language="php"
+                aria-controls="configuration-block-tabpanel-56a2500557c18d535379ef79acc90dc136e145eb" aria-selected="false"
+                 tabindex="-1">
+                <span>PHP</span>
+            </button>
+            </div>
+
+            <div role="tabpanel" id="configuration-block-tabpanel-a2c885581bc360ef720da98de2c5f5c7b86b8b1d" aria-label="YAML" class="configuration-codeblock" data-language="yaml" style="">
+            <div translate="no" class="highlight-yaml notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1
+2
+3
+4
+5</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs yaml"><span class="hljs-attr">services:</span>
+    <span class="hljs-string">App\Log\CustomLogger:</span>
+        <span class="hljs-attr">arguments:</span> <span class="hljs-string">['@logger']</span>
+        <span class="hljs-attr">tags:</span>
+            <span class="hljs-bullet">-</span> <span class="hljs-string">{</span> <span class="hljs-attr">name:</span> <span class="hljs-string">monolog.logger,</span> <span class="hljs-attr">channel:</span> <span class="hljs-string">app</span> <span class="hljs-string">}</span></pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+        </div>
+            <div role="tabpanel" id="configuration-block-tabpanel-42b681d31470db1d2c0501ed2b0111339b364a34" aria-label="XML" class="configuration-codeblock" data-language="xml" style="display: none">
+            <div translate="no" class="highlight-xml notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs xml"><span class="hljs-meta">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">container</span> <span class="hljs-attr">xmlns</span>=<span class="hljs-string">"http://symfony.com/schema/dic/services"</span>
+    <span class="hljs-attr">xmlns:xsi</span>=<span class="hljs-string">"http://www.w3.org/2001/XMLSchema-instance"</span>
+    <span class="hljs-attr">xsi:schemaLocation</span>=<span class="hljs-string">"http://symfony.com/schema/dic/services
+        https://symfony.com/schema/dic/services/services-1.0.xsd"</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">services</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">service</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"App\Log\CustomLogger"</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">argument</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"service"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"logger"</span>/&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">tag</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"monolog.logger"</span> <span class="hljs-attr">channel</span>=<span class="hljs-string">"app"</span>/&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">service</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">services</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">container</span>&gt;</span></pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+        </div>
+            <div role="tabpanel" id="configuration-block-tabpanel-56a2500557c18d535379ef79acc90dc136e145eb" aria-label="PHP" class="configuration-codeblock" data-language="php" style="display: none">
+            <div translate="no" class="highlight-php notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1
+2
+3
+4
+5
+6</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs php"><span class="hljs-keyword">use</span> <span class="hljs-title">App</span>\<span class="hljs-title">Log</span>\<span class="hljs-title">CustomLogger</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">Symfony</span>\<span class="hljs-title">Component</span>\<span class="hljs-title">DependencyInjection</span>\<span class="hljs-title">Reference</span>;
+
+<span class="hljs-variable"><span class="hljs-variable-other-marker">$</span>container</span>-&gt;<span class="hljs-title invoke__">register</span>(CustomLogger::<span class="hljs-variable language_">class</span>)
+    -&gt;<span class="hljs-title invoke__">addArgument</span>(<span class="hljs-keyword">new</span> <span class="hljs-title invoke__">Reference</span>(<span class="hljs-string">'logger'</span>))
+    -&gt;<span class="hljs-title invoke__">addTag</span>(<span class="hljs-string">'monolog.logger'</span>, [<span class="hljs-string">'channel'</span> =&gt; <span class="hljs-string">'app'</span>]);</pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+        </div>
+    </div>
+<div class="admonition admonition-tip ">
+    <p class="admonition-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" width="24" height="24" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" /></svg>
+                <span>Tip</span>
+    </p><p>You can create <a href="../logging/channels_handlers.html" class="reference internal">custom channels</a> and
+even <a href="../logging/channels_handlers.html#monolog-autowire-channels" class="reference internal">autowire logging channels</a>.</p>
+</div>
+<span id="dic_tags-monolog-processor"></span>
+</div>
+<div class="section">
+<h2 id="monolog-processor">
+    monolog.processor
+    <a class="headerlink" href="#monolog-processor" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>Purpose</strong>: Add a custom processor for logging</p>
+<p>Monolog allows you to add processors in the logger or in the handlers to
+add extra data in the records. A processor receives the record as an argument
+and must return it after adding some extra data in the <code translate="no" class="notranslate">extra</code> attribute
+of the record.</p>
+<p>The built-in <code translate="no" class="notranslate">IntrospectionProcessor</code> can be used to add the file, the
+line, the class and the method where the logger was triggered.</p>
+<p>You can add a processor globally:</p>
+<div class="configuration-block">
+    <div role="tablist" aria-label="Configuration formats" class="configuration-tabs configuration-tabs-length-3">
+                    <button role="tab" type="button" data-language="yaml"
+                aria-controls="configuration-block-tabpanel-e337705f36f3cf8310ce3c3a3ea9d27106c7e8d9" aria-selected="true"
+                data-active="true" >
+                <span>YAML</span>
+            </button>
+                    <button role="tab" type="button" data-language="xml"
+                aria-controls="configuration-block-tabpanel-95451eef0f0f4b70478f5891b6854b71613044d2" aria-selected="false"
+                 tabindex="-1">
+                <span>XML</span>
+            </button>
+                    <button role="tab" type="button" data-language="php"
+                aria-controls="configuration-block-tabpanel-7b575c2c85ae5c70d222511af96d5d39a3b6b5c0" aria-selected="false"
+                 tabindex="-1">
+                <span>PHP</span>
+            </button>
+            </div>
+
+            <div role="tabpanel" id="configuration-block-tabpanel-e337705f36f3cf8310ce3c3a3ea9d27106c7e8d9" aria-label="YAML" class="configuration-codeblock" data-language="yaml" style="">
+            <div translate="no" class="highlight-yaml notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1
+2
+3</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs yaml"><span class="hljs-attr">services:</span>
+    <span class="hljs-string">Monolog\Processor\IntrospectionProcessor:</span>
+        <span class="hljs-attr">tags:</span> <span class="hljs-string">[monolog.processor]</span></pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+        </div>
+            <div role="tabpanel" id="configuration-block-tabpanel-95451eef0f0f4b70478f5891b6854b71613044d2" aria-label="XML" class="configuration-codeblock" data-language="xml" style="display: none">
+            <div translate="no" class="highlight-xml notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs xml"><span class="hljs-meta">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">container</span> <span class="hljs-attr">xmlns</span>=<span class="hljs-string">"http://symfony.com/schema/dic/services"</span>
+    <span class="hljs-attr">xmlns:xsi</span>=<span class="hljs-string">"http://www.w3.org/2001/XMLSchema-instance"</span>
+    <span class="hljs-attr">xsi:schemaLocation</span>=<span class="hljs-string">"http://symfony.com/schema/dic/services
+        https://symfony.com/schema/dic/services/services-1.0.xsd"</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">services</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">service</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"Monolog\Processor\IntrospectionProcessor"</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">tag</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"monolog.processor"</span>/&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">service</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">services</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">container</span>&gt;</span></pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+        </div>
+            <div role="tabpanel" id="configuration-block-tabpanel-7b575c2c85ae5c70d222511af96d5d39a3b6b5c0" aria-label="PHP" class="configuration-codeblock" data-language="php" style="display: none">
+            <div translate="no" class="highlight-php notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1
+2
+3
+4
+5
+6</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs php"><span class="hljs-keyword">use</span> <span class="hljs-title">Monolog</span>\<span class="hljs-title">Processor</span>\<span class="hljs-title">IntrospectionProcessor</span>;
+
+<span class="hljs-variable"><span class="hljs-variable-other-marker">$</span>container</span>
+    -&gt;<span class="hljs-title invoke__">register</span>(IntrospectionProcessor::<span class="hljs-variable language_">class</span>)
+    -&gt;<span class="hljs-title invoke__">addTag</span>(<span class="hljs-string">'monolog.processor'</span>)
+;</pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+        </div>
+    </div>
+<div class="admonition admonition-tip ">
+    <p class="admonition-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" width="24" height="24" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" /></svg>
+                <span>Tip</span>
+    </p><p>If your service is not a callable (using <code translate="no" class="notranslate">__invoke()</code>) you can add the
+<code translate="no" class="notranslate">method</code> attribute in the tag to use a specific method.</p>
+</div>
+<p>You can add also a processor for a specific handler by using the <code translate="no" class="notranslate">handler</code>
+attribute:</p>
+<div class="configuration-block">
+    <div role="tablist" aria-label="Configuration formats" class="configuration-tabs configuration-tabs-length-3">
+                    <button role="tab" type="button" data-language="yaml"
+                aria-controls="configuration-block-tabpanel-54a112619758db76529884636b1962e5f9426c01" aria-selected="true"
+                data-active="true" >
+                <span>YAML</span>
+            </button>
+                    <button role="tab" type="button" data-language="xml"
+                aria-controls="configuration-block-tabpanel-7174486c1cae6e22420069e41121a23f77b5acc7" aria-selected="false"
+                 tabindex="-1">
+                <span>XML</span>
+            </button>
+                    <button role="tab" type="button" data-language="php"
+                aria-controls="configuration-block-tabpanel-cc80a25c0a18bc20fc4a2a04fdbe272308a46d2c" aria-selected="false"
+                 tabindex="-1">
+                <span>PHP</span>
+            </button>
+            </div>
+
+            <div role="tabpanel" id="configuration-block-tabpanel-54a112619758db76529884636b1962e5f9426c01" aria-label="YAML" class="configuration-codeblock" data-language="yaml" style="">
+            <div translate="no" class="highlight-yaml notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1
+2
+3
+4</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs yaml"><span class="hljs-attr">services:</span>
+    <span class="hljs-string">Monolog\Processor\IntrospectionProcessor:</span>
+        <span class="hljs-attr">tags:</span>
+            <span class="hljs-bullet">-</span> <span class="hljs-string">{</span> <span class="hljs-attr">name:</span> <span class="hljs-string">monolog.processor,</span> <span class="hljs-attr">handler:</span> <span class="hljs-string">firephp</span> <span class="hljs-string">}</span></pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+        </div>
+            <div role="tabpanel" id="configuration-block-tabpanel-7174486c1cae6e22420069e41121a23f77b5acc7" aria-label="XML" class="configuration-codeblock" data-language="xml" style="display: none">
+            <div translate="no" class="highlight-xml notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs xml"><span class="hljs-meta">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">container</span> <span class="hljs-attr">xmlns</span>=<span class="hljs-string">"http://symfony.com/schema/dic/services"</span>
+    <span class="hljs-attr">xmlns:xsi</span>=<span class="hljs-string">"http://www.w3.org/2001/XMLSchema-instance"</span>
+    <span class="hljs-attr">xsi:schemaLocation</span>=<span class="hljs-string">"http://symfony.com/schema/dic/services
+        https://symfony.com/schema/dic/services/services-1.0.xsd"</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">services</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">service</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"Monolog\Processor\IntrospectionProcessor"</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">tag</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"monolog.processor"</span> <span class="hljs-attr">handler</span>=<span class="hljs-string">"firephp"</span>/&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">service</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">services</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">container</span>&gt;</span></pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+        </div>
+            <div role="tabpanel" id="configuration-block-tabpanel-cc80a25c0a18bc20fc4a2a04fdbe272308a46d2c" aria-label="PHP" class="configuration-codeblock" data-language="php" style="display: none">
+            <div translate="no" class="highlight-php notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1
+2
+3
+4
+5
+6</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs php"><span class="hljs-keyword">use</span> <span class="hljs-title">Monolog</span>\<span class="hljs-title">Processor</span>\<span class="hljs-title">IntrospectionProcessor</span>;
+
+<span class="hljs-variable"><span class="hljs-variable-other-marker">$</span>container</span>
+    -&gt;<span class="hljs-title invoke__">register</span>(IntrospectionProcessor::<span class="hljs-variable language_">class</span>)
+    -&gt;<span class="hljs-title invoke__">addTag</span>(<span class="hljs-string">'monolog.processor'</span>, [<span class="hljs-string">'handler'</span> =&gt; <span class="hljs-string">'firephp'</span>])
+;</pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+        </div>
+    </div>
+<p>You can also add a processor for a specific logging channel by using the
+<code translate="no" class="notranslate">channel</code> attribute. This will register the processor only for the
+<code translate="no" class="notranslate">security</code> logging channel used in the Security component:</p>
+<div class="configuration-block">
+    <div role="tablist" aria-label="Configuration formats" class="configuration-tabs configuration-tabs-length-3">
+                    <button role="tab" type="button" data-language="yaml"
+                aria-controls="configuration-block-tabpanel-052d9a8b267420573543b28454e3999edfd52e36" aria-selected="true"
+                data-active="true" >
+                <span>YAML</span>
+            </button>
+                    <button role="tab" type="button" data-language="xml"
+                aria-controls="configuration-block-tabpanel-3a84605b3dd9fc7b27476ec95a6bed32b5d6ca9f" aria-selected="false"
+                 tabindex="-1">
+                <span>XML</span>
+            </button>
+                    <button role="tab" type="button" data-language="php"
+                aria-controls="configuration-block-tabpanel-3b79d6fb9c11f415408361669b97e9925cebf902" aria-selected="false"
+                 tabindex="-1">
+                <span>PHP</span>
+            </button>
+            </div>
+
+            <div role="tabpanel" id="configuration-block-tabpanel-052d9a8b267420573543b28454e3999edfd52e36" aria-label="YAML" class="configuration-codeblock" data-language="yaml" style="">
+            <div translate="no" class="highlight-yaml notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1
+2
+3
+4</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs yaml"><span class="hljs-attr">services:</span>
+    <span class="hljs-string">Monolog\Processor\IntrospectionProcessor:</span>
+        <span class="hljs-attr">tags:</span>
+            <span class="hljs-bullet">-</span> <span class="hljs-string">{</span> <span class="hljs-attr">name:</span> <span class="hljs-string">monolog.processor,</span> <span class="hljs-attr">channel:</span> <span class="hljs-string">security</span> <span class="hljs-string">}</span></pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+        </div>
+            <div role="tabpanel" id="configuration-block-tabpanel-3a84605b3dd9fc7b27476ec95a6bed32b5d6ca9f" aria-label="XML" class="configuration-codeblock" data-language="xml" style="display: none">
+            <div translate="no" class="highlight-xml notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs xml"><span class="hljs-meta">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">container</span> <span class="hljs-attr">xmlns</span>=<span class="hljs-string">"http://symfony.com/schema/dic/services"</span>
+    <span class="hljs-attr">xmlns:xsi</span>=<span class="hljs-string">"http://www.w3.org/2001/XMLSchema-instance"</span>
+    <span class="hljs-attr">xsi:schemaLocation</span>=<span class="hljs-string">"http://symfony.com/schema/dic/services
+        https://symfony.com/schema/dic/services/services-1.0.xsd"</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">services</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">service</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"Monolog\Processor\IntrospectionProcessor"</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">tag</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"monolog.processor"</span> <span class="hljs-attr">channel</span>=<span class="hljs-string">"security"</span>/&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">service</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">services</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">container</span>&gt;</span></pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+        </div>
+            <div role="tabpanel" id="configuration-block-tabpanel-3b79d6fb9c11f415408361669b97e9925cebf902" aria-label="PHP" class="configuration-codeblock" data-language="php" style="display: none">
+            <div translate="no" class="highlight-php notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1
+2
+3
+4
+5
+6</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs php"><span class="hljs-keyword">use</span> <span class="hljs-title">Monolog</span>\<span class="hljs-title">Processor</span>\<span class="hljs-title">IntrospectionProcessor</span>;
+
+<span class="hljs-variable"><span class="hljs-variable-other-marker">$</span>container</span>
+    -&gt;<span class="hljs-title invoke__">register</span>(IntrospectionProcessor::<span class="hljs-variable language_">class</span>)
+    -&gt;<span class="hljs-title invoke__">addTag</span>(<span class="hljs-string">'monolog.processor'</span>, [<span class="hljs-string">'channel'</span> =&gt; <span class="hljs-string">'security'</span>])
+;</pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+        </div>
+    </div>
+<div class="admonition admonition-note ">
+    <p class="admonition-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" width="24" height="24" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>
+                <span>Note</span>
+    </p><p>You cannot use both the <code translate="no" class="notranslate">handler</code> and <code translate="no" class="notranslate">channel</code> attributes for the
+same tag as handlers are shared between all channels.</p>
+</div>
+</div>
+<div class="section">
+<h2 id="routing-loader">
+    routing.loader
+    <a class="headerlink" href="#routing-loader" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>Purpose</strong>: Register a custom service that loads routes</p>
+<p>To enable a custom routing loader, add it as a regular service in one
+of your configuration and tag it with <code translate="no" class="notranslate">routing.loader</code>:</p>
+<div class="configuration-block">
+    <div role="tablist" aria-label="Configuration formats" class="configuration-tabs configuration-tabs-length-3">
+                    <button role="tab" type="button" data-language="yaml"
+                aria-controls="configuration-block-tabpanel-3a7022c0e7bd017256b534539898eb3ee89a4419" aria-selected="true"
+                data-active="true" >
+                <span>YAML</span>
+            </button>
+                    <button role="tab" type="button" data-language="xml"
+                aria-controls="configuration-block-tabpanel-c8e5b1806e3cc25527e762488120790283d20386" aria-selected="false"
+                 tabindex="-1">
+                <span>XML</span>
+            </button>
+                    <button role="tab" type="button" data-language="php"
+                aria-controls="configuration-block-tabpanel-016ff0f56e9e4870a9ec62ad25f445c547d4b74e" aria-selected="false"
+                 tabindex="-1">
+                <span>PHP</span>
+            </button>
+            </div>
+
+            <div role="tabpanel" id="configuration-block-tabpanel-3a7022c0e7bd017256b534539898eb3ee89a4419" aria-label="YAML" class="configuration-codeblock" data-language="yaml" style="">
+            <div translate="no" class="highlight-yaml notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1
+2
+3</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs yaml"><span class="hljs-attr">services:</span>
+    <span class="hljs-string">App\Routing\CustomLoader:</span>
+        <span class="hljs-attr">tags:</span> <span class="hljs-string">[routing.loader]</span></pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+        </div>
+            <div role="tabpanel" id="configuration-block-tabpanel-c8e5b1806e3cc25527e762488120790283d20386" aria-label="XML" class="configuration-codeblock" data-language="xml" style="display: none">
+            <div translate="no" class="highlight-xml notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs xml"><span class="hljs-meta">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">container</span> <span class="hljs-attr">xmlns</span>=<span class="hljs-string">"http://symfony.com/schema/dic/services"</span>
+    <span class="hljs-attr">xmlns:xsi</span>=<span class="hljs-string">"http://www.w3.org/2001/XMLSchema-instance"</span>
+    <span class="hljs-attr">xsi:schemaLocation</span>=<span class="hljs-string">"http://symfony.com/schema/dic/services
+        https://symfony.com/schema/dic/services/services-1.0.xsd"</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">services</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">service</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"App\Routing\CustomLoader"</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">tag</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"routing.loader"</span>/&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">service</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">services</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">container</span>&gt;</span></pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+        </div>
+            <div role="tabpanel" id="configuration-block-tabpanel-016ff0f56e9e4870a9ec62ad25f445c547d4b74e" aria-label="PHP" class="configuration-codeblock" data-language="php" style="display: none">
+            <div translate="no" class="highlight-php notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1
+2
+3
+4
+5
+6</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs php"><span class="hljs-keyword">use</span> <span class="hljs-title">App</span>\<span class="hljs-title">Routing</span>\<span class="hljs-title">CustomLoader</span>;
+
+<span class="hljs-variable"><span class="hljs-variable-other-marker">$</span>container</span>
+    -&gt;<span class="hljs-title invoke__">register</span>(CustomLoader::<span class="hljs-variable language_">class</span>)
+    -&gt;<span class="hljs-title invoke__">addTag</span>(<span class="hljs-string">'routing.loader'</span>)
+;</pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+        </div>
+    </div>
+<p>For more information, see <a href="../routing/custom_route_loader.html" class="reference internal">How to Create a custom Route Loader</a>.</p>
+</div>
+<div class="section">
+<h2 id="routing-expression-language-provider">
+    routing.expression_language_provider
+    <a class="headerlink" href="#routing-expression-language-provider" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>Purpose</strong>: Register a provider for expression language functions in routing</p>
+<p>This tag is used to automatically register
+<a href="../components/expression_language.html#components-expression-language-provider" class="reference internal">expression function providers</a>
+for the routing expression component. Using these providers, you can add custom
+functions to the routing expression language.</p>
+</div>
+<div class="section">
+<h2 id="security-expression-language-provider">
+    security.expression_language_provider
+    <a class="headerlink" href="#security-expression-language-provider" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>Purpose</strong>: Register a provider for expression language functions in security</p>
+<p>This tag is used to automatically register <a href="../components/expression_language.html#components-expression-language-provider" class="reference internal">expression function providers</a> for the security expression
+component. Using these providers, you can add custom functions to the security
+expression language.</p>
+</div>
+<div class="section">
+<h2 id="security-remember-me-aware">
+    security.remember_me_aware
+    <a class="headerlink" href="#security-remember-me-aware" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>Purpose</strong>: To allow remember me authentication</p>
+<p>This tag is used internally to allow remember-me authentication to work.
+If you have a custom authentication method where a user can be remember-me
+authenticated, then you may need to use this tag.</p>
+<p>If your custom authentication factory extends
+<a href="https://github.com/symfony/symfony/blob/5.4/src/Symfony/Bundle/SecurityBundle/DependencyInjection/Security/Factory/AbstractFactory.php" class="reference external" title="Symfony\Bundle\SecurityBundle\DependencyInjection\Security\Factory\AbstractFactory" rel="external noopener noreferrer" target="_blank">AbstractFactory</a>
+and your custom authentication listener extends
+<a href="https://github.com/symfony/symfony/blob/5.4/src/Symfony/Component/Security/Http/Firewall/AbstractAuthenticationListener.php" class="reference external" title="Symfony\Component\Security\Http\Firewall\AbstractAuthenticationListener" rel="external noopener noreferrer" target="_blank">AbstractAuthenticationListener</a>,
+then your custom authentication listener will automatically have this tag
+applied and it will function automatically.</p>
+</div>
+<div class="section">
+<h2 id="security-voter">
+    security.voter
+    <a class="headerlink" href="#security-voter" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>Purpose</strong>: To add a custom voter to Symfony's authorization logic</p>
+<p>When you call <code translate="no" class="notranslate">isGranted()</code> on Symfony's authorization checker, a system of &quot;voters&quot;
+is used behind the scenes to determine if the user should have access. The
+<code translate="no" class="notranslate">security.voter</code> tag allows you to add your own custom voter to that system.</p>
+<p>For more information, read the <a href="../security/voters.html" class="reference internal">How to Use Voters to Check User Permissions</a> article.</p>
+<span id="reference-dic-tags-serializer-encoder"></span>
+</div>
+<div class="section">
+<h2 id="serializer-encoder">
+    serializer.encoder
+    <a class="headerlink" href="#serializer-encoder" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>Purpose</strong>: Register a new encoder in the <code translate="no" class="notranslate">serializer</code> service</p>
+<p>The class that's tagged should implement the <a href="https://github.com/symfony/symfony/blob/5.4/src/Symfony/Component/Serializer/Encoder/EncoderInterface.php" class="reference external" title="Symfony\Component\Serializer\Encoder\EncoderInterface" rel="external noopener noreferrer" target="_blank">EncoderInterface</a>
+and <a href="https://github.com/symfony/symfony/blob/5.4/src/Symfony/Component/Serializer/Encoder/DecoderInterface.php" class="reference external" title="Symfony\Component\Serializer\Encoder\DecoderInterface" rel="external noopener noreferrer" target="_blank">DecoderInterface</a>.</p>
+<p>For more details, see <a href="../serializer.html" class="reference internal">How to Use the Serializer</a>.</p>
+<span id="reference-dic-tags-serializer-normalizer"></span>
+</div>
+<div class="section">
+<h2 id="serializer-normalizer">
+    serializer.normalizer
+    <a class="headerlink" href="#serializer-normalizer" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>Purpose</strong>: Register a new normalizer in the Serializer service</p>
+<p>The class that's tagged should implement the <a href="https://github.com/symfony/symfony/blob/5.4/src/Symfony/Component/Serializer/Normalizer/NormalizerInterface.php" class="reference external" title="Symfony\Component\Serializer\Normalizer\NormalizerInterface" rel="external noopener noreferrer" target="_blank">NormalizerInterface</a>
+and <a href="https://github.com/symfony/symfony/blob/5.4/src/Symfony/Component/Serializer/Normalizer/DenormalizerInterface.php" class="reference external" title="Symfony\Component\Serializer\Normalizer\DenormalizerInterface" rel="external noopener noreferrer" target="_blank">DenormalizerInterface</a>.</p>
+<p>For more details, see <a href="../serializer.html" class="reference internal">How to Use the Serializer</a>.</p>
+<p>Run the following command to check the priorities of the default normalizers:</p>
+<div translate="no" class="highlight-terminal highlight-bash notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs terminal bash"><span class="hljs-prompt">$ </span>php bin/console debug:container --tag serializer.normalizer</pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<span id="dic-tags-translation-loader"></span>
+</div>
+<div class="section">
+<h2 id="translation-loader">
+    translation.loader
+    <a class="headerlink" href="#translation-loader" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>Purpose</strong>: To register a custom service that loads translations</p>
+<p>By default, translations are loaded from the filesystem in a variety of
+different formats (YAML, XLIFF, PHP, etc).</p>
+<p>Now, register your loader as a service and tag it with <code translate="no" class="notranslate">translation.loader</code>:</p>
+<div class="configuration-block">
+    <div role="tablist" aria-label="Configuration formats" class="configuration-tabs configuration-tabs-length-3">
+                    <button role="tab" type="button" data-language="yaml"
+                aria-controls="configuration-block-tabpanel-acfc215f861541401f8c838fd63f97d9c8d2626e" aria-selected="true"
+                data-active="true" >
+                <span>YAML</span>
+            </button>
+                    <button role="tab" type="button" data-language="xml"
+                aria-controls="configuration-block-tabpanel-c3571749354b11eb9b135fb3a0adea42620758f3" aria-selected="false"
+                 tabindex="-1">
+                <span>XML</span>
+            </button>
+                    <button role="tab" type="button" data-language="php"
+                aria-controls="configuration-block-tabpanel-f633ac0531882bebc8c529ad4aa3ff0fa6b20d89" aria-selected="false"
+                 tabindex="-1">
+                <span>PHP</span>
+            </button>
+            </div>
+
+            <div role="tabpanel" id="configuration-block-tabpanel-acfc215f861541401f8c838fd63f97d9c8d2626e" aria-label="YAML" class="configuration-codeblock" data-language="yaml" style="">
+            <div translate="no" class="highlight-yaml notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1
+2
+3
+4</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs yaml"><span class="hljs-attr">services:</span>
+    <span class="hljs-string">App\Translation\MyCustomLoader:</span>
+        <span class="hljs-attr">tags:</span>
+            <span class="hljs-bullet">-</span> <span class="hljs-string">{</span> <span class="hljs-attr">name:</span> <span class="hljs-string">translation.loader,</span> <span class="hljs-attr">alias:</span> <span class="hljs-string">bin</span> <span class="hljs-string">}</span></pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+        </div>
+            <div role="tabpanel" id="configuration-block-tabpanel-c3571749354b11eb9b135fb3a0adea42620758f3" aria-label="XML" class="configuration-codeblock" data-language="xml" style="display: none">
+            <div translate="no" class="highlight-xml notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs xml"><span class="hljs-meta">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">container</span> <span class="hljs-attr">xmlns</span>=<span class="hljs-string">"http://symfony.com/schema/dic/services"</span>
+    <span class="hljs-attr">xmlns:xsi</span>=<span class="hljs-string">"http://www.w3.org/2001/XMLSchema-instance"</span>
+    <span class="hljs-attr">xsi:schemaLocation</span>=<span class="hljs-string">"http://symfony.com/schema/dic/services
+        https://symfony.com/schema/dic/services/services-1.0.xsd"</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">services</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">service</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"App\Translation\MyCustomLoader"</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">tag</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"translation.loader"</span> <span class="hljs-attr">alias</span>=<span class="hljs-string">"bin"</span>/&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">service</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">services</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">container</span>&gt;</span></pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+        </div>
+            <div role="tabpanel" id="configuration-block-tabpanel-f633ac0531882bebc8c529ad4aa3ff0fa6b20d89" aria-label="PHP" class="configuration-codeblock" data-language="php" style="display: none">
+            <div translate="no" class="highlight-php notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1
+2
+3
+4
+5
+6</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs php"><span class="hljs-keyword">use</span> <span class="hljs-title">App</span>\<span class="hljs-title">Translation</span>\<span class="hljs-title">MyCustomLoader</span>;
+
+<span class="hljs-variable"><span class="hljs-variable-other-marker">$</span>container</span>
+    -&gt;<span class="hljs-title invoke__">register</span>(MyCustomLoader::<span class="hljs-variable language_">class</span>)
+    -&gt;<span class="hljs-title invoke__">addTag</span>(<span class="hljs-string">'translation.loader'</span>, [<span class="hljs-string">'alias'</span> =&gt; <span class="hljs-string">'bin'</span>])
+;</pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+        </div>
+    </div>
+<p>The <code translate="no" class="notranslate">alias</code> option is required and very important: it defines the file
+&quot;suffix&quot; that will be used for the resource files that use this loader.
+For example, suppose you have some custom <code translate="no" class="notranslate">bin</code> format that you need to
+load. If you have a <code translate="no" class="notranslate">bin</code> file that contains French translations for
+the <code translate="no" class="notranslate">messages</code> domain, then you might have a file <code translate="no" class="notranslate">translations/messages.fr.bin</code>.</p>
+<p>When Symfony tries to load the <code translate="no" class="notranslate">bin</code> file, it passes the path to your
+custom loader as the <code translate="no" class="notranslate">$resource</code> argument. You can then perform any logic
+you need on that file in order to load your translations.</p>
+<p>If you're loading translations from a database, you'll still need a resource
+file, but it might either be blank or contain a little bit of information
+about loading those resources from the database. The file is key to trigger
+the <code translate="no" class="notranslate">load()</code> method on your custom loader.</p>
+<span id="reference-dic-tags-translation-extractor"></span>
+</div>
+<div class="section">
+<h2 id="translation-extractor">
+    translation.extractor
+    <a class="headerlink" href="#translation-extractor" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>Purpose</strong>: To register a custom service that extracts messages from a
+file</p>
+<p>When executing the <code translate="no" class="notranslate">translation:extract</code> command, it uses extractors to
+extract translation messages from a file. By default, the Symfony Framework
+has a <a href="https://github.com/symfony/symfony/blob/5.4/src/Symfony/Bridge/Twig/Translation/TwigExtractor.php" class="reference external" title="Symfony\Bridge\Twig\Translation\TwigExtractor" rel="external noopener noreferrer" target="_blank">TwigExtractor</a> and a
+<a href="https://github.com/symfony/symfony/blob/5.4/src/Symfony/Component/Translation/Extractor/PhpExtractor.php" class="reference external" title="Symfony\Component\Translation\Extractor\PhpExtractor" rel="external noopener noreferrer" target="_blank">PhpExtractor</a>, which
+help to find and extract translation keys from Twig templates and PHP files.</p>
+<p>You can create your own extractor by creating a class that implements
+<a href="https://github.com/symfony/symfony/blob/5.4/src/Symfony/Component/Translation/Extractor/ExtractorInterface.php" class="reference external" title="Symfony\Component\Translation\Extractor\ExtractorInterface" rel="external noopener noreferrer" target="_blank">ExtractorInterface</a>
+and tagging the service with <code translate="no" class="notranslate">translation.extractor</code>. The tag has one
+required option: <code translate="no" class="notranslate">alias</code>, which defines the name of the extractor:</p>
+<div translate="no" class="highlight-php notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs php"><span class="hljs-comment">// src/Acme/DemoBundle/Translation/FooExtractor.php</span>
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">Acme</span>\<span class="hljs-title">DemoBundle</span>\<span class="hljs-title">Translation</span>;
+
+<span class="hljs-keyword">use</span> <span class="hljs-title">Symfony</span>\<span class="hljs-title">Component</span>\<span class="hljs-title">Translation</span>\<span class="hljs-title">Extractor</span>\<span class="hljs-title">ExtractorInterface</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">Symfony</span>\<span class="hljs-title">Component</span>\<span class="hljs-title">Translation</span>\<span class="hljs-title">MessageCatalogue</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">FooExtractor</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">ExtractorInterface</span>
+</span>{
+    <span class="hljs-keyword">protected</span> <span class="hljs-variable"><span class="hljs-variable-other-marker">$</span>prefix</span>;
+
+    <span class="hljs-comment">/**
+     * Extracts translation messages from a template directory to the catalog.
+     */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">extract</span><span class="hljs-params">(<span class="hljs-variable"><span class="hljs-variable-other-marker">$</span>directory</span>, MessageCatalogue <span class="hljs-variable"><span class="hljs-variable-other-marker">$</span>catalog</span>)</span>
+    </span>{
+        <span class="hljs-comment">// ...</span>
+    }
+
+    <span class="hljs-comment">/**
+     * Sets the prefix that should be used for new found messages.
+     */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">setPrefix</span><span class="hljs-params">(<span class="hljs-keyword">string</span> <span class="hljs-variable"><span class="hljs-variable-other-marker">$</span>prefix</span>)</span>
+    </span>{
+        <span class="hljs-variable"><span class="hljs-variable-other-marker">$</span>this</span>-&gt;prefix = <span class="hljs-variable"><span class="hljs-variable-other-marker">$</span>prefix</span>;
+    }
+}</pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="configuration-block">
+    <div role="tablist" aria-label="Configuration formats" class="configuration-tabs configuration-tabs-length-3">
+                    <button role="tab" type="button" data-language="yaml"
+                aria-controls="configuration-block-tabpanel-007be24580b04e39c88a3e6642dd58cfcede853a" aria-selected="true"
+                data-active="true" >
+                <span>YAML</span>
+            </button>
+                    <button role="tab" type="button" data-language="xml"
+                aria-controls="configuration-block-tabpanel-b35c8693683c4e5c79c3e31d5c83f5937f694a04" aria-selected="false"
+                 tabindex="-1">
+                <span>XML</span>
+            </button>
+                    <button role="tab" type="button" data-language="php"
+                aria-controls="configuration-block-tabpanel-b77f3404881f63d023e26931a2de6cfa63f8f5b1" aria-selected="false"
+                 tabindex="-1">
+                <span>PHP</span>
+            </button>
+            </div>
+
+            <div role="tabpanel" id="configuration-block-tabpanel-007be24580b04e39c88a3e6642dd58cfcede853a" aria-label="YAML" class="configuration-codeblock" data-language="yaml" style="">
+            <div translate="no" class="highlight-yaml notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1
+2
+3
+4</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs yaml"><span class="hljs-attr">services:</span>
+    <span class="hljs-string">App\Translation\CustomExtractor:</span>
+        <span class="hljs-attr">tags:</span>
+            <span class="hljs-bullet">-</span> <span class="hljs-string">{</span> <span class="hljs-attr">name:</span> <span class="hljs-string">translation.extractor,</span> <span class="hljs-attr">alias:</span> <span class="hljs-string">foo</span> <span class="hljs-string">}</span></pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+        </div>
+            <div role="tabpanel" id="configuration-block-tabpanel-b35c8693683c4e5c79c3e31d5c83f5937f694a04" aria-label="XML" class="configuration-codeblock" data-language="xml" style="display: none">
+            <div translate="no" class="highlight-xml notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs xml"><span class="hljs-meta">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">container</span> <span class="hljs-attr">xmlns</span>=<span class="hljs-string">"http://symfony.com/schema/dic/services"</span>
+    <span class="hljs-attr">xmlns:xsi</span>=<span class="hljs-string">"http://www.w3.org/2001/XMLSchema-instance"</span>
+    <span class="hljs-attr">xsi:schemaLocation</span>=<span class="hljs-string">"http://symfony.com/schema/dic/services
+        https://symfony.com/schema/dic/services/services-1.0.xsd"</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">services</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">service</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"App\Translation\CustomExtractor"</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">tag</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"translation.extractor"</span> <span class="hljs-attr">alias</span>=<span class="hljs-string">"foo"</span>/&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">service</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">services</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">container</span>&gt;</span></pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+        </div>
+            <div role="tabpanel" id="configuration-block-tabpanel-b77f3404881f63d023e26931a2de6cfa63f8f5b1" aria-label="PHP" class="configuration-codeblock" data-language="php" style="display: none">
+            <div translate="no" class="highlight-php notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1
+2
+3
+4</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs php"><span class="hljs-keyword">use</span> <span class="hljs-title">App</span>\<span class="hljs-title">Translation</span>\<span class="hljs-title">CustomExtractor</span>;
+
+<span class="hljs-variable"><span class="hljs-variable-other-marker">$</span>container</span>-&gt;<span class="hljs-title invoke__">register</span>(CustomExtractor::<span class="hljs-variable language_">class</span>)
+    -&gt;<span class="hljs-title invoke__">addTag</span>(<span class="hljs-string">'translation.extractor'</span>, [<span class="hljs-string">'alias'</span> =&gt; <span class="hljs-string">'foo'</span>]);</pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+        </div>
+    </div>
+</div>
+<div class="section">
+<h2 id="translation-dumper">
+    translation.dumper
+    <a class="headerlink" href="#translation-dumper" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>Purpose</strong>: To register a custom service that dumps messages to a file</p>
+<p>After a <a href="dic_tags.html#reference-dic-tags-translation-extractor" class="reference internal">translation extractor</a>
+has extracted all messages from the templates, the dumpers are executed to dump
+the messages to a translation file in a specific format.</p>
+<p>Symfony already comes with many dumpers:</p>
+<ul>
+    <li><a href="https://github.com/symfony/symfony/blob/5.4/src/Symfony/Component/Translation/Dumper/CsvFileDumper.php" class="reference external" title="Symfony\Component\Translation\Dumper\CsvFileDumper" rel="external noopener noreferrer" target="_blank">CsvFileDumper</a></li>
+<li><a href="https://github.com/symfony/symfony/blob/5.4/src/Symfony/Component/Translation/Dumper/IcuResFileDumper.php" class="reference external" title="Symfony\Component\Translation\Dumper\IcuResFileDumper" rel="external noopener noreferrer" target="_blank">IcuResFileDumper</a></li>
+<li><a href="https://github.com/symfony/symfony/blob/5.4/src/Symfony/Component/Translation/Dumper/IniFileDumper.php" class="reference external" title="Symfony\Component\Translation\Dumper\IniFileDumper" rel="external noopener noreferrer" target="_blank">IniFileDumper</a></li>
+<li><a href="https://github.com/symfony/symfony/blob/5.4/src/Symfony/Component/Translation/Dumper/MoFileDumper.php" class="reference external" title="Symfony\Component\Translation\Dumper\MoFileDumper" rel="external noopener noreferrer" target="_blank">MoFileDumper</a></li>
+<li><a href="https://github.com/symfony/symfony/blob/5.4/src/Symfony/Component/Translation/Dumper/PoFileDumper.php" class="reference external" title="Symfony\Component\Translation\Dumper\PoFileDumper" rel="external noopener noreferrer" target="_blank">PoFileDumper</a></li>
+<li><a href="https://github.com/symfony/symfony/blob/5.4/src/Symfony/Component/Translation/Dumper/QtFileDumper.php" class="reference external" title="Symfony\Component\Translation\Dumper\QtFileDumper" rel="external noopener noreferrer" target="_blank">QtFileDumper</a></li>
+<li><a href="https://github.com/symfony/symfony/blob/5.4/src/Symfony/Component/Translation/Dumper/XliffFileDumper.php" class="reference external" title="Symfony\Component\Translation\Dumper\XliffFileDumper" rel="external noopener noreferrer" target="_blank">XliffFileDumper</a></li>
+<li><a href="https://github.com/symfony/symfony/blob/5.4/src/Symfony/Component/Translation/Dumper/YamlFileDumper.php" class="reference external" title="Symfony\Component\Translation\Dumper\YamlFileDumper" rel="external noopener noreferrer" target="_blank">YamlFileDumper</a></li>
+</ul>
+<p>You can create your own dumper by extending
+<a href="https://github.com/symfony/symfony/blob/5.4/src/Symfony/Component/Translation/Dumper/FileDumper.php" class="reference external" title="Symfony\Component\Translation\Dumper\FileDumper" rel="external noopener noreferrer" target="_blank">FileDumper</a> or implementing
+<a href="https://github.com/symfony/symfony/blob/5.4/src/Symfony/Component/Translation/Dumper/DumperInterface.php" class="reference external" title="Symfony\Component\Translation\Dumper\DumperInterface" rel="external noopener noreferrer" target="_blank">DumperInterface</a> and tagging
+the service with <code translate="no" class="notranslate">translation.dumper</code>. The tag has one option: <code translate="no" class="notranslate">alias</code>
+This is the name that's used to determine which dumper should be used.</p>
+<div class="configuration-block">
+    <div role="tablist" aria-label="Configuration formats" class="configuration-tabs configuration-tabs-length-3">
+                    <button role="tab" type="button" data-language="yaml"
+                aria-controls="configuration-block-tabpanel-87a848062bbaf2f80444d165a8256cf7ce10889c" aria-selected="true"
+                data-active="true" >
+                <span>YAML</span>
+            </button>
+                    <button role="tab" type="button" data-language="xml"
+                aria-controls="configuration-block-tabpanel-6a76ea436517d06ff2fa8f9d15f53304d95df3ba" aria-selected="false"
+                 tabindex="-1">
+                <span>XML</span>
+            </button>
+                    <button role="tab" type="button" data-language="php"
+                aria-controls="configuration-block-tabpanel-d7db69923098a7b72261199d083166800bf52779" aria-selected="false"
+                 tabindex="-1">
+                <span>PHP</span>
+            </button>
+            </div>
+
+            <div role="tabpanel" id="configuration-block-tabpanel-87a848062bbaf2f80444d165a8256cf7ce10889c" aria-label="YAML" class="configuration-codeblock" data-language="yaml" style="">
+            <div translate="no" class="highlight-yaml notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1
+2
+3
+4</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs yaml"><span class="hljs-attr">services:</span>
+    <span class="hljs-string">App\Translation\JsonFileDumper:</span>
+        <span class="hljs-attr">tags:</span>
+            <span class="hljs-bullet">-</span> <span class="hljs-string">{</span> <span class="hljs-attr">name:</span> <span class="hljs-string">translation.dumper,</span> <span class="hljs-attr">alias:</span> <span class="hljs-string">json</span> <span class="hljs-string">}</span></pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+        </div>
+            <div role="tabpanel" id="configuration-block-tabpanel-6a76ea436517d06ff2fa8f9d15f53304d95df3ba" aria-label="XML" class="configuration-codeblock" data-language="xml" style="display: none">
+            <div translate="no" class="highlight-xml notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs xml"><span class="hljs-meta">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">container</span> <span class="hljs-attr">xmlns</span>=<span class="hljs-string">"http://symfony.com/schema/dic/services"</span>
+    <span class="hljs-attr">xmlns:xsi</span>=<span class="hljs-string">"http://www.w3.org/2001/XMLSchema-instance"</span>
+    <span class="hljs-attr">xsi:schemaLocation</span>=<span class="hljs-string">"http://symfony.com/schema/dic/services
+        https://symfony.com/schema/dic/services/services-1.0.xsd"</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">services</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">service</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"App\Translation\JsonFileDumper"</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">tag</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"translation.dumper"</span> <span class="hljs-attr">alias</span>=<span class="hljs-string">"json"</span>/&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">service</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">services</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">container</span>&gt;</span></pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+        </div>
+            <div role="tabpanel" id="configuration-block-tabpanel-d7db69923098a7b72261199d083166800bf52779" aria-label="PHP" class="configuration-codeblock" data-language="php" style="display: none">
+            <div translate="no" class="highlight-php notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1
+2
+3
+4</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs php"><span class="hljs-keyword">use</span> <span class="hljs-title">App</span>\<span class="hljs-title">Translation</span>\<span class="hljs-title">JsonFileDumper</span>;
+
+<span class="hljs-variable"><span class="hljs-variable-other-marker">$</span>container</span>-&gt;<span class="hljs-title invoke__">register</span>(JsonFileDumper::<span class="hljs-variable language_">class</span>)
+    -&gt;<span class="hljs-title invoke__">addTag</span>(<span class="hljs-string">'translation.dumper'</span>, [<span class="hljs-string">'alias'</span> =&gt; <span class="hljs-string">'json'</span>]);</pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+        </div>
+    </div>
+<span id="reference-dic-tags-translation-provider-factory"></span>
+</div>
+<div class="section">
+<h2 id="translation-provider-factory">
+    translation.provider_factory
+    <a class="headerlink" href="#translation-provider-factory" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>Purpose</strong>: to register a factory related to custom translation providers</p>
+<p>When creating custom <a href="../translation.html#translation-providers" class="reference internal">translation providers</a>, you
+must register your factory as a service and tag it with <code translate="no" class="notranslate">translation.provider_factory</code>:</p>
+<div class="configuration-block">
+    <div role="tablist" aria-label="Configuration formats" class="configuration-tabs configuration-tabs-length-3">
+                    <button role="tab" type="button" data-language="yaml"
+                aria-controls="configuration-block-tabpanel-71a521d99fccaf7fa199b8568854aa8aeea1792e" aria-selected="true"
+                data-active="true" >
+                <span>YAML</span>
+            </button>
+                    <button role="tab" type="button" data-language="xml"
+                aria-controls="configuration-block-tabpanel-71e3933acfee091c31462d2b326d4a608cd2c9df" aria-selected="false"
+                 tabindex="-1">
+                <span>XML</span>
+            </button>
+                    <button role="tab" type="button" data-language="php"
+                aria-controls="configuration-block-tabpanel-c22dcdbd283f4773526aac0e483913f76999bac0" aria-selected="false"
+                 tabindex="-1">
+                <span>PHP</span>
+            </button>
+            </div>
+
+            <div role="tabpanel" id="configuration-block-tabpanel-71a521d99fccaf7fa199b8568854aa8aeea1792e" aria-label="YAML" class="configuration-codeblock" data-language="yaml" style="">
+            <div translate="no" class="highlight-yaml notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1
+2
+3
+4</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs yaml"><span class="hljs-attr">services:</span>
+    <span class="hljs-string">App\Translation\CustomProviderFactory:</span>
+        <span class="hljs-attr">tags:</span>
+            <span class="hljs-bullet">-</span> <span class="hljs-string">{</span> <span class="hljs-attr">name:</span> <span class="hljs-string">translation.provider_factory</span> <span class="hljs-string">}</span></pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+        </div>
+            <div role="tabpanel" id="configuration-block-tabpanel-71e3933acfee091c31462d2b326d4a608cd2c9df" aria-label="XML" class="configuration-codeblock" data-language="xml" style="display: none">
+            <div translate="no" class="highlight-xml notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs xml"><span class="hljs-meta">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">container</span> <span class="hljs-attr">xmlns</span>=<span class="hljs-string">"http://symfony.com/schema/dic/services"</span>
+    <span class="hljs-attr">xmlns:xsi</span>=<span class="hljs-string">"http://www.w3.org/2001/XMLSchema-instance"</span>
+    <span class="hljs-attr">xsi:schemaLocation</span>=<span class="hljs-string">"http://symfony.com/schema/dic/services
+        https://symfony.com/schema/dic/services/services-1.0.xsd"</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">services</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">service</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"App\Translation\CustomProviderFactory"</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">tag</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"translation.provider_factory"</span>/&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">service</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">services</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">container</span>&gt;</span></pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+        </div>
+            <div role="tabpanel" id="configuration-block-tabpanel-c22dcdbd283f4773526aac0e483913f76999bac0" aria-label="PHP" class="configuration-codeblock" data-language="php" style="display: none">
+            <div translate="no" class="highlight-php notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1
+2
+3
+4
+5
+6</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs php"><span class="hljs-keyword">use</span> <span class="hljs-title">App</span>\<span class="hljs-title">Translation</span>\<span class="hljs-title">CustomProviderFactory</span>;
+
+<span class="hljs-variable"><span class="hljs-variable-other-marker">$</span>container</span>
+    -&gt;<span class="hljs-title invoke__">register</span>(CustomProviderFactory::<span class="hljs-variable language_">class</span>)
+    -&gt;<span class="hljs-title invoke__">addTag</span>(<span class="hljs-string">'translation.provider_factory'</span>)
+;</pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+        </div>
+    </div>
+<span id="reference-dic-tags-twig-extension"></span>
+</div>
+<div class="section">
+<h2 id="twig-extension">
+    twig.extension
+    <a class="headerlink" href="#twig-extension" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>Purpose</strong>: To register a custom Twig Extension</p>
+<p>To enable a Twig extension, add it as a regular service in one of your
+configuration and tag it with <code translate="no" class="notranslate">twig.extension</code>. If you're using the
+<a href="../service_container.html#service-container-services-load-example" class="reference internal">default services.yaml configuration</a>,
+the service is auto-registered and auto-tagged. But, you can also register it manually:</p>
+<div class="configuration-block">
+    <div role="tablist" aria-label="Configuration formats" class="configuration-tabs configuration-tabs-length-3">
+                    <button role="tab" type="button" data-language="yaml"
+                aria-controls="configuration-block-tabpanel-1e640c860f88cd5d85b7de6b7e41a1a828a02a94" aria-selected="true"
+                data-active="true" >
+                <span>YAML</span>
+            </button>
+                    <button role="tab" type="button" data-language="xml"
+                aria-controls="configuration-block-tabpanel-2e6fa7884adec44e33d0025888927f814c9c42d4" aria-selected="false"
+                 tabindex="-1">
+                <span>XML</span>
+            </button>
+                    <button role="tab" type="button" data-language="php"
+                aria-controls="configuration-block-tabpanel-69cc8932880e0835be86661cbc40a1d4059981c8" aria-selected="false"
+                 tabindex="-1">
+                <span>PHP</span>
+            </button>
+            </div>
+
+            <div role="tabpanel" id="configuration-block-tabpanel-1e640c860f88cd5d85b7de6b7e41a1a828a02a94" aria-label="YAML" class="configuration-codeblock" data-language="yaml" style="">
+            <div translate="no" class="highlight-yaml notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1
+2
+3
+4
+5
+6
+7
+8
+9</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs yaml"><span class="hljs-attr">services:</span>
+    <span class="hljs-string">App\Twig\AppExtension:</span>
+        <span class="hljs-attr">tags:</span> <span class="hljs-string">[twig.extension]</span>
+
+    <span class="hljs-comment"># optionally you can define the priority of the extension (default = 0).</span>
+    <span class="hljs-comment"># Extensions with higher priorities are registered earlier. This is mostly</span>
+    <span class="hljs-comment"># useful to register late extensions that override other extensions.</span>
+    <span class="hljs-string">App\Twig\AnotherExtension:</span>
+        <span class="hljs-attr">tags:</span> <span class="hljs-string">[{</span> <span class="hljs-attr">name:</span> <span class="hljs-string">twig.extension,</span> <span class="hljs-attr">priority:</span> <span class="hljs-number">-100</span> <span class="hljs-string">}]</span></pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+        </div>
+            <div role="tabpanel" id="configuration-block-tabpanel-2e6fa7884adec44e33d0025888927f814c9c42d4" aria-label="XML" class="configuration-codeblock" data-language="xml" style="display: none">
+            <div translate="no" class="highlight-xml notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs xml"><span class="hljs-meta">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">container</span> <span class="hljs-attr">xmlns</span>=<span class="hljs-string">"http://symfony.com/schema/dic/services"</span>
+    <span class="hljs-attr">xmlns:xsi</span>=<span class="hljs-string">"http://www.w3.org/2001/XMLSchema-instance"</span>
+    <span class="hljs-attr">xsi:schemaLocation</span>=<span class="hljs-string">"http://symfony.com/schema/dic/services
+        https://symfony.com/schema/dic/services/services-1.0.xsd"</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">services</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">service</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"App\Twig\AppExtension"</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">tag</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"twig.extension"</span>/&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">service</span>&gt;</span>
+
+        <span class="hljs-tag">&lt;<span class="hljs-name">service</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"App\Twig\AnotherExtension"</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">tag</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"twig.extension"</span> <span class="hljs-attr">priority</span>=<span class="hljs-string">"-100"</span>/&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">service</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">services</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">container</span>&gt;</span></pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+        </div>
+            <div role="tabpanel" id="configuration-block-tabpanel-69cc8932880e0835be86661cbc40a1d4059981c8" aria-label="PHP" class="configuration-codeblock" data-language="php" style="display: none">
+            <div translate="no" class="highlight-php notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs php"><span class="hljs-keyword">use</span> <span class="hljs-title">App</span>\<span class="hljs-title">Twig</span>\<span class="hljs-title">AnotherExtension</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">App</span>\<span class="hljs-title">Twig</span>\<span class="hljs-title">AppExtension</span>;
+
+<span class="hljs-variable"><span class="hljs-variable-other-marker">$</span>container</span>
+    -&gt;<span class="hljs-title invoke__">register</span>(AppExtension::<span class="hljs-variable language_">class</span>)
+    -&gt;<span class="hljs-title invoke__">addTag</span>(<span class="hljs-string">'twig.extension'</span>)
+;
+<span class="hljs-variable"><span class="hljs-variable-other-marker">$</span>container</span>
+    -&gt;<span class="hljs-title invoke__">register</span>(AnotherExtension::<span class="hljs-variable language_">class</span>)
+    -&gt;<span class="hljs-title invoke__">addTag</span>(<span class="hljs-string">'twig.extension'</span>, [<span class="hljs-string">'priority'</span> =&gt; <span class="hljs-number">-100</span>])
+;</pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+        </div>
+    </div>
+<p>For information on how to create the actual Twig Extension class, see
+<a href="https://twig.symfony.com/doc/3.x/advanced.html#creating-an-extension" class="reference external">Twig's documentation</a> on the topic or read the
+<a href="../templates.html#templates-twig-extension" class="reference internal">Creating and Using Templates</a> article.</p>
+</div>
+<div class="section">
+<h2 id="twig-loader">
+    twig.loader
+    <a class="headerlink" href="#twig-loader" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>Purpose</strong>: Register a custom service that loads Twig templates</p>
+<p>By default, Symfony uses only one <a href="https://twig.symfony.com/doc/3.x/api.html#loaders" class="reference external">Twig Loader</a> - <a href="https://github.com/twigphp/Twig/blob/3.x/src/Loader/FilesystemLoader.php" class="reference external" rel="external noopener noreferrer" target="_blank">FilesystemLoader</a>. If you need
+to load Twig templates from another resource, you can create a service for
+the new loader and tag it with <code translate="no" class="notranslate">twig.loader</code>.</p>
+<p>If you use the <a href="../service_container.html#service-container-services-load-example" class="reference internal">default services.yaml configuration</a>,
+the service will be automatically tagged thanks to autoconfiguration. But, you can
+also register it manually:</p>
+<div class="configuration-block">
+    <div role="tablist" aria-label="Configuration formats" class="configuration-tabs configuration-tabs-length-3">
+                    <button role="tab" type="button" data-language="yaml"
+                aria-controls="configuration-block-tabpanel-af4cff2de8b215634cb78ef32a7167eb57e584bc" aria-selected="true"
+                data-active="true" >
+                <span>YAML</span>
+            </button>
+                    <button role="tab" type="button" data-language="xml"
+                aria-controls="configuration-block-tabpanel-15e00514c0db5bdf12a65b81c4acca69c11ca0e6" aria-selected="false"
+                 tabindex="-1">
+                <span>XML</span>
+            </button>
+                    <button role="tab" type="button" data-language="php"
+                aria-controls="configuration-block-tabpanel-553c2bb11ad2cf74237c654ab6bfca41914b820f" aria-selected="false"
+                 tabindex="-1">
+                <span>PHP</span>
+            </button>
+            </div>
+
+            <div role="tabpanel" id="configuration-block-tabpanel-af4cff2de8b215634cb78ef32a7167eb57e584bc" aria-label="YAML" class="configuration-codeblock" data-language="yaml" style="">
+            <div translate="no" class="highlight-yaml notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1
+2
+3
+4</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs yaml"><span class="hljs-attr">services:</span>
+    <span class="hljs-string">App\Twig\CustomLoader:</span>
+        <span class="hljs-attr">tags:</span>
+            <span class="hljs-bullet">-</span> <span class="hljs-string">{</span> <span class="hljs-attr">name:</span> <span class="hljs-string">twig.loader,</span> <span class="hljs-attr">priority:</span> <span class="hljs-number">0</span> <span class="hljs-string">}</span></pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+        </div>
+            <div role="tabpanel" id="configuration-block-tabpanel-15e00514c0db5bdf12a65b81c4acca69c11ca0e6" aria-label="XML" class="configuration-codeblock" data-language="xml" style="display: none">
+            <div translate="no" class="highlight-xml notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs xml"><span class="hljs-meta">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">container</span> <span class="hljs-attr">xmlns</span>=<span class="hljs-string">"http://symfony.com/schema/dic/services"</span>
+    <span class="hljs-attr">xmlns:xsi</span>=<span class="hljs-string">"http://www.w3.org/2001/XMLSchema-instance"</span>
+    <span class="hljs-attr">xsi:schemaLocation</span>=<span class="hljs-string">"http://symfony.com/schema/dic/services
+        https://symfony.com/schema/dic/services/services-1.0.xsd"</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">services</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">service</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"App\Twig\CustomLoader"</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">tag</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"twig.loader"</span> <span class="hljs-attr">priority</span>=<span class="hljs-string">"0"</span>/&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">service</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">services</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">container</span>&gt;</span></pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+        </div>
+            <div role="tabpanel" id="configuration-block-tabpanel-553c2bb11ad2cf74237c654ab6bfca41914b820f" aria-label="PHP" class="configuration-codeblock" data-language="php" style="display: none">
+            <div translate="no" class="highlight-php notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1
+2
+3
+4
+5
+6</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs php"><span class="hljs-keyword">use</span> <span class="hljs-title">App</span>\<span class="hljs-title">Twig</span>\<span class="hljs-title">CustomLoader</span>;
+
+<span class="hljs-variable"><span class="hljs-variable-other-marker">$</span>container</span>
+    -&gt;<span class="hljs-title invoke__">register</span>(CustomLoader::<span class="hljs-variable language_">class</span>)
+    -&gt;<span class="hljs-title invoke__">addTag</span>(<span class="hljs-string">'twig.loader'</span>, [<span class="hljs-string">'priority'</span> =&gt; <span class="hljs-number">0</span>])
+;</pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+        </div>
+    </div>
+<div class="admonition admonition-note ">
+    <p class="admonition-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" width="24" height="24" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>
+                <span>Note</span>
+    </p><p>The <code translate="no" class="notranslate">priority</code> is optional and its value is a positive or negative integer
+that defaults to <code translate="no" class="notranslate">0</code>. Loaders with higher numbers are tried first.</p>
+</div>
+<span id="reference-dic-tags-twig-runtime"></span>
+</div>
+<div class="section">
+<h2 id="twig-runtime">
+    twig.runtime
+    <a class="headerlink" href="#twig-runtime" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>Purpose</strong>: To register a custom Lazy-Loaded Twig Extension</p>
+<p><a href="../templates.html#lazy-loaded-twig-extensions" class="reference internal">Lazy-Loaded Twig Extensions</a> are defined as
+regular services but they need to be tagged with <code translate="no" class="notranslate">twig.runtime</code>. If you're using the
+<a href="../service_container.html#service-container-services-load-example" class="reference internal">default services.yaml configuration</a>,
+the service is auto-registered and auto-tagged. But, you can also register it manually:</p>
+<div class="configuration-block">
+    <div role="tablist" aria-label="Configuration formats" class="configuration-tabs configuration-tabs-length-3">
+                    <button role="tab" type="button" data-language="yaml"
+                aria-controls="configuration-block-tabpanel-e74e42d92d05fefea6254d7dac061c52e42d880b" aria-selected="true"
+                data-active="true" >
+                <span>YAML</span>
+            </button>
+                    <button role="tab" type="button" data-language="xml"
+                aria-controls="configuration-block-tabpanel-0b20f73d3beac873802a63617bc445ab7bd6dc6a" aria-selected="false"
+                 tabindex="-1">
+                <span>XML</span>
+            </button>
+                    <button role="tab" type="button" data-language="php"
+                aria-controls="configuration-block-tabpanel-370c3c6ca01556c7f62fe456ab12a7bf2bd3c53f" aria-selected="false"
+                 tabindex="-1">
+                <span>PHP</span>
+            </button>
+            </div>
+
+            <div role="tabpanel" id="configuration-block-tabpanel-e74e42d92d05fefea6254d7dac061c52e42d880b" aria-label="YAML" class="configuration-codeblock" data-language="yaml" style="">
+            <div translate="no" class="highlight-yaml notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1
+2
+3</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs yaml"><span class="hljs-attr">services:</span>
+    <span class="hljs-string">App\Twig\AppExtension:</span>
+        <span class="hljs-attr">tags:</span> <span class="hljs-string">[twig.runtime]</span></pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+        </div>
+            <div role="tabpanel" id="configuration-block-tabpanel-0b20f73d3beac873802a63617bc445ab7bd6dc6a" aria-label="XML" class="configuration-codeblock" data-language="xml" style="display: none">
+            <div translate="no" class="highlight-xml notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs xml"><span class="hljs-meta">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">container</span> <span class="hljs-attr">xmlns</span>=<span class="hljs-string">"http://symfony.com/schema/dic/services"</span>
+    <span class="hljs-attr">xmlns:xsi</span>=<span class="hljs-string">"http://www.w3.org/2001/XMLSchema-instance"</span>
+    <span class="hljs-attr">xsi:schemaLocation</span>=<span class="hljs-string">"http://symfony.com/schema/dic/services
+        https://symfony.com/schema/dic/services/services-1.0.xsd"</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">services</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">service</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"App\Twig\AppExtension"</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">tag</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"twig.runtime"</span>/&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">service</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">services</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">container</span>&gt;</span></pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+        </div>
+            <div role="tabpanel" id="configuration-block-tabpanel-370c3c6ca01556c7f62fe456ab12a7bf2bd3c53f" aria-label="PHP" class="configuration-codeblock" data-language="php" style="display: none">
+            <div translate="no" class="highlight-php notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1
+2
+3
+4
+5
+6</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs php"><span class="hljs-keyword">use</span> <span class="hljs-title">App</span>\<span class="hljs-title">Twig</span>\<span class="hljs-title">AppExtension</span>;
+
+<span class="hljs-variable"><span class="hljs-variable-other-marker">$</span>container</span>
+    -&gt;<span class="hljs-title invoke__">register</span>(AppExtension::<span class="hljs-variable language_">class</span>)
+    -&gt;<span class="hljs-title invoke__">addTag</span>(<span class="hljs-string">'twig.runtime'</span>)
+;</pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+        </div>
+    </div>
+</div>
+<div class="section">
+<h2 id="validator-constraint-validator">
+    validator.constraint_validator
+    <a class="headerlink" href="#validator-constraint-validator" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>Purpose</strong>: Create your own custom validation constraint</p>
+<p>This tag allows you to create and register your own custom validation constraint.
+For more information, read the <a href="../validation/custom_constraint.html" class="reference internal">How to Create a Custom Validation Constraint</a> article.</p>
+</div>
+<div class="section">
+<h2 id="validator-initializer">
+    validator.initializer
+    <a class="headerlink" href="#validator-initializer" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>Purpose</strong>: Register a service that initializes objects before validation</p>
+<p>This tag provides a very uncommon piece of functionality that allows you
+to perform some sort of action on an object right before it's validated.
+For example, it's used by Doctrine to query for all of the lazily-loaded
+data on an object before it's validated. Without this, some data on a Doctrine
+entity would appear to be &quot;missing&quot; when validated, even though this is
+not really the case.</p>
+<p>If you do need to use this tag, just make a new class that implements the
+<a href="https://github.com/symfony/symfony/blob/5.4/src/Symfony/Component/Validator/ObjectInitializerInterface.php" class="reference external" title="Symfony\Component\Validator\ObjectInitializerInterface" rel="external noopener noreferrer" target="_blank">ObjectInitializerInterface</a> interface.
+Then, tag it with the <code translate="no" class="notranslate">validator.initializer</code> tag (it has no options).</p>
+<p>For an example, see the <code translate="no" class="notranslate">DoctrineInitializer</code> class inside the Doctrine
+Bridge.</p>
+</div>
+</div>
+
+                            </div>                    </div>
+                                    </div>        </div>
+
+    </section>
+
+</div>
+
+
+<script type="text/javascript" src="assets/js/theme.js"></script>
+<script type="text/javascript" src="assets/js/badge_only.js"></script>
+
+ 
+</body>
+</html>

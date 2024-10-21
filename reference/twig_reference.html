@@ -1,0 +1,1628 @@
+        
+<!DOCTYPE html>
+<!--[if IE 8]>
+<html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" lang="en"> <!--<![endif]-->
+<head><base href="../">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            
+                                
+    
+    <link rel="stylesheet" href="assets/css/theme.css" type="text/css" />
+    <link rel="stylesheet" href="assets/css/highlightjs.css" type="text/css" />
+    <link rel="stylesheet" href="assets/css/badge_only.css" type="text/css" />
+
+</head>
+
+<body class="wy-body-for-nav">
+ <div class="wy-grid-for-nav">
+
+        <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+        <div class="wy-side-scroll">
+            <div class="wy-side-nav-search">
+                
+                                                                                                    
+                                                                                                                                                                        </div>
+
+            <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                                                                                                                                                                                                                                                                                                                            </div>
+        </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+                                                        
+
+        <div class="wy-nav-content">                <div class="rst-content">
+                                        <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">                            <div itemprop="articleBody">
+                                    <div class="section">
+<h1 id="twig-extensions-defined-by-symfony">
+    Twig Extensions Defined by Symfony
+    <a class="headerlink" href="#twig-extensions-defined-by-symfony" title="Permalink to this headline">¶</a>
+</h1>
+<p><a href="../templates.html#twig-language" class="reference internal">Twig</a> is the template engine used in Symfony applications.
+There are tens of <a href="https://twig.symfony.com/doc/3.x/#reference" class="reference external">default filters and functions defined by Twig</a>, but Symfony
+also defines some filters, functions and tags to integrate the various Symfony
+components with Twig templates. This article explains them all.</p>
+<div class="admonition admonition-tip ">
+    <p class="admonition-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" width="24" height="24" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" /></svg>
+                <span>Tip</span>
+    </p><p>If these extensions provided by Symfony are not enough, you can
+<a href="../templates.html#templates-twig-extension" class="reference internal">create a custom Twig extension</a> to define
+even more filters and functions.</p>
+</div>
+<span id="reference-twig-functions"></span>
+<div class="section">
+<h2 id="functions">
+    Functions
+    <a class="headerlink" href="#functions" title="Permalink to this headline">¶</a>
+</h2>
+<span id="reference-twig-function-render"></span>
+<div class="section">
+<h3 id="render">
+    render
+    <a class="headerlink" href="#render" title="Permalink to this headline">¶</a>
+</h3>
+<div translate="no" class="highlight-twig notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs twig"><span class="hljs-template-variable">{{ render(uri, options = []) }}</span></pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<dl>
+                        <dt><code translate="no" class="notranslate">uri</code></dt>
+        
+        <dd>
+                            <strong>type</strong>: <code translate="no" class="notranslate">string</code> | <code translate="no" class="notranslate">ControllerReference</code>
+                    </dd>
+                        <dt><code translate="no" class="notranslate">options</code> <em>(optional)</em></dt>
+        
+        <dd>
+                            <strong>type</strong>: <code translate="no" class="notranslate">array</code> <strong>default</strong>: <code translate="no" class="notranslate">[]</code>
+                    </dd>
+    </dl>
+<p>Makes a request to the given internal URI or controller and returns the result.
+The render strategy can be specified in the <code translate="no" class="notranslate">strategy</code> key of the options.
+It's commonly used to <a href="../templates.html#templates-embed-controllers" class="reference internal">embed controllers in templates</a>.</p>
+<span id="reference-twig-function-render-esi"></span>
+</div>
+<div class="section">
+<h3 id="render-esi">
+    render_esi
+    <a class="headerlink" href="#render-esi" title="Permalink to this headline">¶</a>
+</h3>
+<div translate="no" class="highlight-twig notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs twig"><span class="hljs-template-variable">{{ render_esi(uri, options = []) }}</span></pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<dl>
+                        <dt><code translate="no" class="notranslate">uri</code></dt>
+        
+        <dd>
+                            <strong>type</strong>: <code translate="no" class="notranslate">string</code> | <code translate="no" class="notranslate">ControllerReference</code>
+                    </dd>
+                        <dt><code translate="no" class="notranslate">options</code> <em>(optional)</em></dt>
+        
+        <dd>
+                            <strong>type</strong>: <code translate="no" class="notranslate">array</code> <strong>default</strong>: <code translate="no" class="notranslate">[]</code>
+                    </dd>
+    </dl>
+<p>It's similar to the <a href="twig_reference.html#render" class="reference internal">render</a> function and defines the same arguments. However,
+it generates an ESI tag when <a href="../http_cache/esi.html" class="reference internal">ESI support</a> is enabled or
+falls back to the behavior of <a href="twig_reference.html#render" class="reference internal">render</a> otherwise.</p>
+<div class="admonition admonition-tip ">
+    <p class="admonition-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" width="24" height="24" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" /></svg>
+                <span>Tip</span>
+    </p><p>The <code translate="no" class="notranslate">render_esi()</code> function is an example of the shortcut functions
+of <code translate="no" class="notranslate">render</code>. It automatically sets the strategy based on what's given
+in the function name, e.g. <code translate="no" class="notranslate">render_hinclude()</code> will use the hinclude.js
+strategy. This works for all <code translate="no" class="notranslate">render_*()</code> functions.</p>
+</div>
+</div>
+<div class="section">
+<h3 id="fragment-uri">
+    fragment_uri
+    <a class="headerlink" href="#fragment-uri" title="Permalink to this headline">¶</a>
+</h3>
+<div translate="no" class="highlight-twig notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs twig"><span class="hljs-template-variable">{{ fragment_uri(controller, absolute = false, strict = true, sign = true) }}</span></pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<dl>
+                        <dt><code translate="no" class="notranslate">controller</code></dt>
+        
+        <dd>
+                            <strong>type</strong>: <code translate="no" class="notranslate">ControllerReference</code>
+                    </dd>
+                        <dt><code translate="no" class="notranslate">absolute</code> <em>(optional)</em></dt>
+        
+        <dd>
+                            <strong>type</strong>: <code translate="no" class="notranslate">boolean</code> <strong>default</strong>: <code translate="no" class="notranslate">false</code>
+                    </dd>
+                        <dt><code translate="no" class="notranslate">strict</code> <em>(optional)</em></dt>
+        
+        <dd>
+                            <strong>type</strong>: <code translate="no" class="notranslate">boolean</code> <strong>default</strong>: <code translate="no" class="notranslate">true</code>
+                    </dd>
+                        <dt><code translate="no" class="notranslate">sign</code> <em>(optional)</em></dt>
+        
+        <dd>
+                            <strong>type</strong>: <code translate="no" class="notranslate">boolean</code> <strong>default</strong>: <code translate="no" class="notranslate">true</code>
+                    </dd>
+    </dl>
+<p>Generates the URI of <a href="../templates.html#fragments-path-config" class="reference internal">a fragment</a>.</p>
+<div class="admonition admonition-versionadded ">
+    <p class="admonition-title">
+                                    <span>5.3</span>
+    </p><p>The <code translate="no" class="notranslate">fragment_uri()</code> function was introduced in Symfony 5.3.</p>
+</div>
+</div>
+<div class="section">
+<h3 id="controller">
+    controller
+    <a class="headerlink" href="#controller" title="Permalink to this headline">¶</a>
+</h3>
+<div translate="no" class="highlight-twig notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs twig"><span class="hljs-template-variable">{{ controller(controller, attributes = [], query = []) }}</span></pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<dl>
+                        <dt><code translate="no" class="notranslate">controller</code></dt>
+        
+        <dd>
+                            <strong>type</strong>: <code translate="no" class="notranslate">string</code>
+                    </dd>
+                        <dt><code translate="no" class="notranslate">attributes</code> <em>(optional)</em></dt>
+        
+        <dd>
+                            <strong>type</strong>: <code translate="no" class="notranslate">array</code> <strong>default</strong>: <code translate="no" class="notranslate">[]</code>
+                    </dd>
+                        <dt><code translate="no" class="notranslate">query</code> <em>(optional)</em></dt>
+        
+        <dd>
+                            <strong>type</strong>: <code translate="no" class="notranslate">array</code> <strong>default</strong>: <code translate="no" class="notranslate">[]</code>
+                    </dd>
+    </dl>
+<p>Returns an instance of <code translate="no" class="notranslate">ControllerReference</code> to be used with functions
+like <a href="twig_reference.html#reference-twig-function-render" class="reference internal">render()</a> and
+<a href="twig_reference.html#reference-twig-function-render-esi" class="reference internal">render_esi()</a>.</p>
+<span id="reference-twig-function-asset"></span>
+</div>
+<div class="section">
+<h3 id="asset">
+    asset
+    <a class="headerlink" href="#asset" title="Permalink to this headline">¶</a>
+</h3>
+<div translate="no" class="highlight-twig notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs twig"><span class="hljs-template-variable">{{ asset(path, packageName = null) }}</span></pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<dl>
+                        <dt><code translate="no" class="notranslate">path</code></dt>
+        
+        <dd>
+                            <strong>type</strong>: <code translate="no" class="notranslate">string</code>
+                    </dd>
+                        <dt><code translate="no" class="notranslate">packageName</code> <em>(optional)</em></dt>
+        
+        <dd>
+                            <strong>type</strong>: <code translate="no" class="notranslate">string</code> | <code translate="no" class="notranslate">null</code> <strong>default</strong>: <code translate="no" class="notranslate">null</code>
+                    </dd>
+    </dl>
+<p>Returns the public path of the given asset path (which can be a CSS file, a
+JavaScript file, an image path, etc.). This function takes into account where
+the application is installed (e.g. in case the project is accessed in a host
+subdirectory) and the optional asset package base path.</p>
+<p>Symfony provides various cache busting implementations via the
+<a href="../reference/configuration/framework.html#reference-framework-assets-version" class="reference internal">assets.version</a>,
+<a href="../reference/configuration/framework.html#reference-assets-version-strategy" class="reference internal">assets.version_strategy</a>,
+and <a href="../reference/configuration/framework.html#reference-assets-json-manifest-path" class="reference internal">assets.json_manifest_path</a>
+configuration options.</p>
+<div class="admonition admonition-seealso ">
+    <p class="admonition-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" width="24" height="24" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" /></svg>
+                <span>See also</span>
+    </p><p>Read more about <a href="../templates.html#templates-link-to-assets" class="reference internal">linking to web assets from templates</a>.</p>
+</div>
+</div>
+<div class="section">
+<h3 id="asset-version">
+    asset_version
+    <a class="headerlink" href="#asset-version" title="Permalink to this headline">¶</a>
+</h3>
+<div translate="no" class="highlight-twig notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs twig"><span class="hljs-template-variable">{{ asset_version(packageName = null) }}</span></pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<dl>
+                        <dt><code translate="no" class="notranslate">packageName</code> <em>(optional)</em></dt>
+        
+        <dd>
+                            <strong>type</strong>: <code translate="no" class="notranslate">string</code> | <code translate="no" class="notranslate">null</code> <strong>default</strong>: <code translate="no" class="notranslate">null</code>
+                    </dd>
+    </dl>
+<p>Returns the current version of the package, more information in
+<a href="../templates.html#templates-link-to-assets" class="reference internal">Creating and Using Templates</a>.</p>
+<span id="reference-twig-function-csrf-token"></span>
+</div>
+<div class="section">
+<h3 id="csrf-token">
+    csrf_token
+    <a class="headerlink" href="#csrf-token" title="Permalink to this headline">¶</a>
+</h3>
+<div translate="no" class="highlight-twig notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs twig"><span class="hljs-template-variable">{{ csrf_token(intention) }}</span></pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<dl>
+                        <dt><code translate="no" class="notranslate">intention</code></dt>
+        
+        <dd>
+                            <strong>type</strong>: <code translate="no" class="notranslate">string</code> - an arbitrary string used to identify the token.
+                    </dd>
+    </dl>
+<p>Renders a CSRF token. Use this function if you want <a href="../security/csrf.html" class="reference internal">CSRF protection</a>
+in a regular HTML form not managed by the Symfony Form component.</p>
+</div>
+<div class="section">
+<h3 id="is-granted">
+    is_granted
+    <a class="headerlink" href="#is-granted" title="Permalink to this headline">¶</a>
+</h3>
+<div translate="no" class="highlight-twig notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs twig"><span class="hljs-template-variable">{{ is_granted(role, object = null, field = null) }}</span></pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<dl>
+                        <dt><code translate="no" class="notranslate">role</code></dt>
+        
+        <dd>
+                            <strong>type</strong>: <code translate="no" class="notranslate">string</code>
+                    </dd>
+                        <dt><code translate="no" class="notranslate">object</code> <em>(optional)</em></dt>
+        
+        <dd>
+                            <strong>type</strong>: <code translate="no" class="notranslate">object</code>
+                    </dd>
+                        <dt><code translate="no" class="notranslate">field</code> <em>(optional)</em></dt>
+        
+        <dd>
+                            <strong>type</strong>: <code translate="no" class="notranslate">string</code>
+                    </dd>
+    </dl>
+<p>Returns <code translate="no" class="notranslate">true</code> if the current user has the given role.</p>
+<p>Optionally, an object can be passed to be used by the voter. More information
+can be found in <a href="../security.html#security-template" class="reference internal">Security</a>.</p>
+</div>
+<div class="section">
+<h3 id="logout-path">
+    logout_path
+    <a class="headerlink" href="#logout-path" title="Permalink to this headline">¶</a>
+</h3>
+<div translate="no" class="highlight-twig notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs twig"><span class="hljs-template-variable">{{ logout_path(key = null) }}</span></pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<dl>
+                        <dt><code translate="no" class="notranslate">key</code> <em>(optional)</em></dt>
+        
+        <dd>
+                            <strong>type</strong>: <code translate="no" class="notranslate">string</code>
+                    </dd>
+    </dl>
+<p>Generates a relative logout URL for the given firewall. If no key is provided,
+the URL is generated for the current firewall the user is logged into.</p>
+</div>
+<div class="section">
+<h3 id="logout-url">
+    logout_url
+    <a class="headerlink" href="#logout-url" title="Permalink to this headline">¶</a>
+</h3>
+<div translate="no" class="highlight-twig notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs twig"><span class="hljs-template-variable">{{ logout_url(key = null) }}</span></pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<dl>
+                        <dt><code translate="no" class="notranslate">key</code> <em>(optional)</em></dt>
+        
+        <dd>
+                            <strong>type</strong>: <code translate="no" class="notranslate">string</code>
+                    </dd>
+    </dl>
+<p>Equal to the <a href="twig_reference.html#logout-path" class="reference internal">logout_path</a> function, but it'll generate an absolute URL
+instead of a relative one.</p>
+</div>
+<div class="section">
+<h3 id="path">
+    path
+    <a class="headerlink" href="#path" title="Permalink to this headline">¶</a>
+</h3>
+<div translate="no" class="highlight-twig notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs twig"><span class="hljs-template-variable">{{ path(route_name, route_parameters = [], relative = false) }}</span></pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<dl>
+                        <dt><code translate="no" class="notranslate">name</code></dt>
+        
+        <dd>
+                            <strong>type</strong>: <code translate="no" class="notranslate">string</code>
+                    </dd>
+                        <dt><code translate="no" class="notranslate">parameters</code> <em>(optional)</em></dt>
+        
+        <dd>
+                            <strong>type</strong>: <code translate="no" class="notranslate">array</code> <strong>default</strong>: <code translate="no" class="notranslate">[]</code>
+                    </dd>
+                        <dt><code translate="no" class="notranslate">relative</code> <em>(optional)</em></dt>
+        
+        <dd>
+                            <strong>type</strong>: <code translate="no" class="notranslate">boolean</code> <strong>default</strong>: <code translate="no" class="notranslate">false</code>
+                    </dd>
+    </dl>
+<p>Returns the relative URL (without the scheme and host) for the given route.
+If <code translate="no" class="notranslate">relative</code> is enabled, it'll create a path relative to the current path.</p>
+<div class="admonition admonition-seealso ">
+    <p class="admonition-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" width="24" height="24" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" /></svg>
+                <span>See also</span>
+    </p><p>Read more about <a href="../routing.html" class="reference internal">Symfony routing</a> and about
+<a href="../templates.html#templates-link-to-pages" class="reference internal">creating links in Twig templates</a>.</p>
+</div>
+</div>
+<div class="section">
+<h3 id="url">
+    url
+    <a class="headerlink" href="#url" title="Permalink to this headline">¶</a>
+</h3>
+<div translate="no" class="highlight-twig notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs twig"><span class="hljs-template-variable">{{ url(route_name, route_parameters = [], schemeRelative = false) }}</span></pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<dl>
+                        <dt><code translate="no" class="notranslate">name</code></dt>
+        
+        <dd>
+                            <strong>type</strong>: <code translate="no" class="notranslate">string</code>
+                    </dd>
+                        <dt><code translate="no" class="notranslate">parameters</code> <em>(optional)</em></dt>
+        
+        <dd>
+                            <strong>type</strong>: <code translate="no" class="notranslate">array</code> <strong>default</strong>: <code translate="no" class="notranslate">[]</code>
+                    </dd>
+                        <dt><code translate="no" class="notranslate">schemeRelative</code> <em>(optional)</em></dt>
+        
+        <dd>
+                            <strong>type</strong>: <code translate="no" class="notranslate">boolean</code> <strong>default</strong>: <code translate="no" class="notranslate">false</code>
+                    </dd>
+    </dl>
+<p>Returns the absolute URL (with scheme and host) for the given route. If
+<code translate="no" class="notranslate">schemeRelative</code> is enabled, it'll create a scheme-relative URL.</p>
+<div class="admonition admonition-seealso ">
+    <p class="admonition-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" width="24" height="24" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" /></svg>
+                <span>See also</span>
+    </p><p>Read more about <a href="../routing.html" class="reference internal">Symfony routing</a> and about
+<a href="../templates.html#templates-link-to-pages" class="reference internal">creating links in Twig templates</a>.</p>
+</div>
+<span id="reference-twig-function-absolute-url"></span>
+</div>
+<div class="section">
+<h3 id="absolute-url">
+    absolute_url
+    <a class="headerlink" href="#absolute-url" title="Permalink to this headline">¶</a>
+</h3>
+<div translate="no" class="highlight-twig notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs twig"><span class="hljs-template-variable">{{ absolute_url(path) }}</span></pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<dl>
+                        <dt><code translate="no" class="notranslate">path</code></dt>
+        
+        <dd>
+                            <strong>type</strong>: <code translate="no" class="notranslate">string</code>
+                    </dd>
+    </dl>
+<p>Returns the absolute URL (with scheme and host) from the passed relative path. Combine it with the
+<a href="twig_reference.html#reference-twig-function-asset" class="reference internal">asset() function</a> to generate absolute URLs
+for web assets. Read more about <a href="../templates.html#templates-link-to-assets" class="reference internal">Linking to CSS, JavaScript and Image Assets</a>.</p>
+<span id="reference-twig-function-relative-path"></span>
+</div>
+<div class="section">
+<h3 id="relative-path">
+    relative_path
+    <a class="headerlink" href="#relative-path" title="Permalink to this headline">¶</a>
+</h3>
+<div translate="no" class="highlight-twig notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs twig"><span class="hljs-template-variable">{{ relative_path(path) }}</span></pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<dl>
+                        <dt><code translate="no" class="notranslate">path</code></dt>
+        
+        <dd>
+                            <strong>type</strong>: <code translate="no" class="notranslate">string</code>
+                    </dd>
+    </dl>
+<p>Returns the relative path from the passed absolute URL. For example, assume
+you're on the following page in your app:
+<code translate="no" class="notranslate">http://example.com/products/hover-board</code>.</p>
+<div translate="no" class="highlight-twig notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1
+2
+3
+4
+5</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs twig"><span class="hljs-template-variable">{{ relative_path('http://example.com/human.txt') }}</span><span class="xml">
+</span><span class="hljs-comment">{# ../human.txt #}</span><span class="xml">
+
+</span><span class="hljs-template-variable">{{ relative_path('http://example.com/products/products_icon.png') }}</span><span class="xml">
+</span><span class="hljs-comment">{# products_icon.png #}</span></pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+</div>
+<div class="section">
+<h3 id="expression">
+    expression
+    <a class="headerlink" href="#expression" title="Permalink to this headline">¶</a>
+</h3>
+<p>Creates an <a href="https://github.com/symfony/symfony/blob/5.4/src/Symfony/Component/ExpressionLanguage/Expression.php" class="reference external" title="Symfony\Component\ExpressionLanguage\Expression" rel="external noopener noreferrer" target="_blank">Expression</a> related
+to the <a href="../components/expression_language.html" class="reference internal">ExpressionLanguage component</a>.</p>
+</div>
+<div class="section">
+<h3 id="impersonation-exit-path">
+    impersonation_exit_path
+    <a class="headerlink" href="#impersonation-exit-path" title="Permalink to this headline">¶</a>
+</h3>
+<div translate="no" class="highlight-twig notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs twig"><span class="hljs-template-variable">{{ impersonation_exit_path(exitTo = null) }}</span></pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<dl>
+                        <dt><code translate="no" class="notranslate">exitTo</code> <em>(optional)</em></dt>
+        
+        <dd>
+                            <strong>type</strong>: <code translate="no" class="notranslate">string</code>
+                    </dd>
+    </dl>
+<div class="admonition admonition-versionadded ">
+    <p class="admonition-title">
+                                    <span>5.2</span>
+    </p><p>The <code translate="no" class="notranslate">impersonation_exit_path()</code> function was introduced in Symfony 5.2.</p>
+</div>
+<p>Generates a URL that you can visit to exit <a href="../security/impersonating_user.html" class="reference internal">user impersonation</a>.
+After exiting impersonation, the user is redirected to the current URI. If you
+prefer to redirect to a different URI, define its value in the <code translate="no" class="notranslate">exitTo</code> argument.</p>
+<p>If no user is being impersonated, the function returns an empty string.</p>
+</div>
+<div class="section">
+<h3 id="impersonation-exit-url">
+    impersonation_exit_url
+    <a class="headerlink" href="#impersonation-exit-url" title="Permalink to this headline">¶</a>
+</h3>
+<div translate="no" class="highlight-twig notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs twig"><span class="hljs-template-variable">{{ impersonation_exit_url(exitTo = null) }}</span></pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<dl>
+                        <dt><code translate="no" class="notranslate">exitTo</code> <em>(optional)</em></dt>
+        
+        <dd>
+                            <strong>type</strong>: <code translate="no" class="notranslate">string</code>
+                    </dd>
+    </dl>
+<div class="admonition admonition-versionadded ">
+    <p class="admonition-title">
+                                    <span>5.2</span>
+    </p><p>The <code translate="no" class="notranslate">impersonation_exit_url()</code> function was introduced in Symfony 5.2.</p>
+</div>
+<p>It's similar to the <a href="twig_reference.html#impersonation-exit-path" class="reference internal">impersonation_exit_path</a> function, but it generates
+absolute URLs instead of relative URLs.</p>
+<span id="reference-twig-function-t"></span>
+</div>
+<div class="section">
+<h3 id="t">
+    t
+    <a class="headerlink" href="#t" title="Permalink to this headline">¶</a>
+</h3>
+<div translate="no" class="highlight-twig notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs twig"><span class="hljs-template-variable">{{ t(message, parameters = [], domain = 'messages')|trans }}</span></pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<dl>
+                        <dt><code translate="no" class="notranslate">message</code></dt>
+        
+        <dd>
+                            <strong>type</strong>: <code translate="no" class="notranslate">string</code>
+                    </dd>
+                        <dt><code translate="no" class="notranslate">parameters</code> <em>(optional)</em></dt>
+        
+        <dd>
+                            <strong>type</strong>: <code translate="no" class="notranslate">array</code> <strong>default</strong>: <code translate="no" class="notranslate">[]</code>
+                    </dd>
+                        <dt><code translate="no" class="notranslate">domain</code> <em>(optional)</em></dt>
+        
+        <dd>
+                            <strong>type</strong>: <code translate="no" class="notranslate">string</code> <strong>default</strong>: <code translate="no" class="notranslate">messages</code>
+                    </dd>
+    </dl>
+<div class="admonition admonition-versionadded ">
+    <p class="admonition-title">
+                                    <span>5.2</span>
+    </p><p>The <code translate="no" class="notranslate">t()</code> function was introduced in Symfony 5.2.</p>
+</div>
+<p>Creates a <code translate="no" class="notranslate">Translatable</code> object that can be passed to the
+<a href="twig_reference.html#reference-twig-filter-trans" class="reference internal">trans filter</a>.</p>
+</div>
+<div class="section">
+<h3 id="form-related-functions">
+    Form Related Functions
+    <a class="headerlink" href="#form-related-functions" title="Permalink to this headline">¶</a>
+</h3>
+<p>The following functions related to Symfony Forms are also available. They are
+explained in the article about <a href="../form/form_customization.html" class="reference internal">customizing form rendering</a>:</p>
+<ul>
+    <li><a href="../form/form_customization.html#reference-forms-twig-form" class="reference internal">form()</a></li>
+<li><a href="../form/form_customization.html#reference-forms-twig-start" class="reference internal">form_start()</a></li>
+<li><a href="../form/form_customization.html#reference-forms-twig-end" class="reference internal">form_end()</a></li>
+<li><a href="../form/form_customization.html#reference-forms-twig-widget" class="reference internal">form_widget()</a></li>
+<li><a href="../form/form_customization.html#reference-forms-twig-errors" class="reference internal">form_errors()</a></li>
+<li><a href="../form/form_customization.html#reference-forms-twig-label" class="reference internal">form_label()</a></li>
+<li><a href="../form/form_customization.html#reference-forms-twig-help" class="reference internal">form_help()</a></li>
+<li><a href="../form/form_customization.html#reference-forms-twig-row" class="reference internal">form_row()</a></li>
+<li><a href="../form/form_customization.html#reference-forms-twig-rest" class="reference internal">form_rest()</a></li>
+<li><a href="../form/form_customization.html#reference-forms-twig-field-helpers" class="reference internal">field_name()</a></li>
+<li><a href="../form/form_customization.html#reference-forms-twig-field-helpers" class="reference internal">field_value()</a></li>
+<li><a href="../form/form_customization.html#reference-forms-twig-field-helpers" class="reference internal">field_label()</a></li>
+<li><a href="../form/form_customization.html#reference-forms-twig-field-helpers" class="reference internal">field_help()</a></li>
+<li><a href="../form/form_customization.html#reference-forms-twig-field-helpers" class="reference internal">field_errors()</a></li>
+<li><a href="../form/form_customization.html#reference-forms-twig-field-helpers" class="reference internal">field_choices()</a></li>
+</ul>
+<span id="reference-twig-filters"></span>
+</div>
+</div>
+<div class="section">
+<h2 id="filters">
+    Filters
+    <a class="headerlink" href="#filters" title="Permalink to this headline">¶</a>
+</h2>
+<span id="reference-twig-humanize-filter"></span>
+<div class="section">
+<h3 id="humanize">
+    humanize
+    <a class="headerlink" href="#humanize" title="Permalink to this headline">¶</a>
+</h3>
+<div translate="no" class="highlight-twig notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs twig"><span class="hljs-template-variable">{{ text|humanize }}</span></pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<dl>
+                        <dt><code translate="no" class="notranslate">text</code></dt>
+        
+        <dd>
+                            <strong>type</strong>: <code translate="no" class="notranslate">string</code>
+                    </dd>
+    </dl>
+<p>Transforms the given string into a human readable string (by replacing underscores
+with spaces, capitalizing the string, etc.) It's useful e.g. when displaying
+the names of PHP properties/variables to end users:</p>
+<div translate="no" class="highlight-twig notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1
+2
+3
+4
+5
+6</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs twig"><span class="hljs-template-variable">{{ 'dateOfBirth'|humanize }}</span><span class="xml">    </span><span class="hljs-comment">{# renders: Date of birth #}</span><span class="xml">
+</span><span class="hljs-template-variable">{{ 'DateOfBirth'|humanize }}</span><span class="xml">    </span><span class="hljs-comment">{# renders: Date of birth #}</span><span class="xml">
+</span><span class="hljs-template-variable">{{ '<span class="hljs-name">date</span>-of-birth'|humanize }}</span><span class="xml">  </span><span class="hljs-comment">{# renders: Date-of-birth #}</span><span class="xml">
+</span><span class="hljs-template-variable">{{ 'date_of_birth'|humanize }}</span><span class="xml">  </span><span class="hljs-comment">{# renders: Date of birth #}</span><span class="xml">
+</span><span class="hljs-template-variable">{{ '<span class="hljs-name">date</span> of birth'|humanize }}</span><span class="xml">  </span><span class="hljs-comment">{# renders: Date of birth #}</span><span class="xml">
+</span><span class="hljs-template-variable">{{ '<span class="hljs-name">Date</span> Of Birth'|humanize }}</span><span class="xml">  </span><span class="hljs-comment">{# renders: Date of birth #}</span></pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<span id="reference-twig-filter-trans"></span>
+</div>
+<div class="section">
+<h3 id="trans">
+    trans
+    <a class="headerlink" href="#trans" title="Permalink to this headline">¶</a>
+</h3>
+<div translate="no" class="highlight-twig notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs twig"><span class="hljs-template-variable">{{ message|trans(arguments = [], domain = null, locale = null) }}</span></pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<dl>
+                        <dt><code translate="no" class="notranslate">message</code></dt>
+        
+        <dd>
+                            <strong>type</strong>: <code translate="no" class="notranslate">string</code> | <code translate="no" class="notranslate">Translatable</code>
+                    </dd>
+                        <dt><code translate="no" class="notranslate">arguments</code> <em>(optional)</em></dt>
+        
+        <dd>
+                            <strong>type</strong>: <code translate="no" class="notranslate">array</code> <strong>default</strong>: <code translate="no" class="notranslate">[]</code>
+                    </dd>
+                        <dt><code translate="no" class="notranslate">domain</code> <em>(optional)</em></dt>
+        
+        <dd>
+                            <strong>type</strong>: <code translate="no" class="notranslate">string</code> <strong>default</strong>: <code translate="no" class="notranslate">null</code>
+                    </dd>
+                        <dt><code translate="no" class="notranslate">locale</code> <em>(optional)</em></dt>
+        
+        <dd>
+                            <strong>type</strong>: <code translate="no" class="notranslate">string</code> <strong>default</strong>: <code translate="no" class="notranslate">null</code>
+                    </dd>
+    </dl>
+<div class="admonition admonition-versionadded ">
+    <p class="admonition-title">
+                                    <span>5.2</span>
+    </p><p><code translate="no" class="notranslate">message</code> accepting <code translate="no" class="notranslate">Translatable</code> as a valid type was introduced in Symfony 5.2.</p>
+</div>
+<p>Translates the text into the current language. More information in
+<a href="../translation.html#translation-filters" class="reference internal">Translation Filters</a>.</p>
+</div>
+<div class="section">
+<h3 id="yaml-encode">
+    yaml_encode
+    <a class="headerlink" href="#yaml-encode" title="Permalink to this headline">¶</a>
+</h3>
+<div translate="no" class="highlight-twig notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs twig"><span class="hljs-template-variable">{{ input|yaml_encode(inline = 0, dumpObjects = false) }}</span></pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<dl>
+                        <dt><code translate="no" class="notranslate">input</code></dt>
+        
+        <dd>
+                            <strong>type</strong>: <code translate="no" class="notranslate">mixed</code>
+                    </dd>
+                        <dt><code translate="no" class="notranslate">inline</code> <em>(optional)</em></dt>
+        
+        <dd>
+                            <strong>type</strong>: <code translate="no" class="notranslate">integer</code> <strong>default</strong>: <code translate="no" class="notranslate">0</code>
+                    </dd>
+                        <dt><code translate="no" class="notranslate">dumpObjects</code> <em>(optional)</em></dt>
+        
+        <dd>
+                            <strong>type</strong>: <code translate="no" class="notranslate">boolean</code> <strong>default</strong>: <code translate="no" class="notranslate">false</code>
+                    </dd>
+    </dl>
+<p>Transforms the input into YAML syntax. See <a href="../components/yaml.html#components-yaml-dump" class="reference internal">The Yaml Component</a> for
+more information.</p>
+</div>
+<div class="section">
+<h3 id="yaml-dump">
+    yaml_dump
+    <a class="headerlink" href="#yaml-dump" title="Permalink to this headline">¶</a>
+</h3>
+<div translate="no" class="highlight-twig notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs twig"><span class="hljs-template-variable">{{ value|yaml_dump(inline = 0, dumpObjects = false) }}</span></pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<dl>
+                        <dt><code translate="no" class="notranslate">value</code></dt>
+        
+        <dd>
+                            <strong>type</strong>: <code translate="no" class="notranslate">mixed</code>
+                    </dd>
+                        <dt><code translate="no" class="notranslate">inline</code> <em>(optional)</em></dt>
+        
+        <dd>
+                            <strong>type</strong>: <code translate="no" class="notranslate">integer</code> <strong>default</strong>: <code translate="no" class="notranslate">0</code>
+                    </dd>
+                        <dt><code translate="no" class="notranslate">dumpObjects</code> <em>(optional)</em></dt>
+        
+        <dd>
+                            <strong>type</strong>: <code translate="no" class="notranslate">boolean</code> <strong>default</strong>: <code translate="no" class="notranslate">false</code>
+                    </dd>
+    </dl>
+<p>Does the same as <a href="yaml_encode" class="reference internal">yaml_encode()</a>, but includes the type in
+the output.</p>
+</div>
+<div class="section">
+<h3 id="abbr-class">
+    abbr_class
+    <a class="headerlink" href="#abbr-class" title="Permalink to this headline">¶</a>
+</h3>
+<div translate="no" class="highlight-twig notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs twig"><span class="hljs-template-variable">{{ class|abbr_class }}</span></pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<dl>
+                        <dt><code translate="no" class="notranslate">class</code></dt>
+        
+        <dd>
+                            <strong>type</strong>: <code translate="no" class="notranslate">string</code>
+                    </dd>
+    </dl>
+<p>Generates an <code translate="no" class="notranslate">&lt;abbr&gt;</code> element with the short name of a PHP class (the
+FQCN will be shown in a tooltip when a user hovers over the element).</p>
+</div>
+<div class="section">
+<h3 id="abbr-method">
+    abbr_method
+    <a class="headerlink" href="#abbr-method" title="Permalink to this headline">¶</a>
+</h3>
+<div translate="no" class="highlight-twig notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs twig"><span class="hljs-template-variable">{{ method|abbr_method }}</span></pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<dl>
+                        <dt><code translate="no" class="notranslate">method</code></dt>
+        
+        <dd>
+                            <strong>type</strong>: <code translate="no" class="notranslate">string</code>
+                    </dd>
+    </dl>
+<p>Generates an <code translate="no" class="notranslate">&lt;abbr&gt;</code> element using the <code translate="no" class="notranslate">FQCN::method()</code> syntax. If
+<code translate="no" class="notranslate">method</code> is <code translate="no" class="notranslate">Closure</code>, <code translate="no" class="notranslate">Closure</code> will be used instead and if <code translate="no" class="notranslate">method</code>
+doesn't have a class name, it's shown as a function (<code translate="no" class="notranslate">method()</code>).</p>
+</div>
+<div class="section">
+<h3 id="format-args">
+    format_args
+    <a class="headerlink" href="#format-args" title="Permalink to this headline">¶</a>
+</h3>
+<div translate="no" class="highlight-twig notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs twig"><span class="hljs-template-variable">{{ args|format_args }}</span></pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<dl>
+                        <dt><code translate="no" class="notranslate">args</code></dt>
+        
+        <dd>
+                            <strong>type</strong>: <code translate="no" class="notranslate">array</code>
+                    </dd>
+    </dl>
+<p>Generates a string with the arguments and their types (within <code translate="no" class="notranslate">&lt;em&gt;</code> elements).</p>
+</div>
+<div class="section">
+<h3 id="format-args-as-text">
+    format_args_as_text
+    <a class="headerlink" href="#format-args-as-text" title="Permalink to this headline">¶</a>
+</h3>
+<div translate="no" class="highlight-twig notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs twig"><span class="hljs-template-variable">{{ args|format_args_as_text }}</span></pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<dl>
+                        <dt><code translate="no" class="notranslate">args</code></dt>
+        
+        <dd>
+                            <strong>type</strong>: <code translate="no" class="notranslate">array</code>
+                    </dd>
+    </dl>
+<p>Equal to the <a href="twig_reference.html#format-args" class="reference internal">format_args</a> filter, but without using HTML tags.</p>
+</div>
+<div class="section">
+<h3 id="file-excerpt">
+    file_excerpt
+    <a class="headerlink" href="#file-excerpt" title="Permalink to this headline">¶</a>
+</h3>
+<div translate="no" class="highlight-twig notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs twig"><span class="hljs-template-variable">{{ file|file_excerpt(line, srcContext = 3) }}</span></pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<dl>
+                        <dt><code translate="no" class="notranslate">file</code></dt>
+        
+        <dd>
+                            <strong>type</strong>: <code translate="no" class="notranslate">string</code>
+                    </dd>
+                        <dt><code translate="no" class="notranslate">line</code></dt>
+        
+        <dd>
+                            <strong>type</strong>: <code translate="no" class="notranslate">integer</code>
+                    </dd>
+                        <dt><code translate="no" class="notranslate">srcContext</code> <em>(optional)</em></dt>
+        
+        <dd>
+                            <strong>type</strong>: <code translate="no" class="notranslate">integer</code>
+                    </dd>
+    </dl>
+<p>Generates an excerpt of a code file around the given <code translate="no" class="notranslate">line</code> number. The
+<code translate="no" class="notranslate">srcContext</code> argument defines the total number of lines to display around the
+given line number (use <code translate="no" class="notranslate">-1</code> to display the whole file).</p>
+</div>
+<div class="section">
+<h3 id="format-file">
+    format_file
+    <a class="headerlink" href="#format-file" title="Permalink to this headline">¶</a>
+</h3>
+<div translate="no" class="highlight-twig notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs twig"><span class="hljs-template-variable">{{ file|format_file(line, text = null) }}</span></pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<dl>
+                        <dt><code translate="no" class="notranslate">file</code></dt>
+        
+        <dd>
+                            <strong>type</strong>: <code translate="no" class="notranslate">string</code>
+                    </dd>
+                        <dt><code translate="no" class="notranslate">line</code></dt>
+        
+        <dd>
+                            <strong>type</strong>: <code translate="no" class="notranslate">integer</code>
+                    </dd>
+                        <dt><code translate="no" class="notranslate">text</code> <em>(optional)</em></dt>
+        
+        <dd>
+                            <strong>type</strong>: <code translate="no" class="notranslate">string</code> <strong>default</strong>: <code translate="no" class="notranslate">null</code>
+                    </dd>
+    </dl>
+<p>Generates the file path inside an <code translate="no" class="notranslate">&lt;a&gt;</code> element. If the path is inside
+the kernel root directory, the kernel root directory path is replaced by
+<code translate="no" class="notranslate">kernel.project_dir</code> (showing the full path in a tooltip on hover).</p>
+</div>
+<div class="section">
+<h3 id="format-file-from-text">
+    format_file_from_text
+    <a class="headerlink" href="#format-file-from-text" title="Permalink to this headline">¶</a>
+</h3>
+<div translate="no" class="highlight-twig notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs twig"><span class="hljs-template-variable">{{ text|format_file_from_text }}</span></pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<dl>
+                        <dt><code translate="no" class="notranslate">text</code></dt>
+        
+        <dd>
+                            <strong>type</strong>: <code translate="no" class="notranslate">string</code>
+                    </dd>
+    </dl>
+<p>Uses <a href="twig_reference.html#format-file" class="reference internal">format_file</a> to improve the output of default PHP errors.</p>
+</div>
+<div class="section">
+<h3 id="file-link">
+    file_link
+    <a class="headerlink" href="#file-link" title="Permalink to this headline">¶</a>
+</h3>
+<div translate="no" class="highlight-twig notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs twig"><span class="hljs-template-variable">{{ file|file_link(line) }}</span></pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<dl>
+                        <dt><code translate="no" class="notranslate">file</code></dt>
+        
+        <dd>
+                            <strong>type</strong>: <code translate="no" class="notranslate">string</code>
+                    </dd>
+                        <dt><code translate="no" class="notranslate">line</code></dt>
+        
+        <dd>
+                            <strong>type</strong>: <code translate="no" class="notranslate">integer</code>
+                    </dd>
+    </dl>
+<p>Generates a link to the provided file and line number using
+a preconfigured scheme.</p>
+</div>
+<div class="section">
+<h3 id="file-relative">
+    file_relative
+    <a class="headerlink" href="#file-relative" title="Permalink to this headline">¶</a>
+</h3>
+<div translate="no" class="highlight-twig notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs twig"><span class="hljs-template-variable">{{ file|file_relative }}</span></pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<dl>
+                        <dt><code translate="no" class="notranslate">file</code></dt>
+        
+        <dd>
+                            <strong>type</strong>: <code translate="no" class="notranslate">string</code>
+                    </dd>
+    </dl>
+<p>It transforms the given absolute file path into a new file path relative to
+project's root directory:</p>
+<div translate="no" class="highlight-twig notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1
+2</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs twig"><span class="hljs-template-variable">{{ '/var/www/blog/templates/admin/index.html.twig'|file_relative }}</span><span class="xml">
+</span><span class="hljs-comment">{# if project root dir is '/var/www/blog/', it returns 'templates/admin/index.html.twig' #}</span></pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<p>If the given file path is out of the project directory, a <code translate="no" class="notranslate">null</code> value
+will be returned.</p>
+<span id="reference-twig-filter-serialize"></span>
+</div>
+<div class="section">
+<h3 id="serialize">
+    serialize
+    <a class="headerlink" href="#serialize" title="Permalink to this headline">¶</a>
+</h3>
+<div translate="no" class="highlight-twig notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs twig"><span class="hljs-template-variable">{{ object|serialize(format = 'json', context = []) }}</span></pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<dl>
+                        <dt><code translate="no" class="notranslate">object</code></dt>
+        
+        <dd>
+                            <strong>type</strong>: <code translate="no" class="notranslate">mixed</code>
+                    </dd>
+                        <dt><code translate="no" class="notranslate">format</code> <em>(optional)</em></dt>
+        
+        <dd>
+                            <strong>type</strong>: <code translate="no" class="notranslate">string</code>
+                    </dd>
+                        <dt><code translate="no" class="notranslate">context</code> <em>(optional)</em></dt>
+        
+        <dd>
+                            <strong>type</strong>: <code translate="no" class="notranslate">array</code>
+                    </dd>
+    </dl>
+<div class="admonition admonition-versionadded ">
+    <p class="admonition-title">
+                                    <span>5.3</span>
+    </p><p>The <code translate="no" class="notranslate">serialize</code> filter was introduced in Symfony 5.3.</p>
+</div>
+<p>Accepts any data that can be serialized by the <a href="../serializer.html" class="reference internal">Serializer component</a>
+and returns a serialized string in the specified <code translate="no" class="notranslate">format</code>.</p>
+<span id="reference-twig-tags"></span>
+</div>
+</div>
+<div class="section">
+<h2 id="tags">
+    Tags
+    <a class="headerlink" href="#tags" title="Permalink to this headline">¶</a>
+</h2>
+<span id="reference-twig-tag-form-theme"></span>
+<div class="section">
+<h3 id="form-theme">
+    form_theme
+    <a class="headerlink" href="#form-theme" title="Permalink to this headline">¶</a>
+</h3>
+<div translate="no" class="highlight-twig notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs twig"><span class="hljs-template-tag">{% <span class="hljs-name">form_theme</span> form resources %}</span></pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<dl>
+                        <dt><code translate="no" class="notranslate">form</code></dt>
+        
+        <dd>
+                            <strong>type</strong>: <code translate="no" class="notranslate">FormView</code>
+                    </dd>
+                        <dt><code translate="no" class="notranslate">resources</code></dt>
+        
+        <dd>
+                            <strong>type</strong>: <code translate="no" class="notranslate">array</code> | <code translate="no" class="notranslate">string</code>
+                    </dd>
+    </dl>
+<p>Sets the resources to override the form theme for the given form view instance.
+You can use <code translate="no" class="notranslate">_self</code> as resources to set it to the current resource. More
+information in <a href="../form/form_customization.html" class="reference internal">How to Customize Form Rendering</a>.</p>
+</div>
+<div class="section">
+<h3 id="trans-1">
+    trans
+    <a class="headerlink" href="#trans-1" title="Permalink to this headline">¶</a>
+</h3>
+<div translate="no" class="highlight-twig notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs twig"><span class="hljs-template-tag">{% <span class="hljs-name">trans</span> with vars from domain into locale %}</span><span class="hljs-template-tag">{% <span class="hljs-name">endtrans</span> %}</span></pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<dl>
+                        <dt><code translate="no" class="notranslate">vars</code> <em>(optional)</em></dt>
+        
+        <dd>
+                            <strong>type</strong>: <code translate="no" class="notranslate">array</code> <strong>default</strong>: <code translate="no" class="notranslate">[]</code>
+                    </dd>
+                        <dt><code translate="no" class="notranslate">domain</code> <em>(optional)</em></dt>
+        
+        <dd>
+                            <strong>type</strong>: <code translate="no" class="notranslate">string</code> <strong>default</strong>: <code translate="no" class="notranslate">string</code>
+                    </dd>
+                        <dt><code translate="no" class="notranslate">locale</code> <em>(optional)</em></dt>
+        
+        <dd>
+                            <strong>type</strong>: <code translate="no" class="notranslate">string</code> <strong>default</strong>: <code translate="no" class="notranslate">string</code>
+                    </dd>
+    </dl>
+<p>Renders the translation of the content. More information in <a href="../translation.html#translation-tags" class="reference internal">Translations</a>.</p>
+</div>
+<div class="section">
+<h3 id="trans-default-domain">
+    trans_default_domain
+    <a class="headerlink" href="#trans-default-domain" title="Permalink to this headline">¶</a>
+</h3>
+<div translate="no" class="highlight-twig notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs twig"><span class="hljs-template-tag">{% <span class="hljs-name">trans_default_domain</span> domain %}</span></pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<dl>
+                        <dt><code translate="no" class="notranslate">domain</code></dt>
+        
+        <dd>
+                            <strong>type</strong>: <code translate="no" class="notranslate">string</code>
+                    </dd>
+    </dl>
+<p>This will set the default domain in the current template.</p>
+<span id="reference-twig-tag-stopwatch"></span>
+</div>
+<div class="section">
+<h3 id="stopwatch">
+    stopwatch
+    <a class="headerlink" href="#stopwatch" title="Permalink to this headline">¶</a>
+</h3>
+<div translate="no" class="highlight-twig notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs twig"><span class="hljs-template-tag">{% <span class="hljs-name">stopwatch</span> 'event_name' %}</span><span class="xml">...</span><span class="hljs-template-tag">{% <span class="hljs-name">endstopwatch</span> %}</span></pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<p>This measures the time and memory used to execute some code in the template and
+displays it in the Symfony profiler. See <a href="../performance.html#profiling-applications" class="reference internal">how to profile Symfony applications</a>.</p>
+<span id="reference-twig-tests"></span>
+</div>
+</div>
+<div class="section">
+<h2 id="tests">
+    Tests
+    <a class="headerlink" href="#tests" title="Permalink to this headline">¶</a>
+</h2>
+<p>The following tests related to Symfony Forms are available. They are explained
+in the article about <a href="../form/form_customization.html" class="reference internal">customizing form rendering</a>:</p>
+<ul>
+    <li><a href="../form/form_customization.html#form-twig-selectedchoice" class="reference internal">selectedchoice()</a></li>
+<li><a href="../form/form_customization.html#form-twig-rootform" class="reference internal">rootform()</a></li>
+</ul>
+</div>
+<div class="section">
+<h2 id="global-variables">
+    Global Variables
+    <a class="headerlink" href="#global-variables" title="Permalink to this headline">¶</a>
+</h2>
+<div class="section">
+<h3 id="app">
+    app
+    <a class="headerlink" href="#app" title="Permalink to this headline">¶</a>
+</h3>
+<p>The <code translate="no" class="notranslate">app</code> variable is injected automatically by Symfony in all templates and
+provides access to lots of useful application information. Read more about the
+<a href="../templates.html#twig-app-variable" class="reference internal">Twig global app variable</a>.</p>
+</div>
+</div>
+</div>
+
+                            </div>                    </div>
+                                    </div>        </div>
+
+    </section>
+
+</div>
+
+
+<script type="text/javascript" src="assets/js/theme.js"></script>
+<script type="text/javascript" src="assets/js/badge_only.js"></script>
+
+ 
+</body>
+</html>

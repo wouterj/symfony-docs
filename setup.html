@@ -1,0 +1,598 @@
+        
+<!DOCTYPE html>
+<!--[if IE 8]>
+<html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" lang="en"> <!--<![endif]-->
+<head><base href=""><base href=""><base href="">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            
+                                
+    
+    <link rel="stylesheet" href="assets/css/theme.css" type="text/css" />
+    <link rel="stylesheet" href="assets/css/highlightjs.css" type="text/css" />
+    <link rel="stylesheet" href="assets/css/badge_only.css" type="text/css" />
+
+</head>
+
+<body class="wy-body-for-nav">
+ <div class="wy-grid-for-nav">
+
+        <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+        <div class="wy-side-scroll">
+            <div class="wy-side-nav-search">
+                
+                                                                                                    
+                                                                                                                                                                        </div>
+
+            <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                                                                                                                                                                                                                                                                                                                            </div>
+        </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+                                                        
+
+        <div class="wy-nav-content">                <div class="rst-content">
+                                        <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">                            <div itemprop="articleBody">
+                                    <div class="section">
+<h1 id="installing-setting-up-the-symfony-framework">
+    Installing &amp; Setting up the Symfony Framework
+    <a class="headerlink" href="#installing-setting-up-the-symfony-framework" title="Permalink to this headline">¶</a>
+</h1>
+<div class="admonition admonition-screencast screencast">
+    <p class="admonition-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" width="24" height="24" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>
+                <span>Screencast</span>
+    </p><p>Do you prefer video tutorials? Check out the <a href="https://symfonycasts.com/screencast/symfony" class="reference external" rel="external noopener noreferrer" target="_blank">Stellar Development with Symfony</a>
+screencast series.</p>
+</div>
+<span id="symfony-tech-requirements"></span>
+<div class="section">
+<h2 id="technical-requirements">
+    Technical Requirements
+    <a class="headerlink" href="#technical-requirements" title="Permalink to this headline">¶</a>
+</h2>
+<p>Before creating your first Symfony application you must:</p>
+<ul>
+    <li>Install PHP 7.2.5 or higher and these PHP extensions (which are installed and
+enabled by default in most PHP 7 installations): <a href="https://www.php.net/book.ctype" class="reference external" rel="external noopener noreferrer" target="_blank">Ctype</a>, <a href="https://www.php.net/book.iconv" class="reference external" rel="external noopener noreferrer" target="_blank">iconv</a>, <a href="https://www.php.net/book.json" class="reference external" rel="external noopener noreferrer" target="_blank">JSON</a>,
+<a href="https://www.php.net/book.pcre" class="reference external" rel="external noopener noreferrer" target="_blank">PCRE</a>, <a href="https://www.php.net/book.session" class="reference external" rel="external noopener noreferrer" target="_blank">Session</a>, <a href="https://www.php.net/book.simplexml" class="reference external" rel="external noopener noreferrer" target="_blank">SimpleXML</a>, and <a href="https://www.php.net/book.tokenizer" class="reference external" rel="external noopener noreferrer" target="_blank">Tokenizer</a>;</li>
+<li><a href="https://getcomposer.org/download/" class="reference external" rel="external noopener noreferrer" target="_blank">Install Composer</a>, which is used to install PHP packages.</li>
+</ul>
+<span id="setup-symfony-cli"></span>
+<p>Also, <a href="https://symfony.com/download" class="reference external">install the Symfony CLI</a>. This is optional, but it gives you a
+helpful binary called <code translate="no" class="notranslate">symfony</code> that provides all tools you need to
+develop and run your Symfony application locally.</p>
+<p>The <code translate="no" class="notranslate">symfony</code> binary also provides a tool to check if your computer meets all
+requirements. Open your console terminal and run this command:</p>
+<div translate="no" class="highlight-terminal highlight-bash notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs terminal bash"><span class="hljs-prompt">$ </span>symfony check:requirements</pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="admonition admonition-note ">
+    <p class="admonition-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" width="24" height="24" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>
+                <span>Note</span>
+    </p><p>The Symfony CLI is open source, and you can contribute to it in the
+<a href="https://github.com/symfony-cli/symfony-cli" class="reference external" rel="external noopener noreferrer" target="_blank">symfony-cli/symfony-cli GitHub repository</a>.</p>
+</div>
+<span id="creating-symfony-applications"></span>
+</div>
+<div class="section">
+<h2 id="creating-symfony-applications">
+    Creating Symfony Applications
+    <a class="headerlink" href="#creating-symfony-applications" title="Permalink to this headline">¶</a>
+</h2>
+<p>Open your console terminal and run any of these commands to create a new Symfony
+application:</p>
+<div translate="no" class="highlight-terminal highlight-bash notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1
+2
+3
+4
+5</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs terminal bash"><span class="hljs-comment"># run this if you are building a traditional web application</span>
+<span class="hljs-prompt">$ </span>symfony new my_project_directory --version=5.4 --webapp
+
+<span class="hljs-comment"># run this if you are building a microservice, console application or API</span>
+<span class="hljs-prompt">$ </span>symfony new my_project_directory --version=5.4</pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<p>The only difference between these two commands is the number of packages
+installed by default. The <code translate="no" class="notranslate">--webapp</code> option installs extra packages to give
+you everything you need to build a web application.</p>
+<p>If you're not using the Symfony binary, run these commands to create the new
+Symfony application using Composer:</p>
+<div translate="no" class="highlight-terminal highlight-bash notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1
+2
+3
+4
+5
+6
+7</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs terminal bash"><span class="hljs-comment"># run this if you are building a traditional web application</span>
+<span class="hljs-prompt">$ </span>composer create-project symfony/skeleton:<span class="hljs-string">"^5.4"</span> my_project_directory
+<span class="hljs-prompt">$ </span><span class="hljs-built_in">cd</span> my_project_directory
+<span class="hljs-prompt">$ </span>composer require webapp
+
+<span class="hljs-comment"># run this if you are building a microservice, console application or API</span>
+<span class="hljs-prompt">$ </span>composer create-project symfony/skeleton:<span class="hljs-string">"^5.4"</span> my_project_directory</pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<p>No matter which command you run to create the Symfony application. All of them
+will create a new <code translate="no" class="notranslate">my_project_directory/</code> directory, download some dependencies
+into it and even generate the basic directories and files you'll need to get
+started. In other words, your new application is ready!</p>
+<div class="admonition admonition-note ">
+    <p class="admonition-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" width="24" height="24" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>
+                <span>Note</span>
+    </p><p>The project's cache and logs directory (by default, <code translate="no" class="notranslate">&lt;project&gt;/var/cache/</code>
+and <code translate="no" class="notranslate">&lt;project&gt;/var/log/</code>) must be writable by the web server. If you have
+any issue, read how to <a href="setup/file_permissions.html" class="reference internal">set up permissions for Symfony applications</a>.</p>
+</div>
+<span id="install-existing-app"></span>
+</div>
+<div class="section">
+<h2 id="setting-up-an-existing-symfony-project">
+    Setting up an Existing Symfony Project
+    <a class="headerlink" href="#setting-up-an-existing-symfony-project" title="Permalink to this headline">¶</a>
+</h2>
+<p>In addition to creating new Symfony projects, you will also work on projects
+already created by other developers. In that case, you only need to get the
+project code and install the dependencies with Composer. Assuming your team uses
+Git, setup your project with the following commands:</p>
+<div translate="no" class="highlight-terminal highlight-bash notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1
+2
+3
+4
+5
+6
+7</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs terminal bash"><span class="hljs-comment"># clone the project to download its contents</span>
+<span class="hljs-prompt">$ </span><span class="hljs-built_in">cd</span> projects/
+<span class="hljs-prompt">$ </span>git <span class="hljs-built_in">clone</span> ...
+
+<span class="hljs-comment"># make Composer install the project's dependencies into vendor/</span>
+<span class="hljs-prompt">$ </span><span class="hljs-built_in">cd</span> my-project/
+<span class="hljs-prompt">$ </span>composer install</pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<p>You'll probably also need to customize your <a href="configuration.html#config-dot-env" class="reference internal">.env file</a>
+and do a few other project-specific tasks (e.g. creating a database). When
+working on a existing Symfony application for the first time, it may be useful
+to run this command which displays information about the project:</p>
+<div translate="no" class="highlight-terminal highlight-bash notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs terminal bash"><span class="hljs-prompt">$ </span>php bin/console about</pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+</div>
+<div class="section">
+<h2 id="running-symfony-applications">
+    Running Symfony Applications
+    <a class="headerlink" href="#running-symfony-applications" title="Permalink to this headline">¶</a>
+</h2>
+<p>In production, you should install a web server like Nginx or Apache and
+<a href="setup/web_server_configuration.html" class="reference internal">configure it to run Symfony</a>. This
+method can also be used if you're not using the Symfony local web server for
+development.</p>
+<span id="symfony-binary-web-server"></span>
+<p>However for local development, the most convenient way of running Symfony is by
+using the <a href="setup/symfony_server.html" class="reference internal">local web server</a> provided by the
+<code translate="no" class="notranslate">symfony</code> binary. This local server provides among other things support for
+HTTP/2, concurrent requests, TLS/SSL and automatic generation of security
+certificates.</p>
+<p>Open your console terminal, move into your new project directory and start the
+local web server as follows:</p>
+<div translate="no" class="highlight-terminal highlight-bash notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1
+2</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs terminal bash"><span class="hljs-prompt">$ </span><span class="hljs-built_in">cd</span> my-project/
+<span class="hljs-prompt">$ </span>symfony server:start</pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<p>Open your browser and navigate to <code translate="no" class="notranslate">http://localhost:8000/</code>. If everything is
+working, you'll see a welcome page. Later, when you are finished working, stop
+the server by pressing <code translate="no" class="notranslate">Ctrl+C</code> from your terminal.</p>
+<div class="admonition admonition-tip ">
+    <p class="admonition-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" width="24" height="24" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" /></svg>
+                <span>Tip</span>
+    </p><p>The web server works with any PHP application, not only Symfony projects,
+so it's a very useful generic development tool.</p>
+</div>
+<div class="section">
+<h3 id="symfony-docker-integration">
+    Symfony Docker Integration
+    <a class="headerlink" href="#symfony-docker-integration" title="Permalink to this headline">¶</a>
+</h3>
+<p>If you'd like to use Docker with Symfony, see <a href="setup/docker.html" class="reference internal">Using Docker with Symfony</a>.</p>
+<span id="symfony-flex"></span>
+</div>
+</div>
+<div class="section">
+<h2 id="installing-packages">
+    Installing Packages
+    <a class="headerlink" href="#installing-packages" title="Permalink to this headline">¶</a>
+</h2>
+<p>A common practice when developing Symfony applications is to install packages
+(Symfony calls them <a href="bundles.html" class="reference internal">bundles</a>) that provide ready-to-use
+features. Packages usually require some setup before using them (editing some
+file to enable the bundle, creating some file to add some initial config, etc.)</p>
+<p>Most of the time this setup can be automated and that's why Symfony includes
+<a href="https://github.com/symfony/flex" class="reference external" rel="external noopener noreferrer" target="_blank">Symfony Flex</a>, a tool to simplify the installation/removal of packages in
+Symfony applications. Technically speaking, Symfony Flex is a Composer plugin
+that is installed by default when creating a new Symfony application and which
+<strong>automates the most common tasks of Symfony applications</strong>.</p>
+<div class="admonition admonition-tip ">
+    <p class="admonition-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" width="24" height="24" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" /></svg>
+                <span>Tip</span>
+    </p><p>You can also <a href="setup/flex.html" class="reference internal">add Symfony Flex to an existing project</a>.</p>
+</div>
+<p>Symfony Flex modifies the behavior of the <code translate="no" class="notranslate">require</code>, <code translate="no" class="notranslate">update</code>, and
+<code translate="no" class="notranslate">remove</code> Composer commands to provide advanced features. Consider the
+following example:</p>
+<div translate="no" class="highlight-terminal highlight-bash notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1
+2</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs terminal bash"><span class="hljs-prompt">$ </span><span class="hljs-built_in">cd</span> my-project/
+<span class="hljs-prompt">$ </span>composer require logger</pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<p>If you run that command in a Symfony application which doesn't use Flex, you'll
+see a Composer error explaining that <code translate="no" class="notranslate">logger</code> is not a valid package name.
+However, if the application has Symfony Flex installed, that command installs
+and enables all the packages needed to use the official Symfony logger.</p>
+<span id="recipes-description"></span>
+<p>This is possible because lots of Symfony packages/bundles define <strong>&quot;recipes&quot;</strong>,
+which are a set of automated instructions to install and enable packages into
+Symfony applications. Flex keeps track of the recipes it installed in a
+<code translate="no" class="notranslate">symfony.lock</code> file, which must be committed to your code repository.</p>
+<p>Symfony Flex recipes are contributed by the community and they are stored in
+two public repositories:</p>
+<ul>
+    <li><a href="https://github.com/symfony/recipes" class="reference external" rel="external noopener noreferrer" target="_blank">Main recipe repository</a>, is a curated list of recipes for high quality and
+maintained packages. Symfony Flex only looks in this repository by default.</li>
+<li><a href="https://github.com/symfony/recipes-contrib" class="reference external" rel="external noopener noreferrer" target="_blank">Contrib recipe repository</a>, contains all the recipes created by the
+community. All of them are guaranteed to work, but their associated packages
+could be unmaintained. Symfony Flex will ask your permission before installing
+any of these recipes.</li>
+</ul>
+<p>Read the <a href="https://github.com/symfony/recipes/blob/master/README.rst" class="reference external" rel="external noopener noreferrer" target="_blank">Symfony Recipes documentation</a> to learn everything about how to
+create recipes for your own packages.</p>
+<span id="symfony-packs"></span>
+<div class="section">
+<h3 id="symfony-packs">
+    Symfony Packs
+    <a class="headerlink" href="#symfony-packs" title="Permalink to this headline">¶</a>
+</h3>
+<p>Sometimes a single feature requires installing several packages and bundles.
+Instead of installing them individually, Symfony provides <strong>packs</strong>, which are
+Composer metapackages that include several dependencies.</p>
+<p>For example, to add debugging features in your application, you can run the
+<code translate="no" class="notranslate">composer require --dev debug</code> command. This installs the <code translate="no" class="notranslate">symfony/debug-pack</code>,
+which in turn installs several packages like <code translate="no" class="notranslate">symfony/debug-bundle</code>,
+<code translate="no" class="notranslate">symfony/monolog-bundle</code>, <code translate="no" class="notranslate">symfony/var-dumper</code>, etc.</p>
+<p>You won't see the <code translate="no" class="notranslate">symfony/debug-pack</code> dependency in your <code translate="no" class="notranslate">composer.json</code>,
+as Flex automatically unpacks the pack. This means that it only adds the real
+packages as dependencies (e.g. you will see a new <code translate="no" class="notranslate">symfony/var-dumper</code> in
+<code translate="no" class="notranslate">require-dev</code>). While it is not recommended, you can use the <code translate="no" class="notranslate">composer
+require --no-unpack ...</code> option to disable unpacking.</p>
+<span id="security-checker"></span>
+</div>
+</div>
+<div class="section">
+<h2 id="checking-security-vulnerabilities">
+    Checking Security Vulnerabilities
+    <a class="headerlink" href="#checking-security-vulnerabilities" title="Permalink to this headline">¶</a>
+</h2>
+<p>The <code translate="no" class="notranslate">symfony</code> binary created when you installed the <a href="setup.html#setup-symfony-cli" class="reference internal">Symfony CLI</a>
+provides a command to check whether your project's dependencies contain any known security
+vulnerability:</p>
+<div translate="no" class="highlight-terminal highlight-bash notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs terminal bash"><span class="hljs-prompt">$ </span>symfony check:security</pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<p>A good security practice is to execute this command regularly to be able to
+update or replace compromised dependencies as soon as possible. The security
+check is done locally by fetching the public <a href="https://github.com/FriendsOfPHP/security-advisories" class="reference external" rel="external noopener noreferrer" target="_blank">PHP security advisories database</a>,
+so your <code translate="no" class="notranslate">composer.lock</code> file is not sent on the network.</p>
+<p>The <code translate="no" class="notranslate">check:security</code> command terminates with a non-zero exit code if any of
+your dependencies is affected by a known security vulnerability. This way you
+can add it to your project build process and your continuous integration
+workflows to make them fail when there are vulnerabilities.</p>
+<div class="admonition admonition-tip ">
+    <p class="admonition-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" width="24" height="24" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" /></svg>
+                <span>Tip</span>
+    </p><p>In continuous integration services you can check security vulnerabilities
+using a different stand-alone project called <a href="https://github.com/fabpot/local-php-security-checker" class="reference external" rel="external noopener noreferrer" target="_blank">Local PHP Security Checker</a>.
+This is the same project used internally by <code translate="no" class="notranslate">check:security</code> but much
+smaller in size than the entire Symfony CLI.</p>
+</div>
+</div>
+<div class="section">
+<h2 id="symfony-lts-versions">
+    Symfony LTS Versions
+    <a class="headerlink" href="#symfony-lts-versions" title="Permalink to this headline">¶</a>
+</h2>
+<p>According to the <a href="contributing/community/releases.html" class="reference internal">Symfony release process</a>,
+&quot;long-term support&quot; (or LTS for short) versions are published every two years.
+Check out the <a href="https://symfony.com/releases" class="reference external">Symfony releases</a> to know which is the latest LTS version.</p>
+<p>By default, the command that creates new Symfony applications uses the latest
+stable version. If you want to use an LTS version, add the <code translate="no" class="notranslate">--version</code> option:</p>
+<div translate="no" class="highlight-terminal highlight-bash notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1
+2
+3
+4
+5
+6
+7
+8</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs terminal bash"><span class="hljs-comment"># use the most recent LTS version</span>
+<span class="hljs-prompt">$ </span>symfony new my_project_directory --version=lts
+
+<span class="hljs-comment"># use the 'next' Symfony version to be released (still in development)</span>
+<span class="hljs-prompt">$ </span>symfony new my_project_directory --version=next
+
+<span class="hljs-comment"># you can also select an exact specific Symfony version</span>
+<span class="hljs-prompt">$ </span>symfony new my_project_directory --version=5.4</pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<p>The <code translate="no" class="notranslate">lts</code> and <code translate="no" class="notranslate">next</code> shortcuts are only available when using Symfony to
+create new projects. If you use Composer, you need to tell the exact version:</p>
+<div translate="no" class="highlight-terminal highlight-bash notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs terminal bash"><span class="hljs-prompt">$ </span>composer create-project symfony/skeleton:<span class="hljs-string">"^5.4"</span> my_project_directory</pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+</div>
+<div class="section">
+<h2 id="the-symfony-demo-application">
+    The Symfony Demo application
+    <a class="headerlink" href="#the-symfony-demo-application" title="Permalink to this headline">¶</a>
+</h2>
+<p><a href="https://github.com/symfony/demo" class="reference external" rel="external noopener noreferrer" target="_blank">The Symfony Demo Application</a> is a fully-functional application that shows the
+recommended way to develop Symfony applications. It's a great learning tool for
+Symfony newcomers and its code contains tons of comments and helpful notes.</p>
+<p>Run this command to create a new project based on the Symfony Demo application:</p>
+<div translate="no" class="highlight-terminal highlight-bash notranslate">
+    <table class="highlighttable">
+        <tbody>
+            <tr>
+                <td class="linenos">
+                    <div class="linenodiv">
+                        <pre>1</pre>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="highlight">
+                        <pre class="hljs terminal bash"><span class="hljs-prompt">$ </span>symfony new my_project_directory --demo</pre>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+</div>
+<div class="section">
+<h2 id="start-coding">
+    Start Coding!
+    <a class="headerlink" href="#start-coding" title="Permalink to this headline">¶</a>
+</h2>
+<p>With setup behind you, it's time to <a href="page_creation.html" class="reference internal">Create your first page in Symfony</a>.</p>
+</div>
+<div class="section">
+<h2 id="learn-more">
+    Learn More
+    <a class="headerlink" href="#learn-more" title="Permalink to this headline">¶</a>
+</h2>
+<div class="toctree-wrapper toc-size-lg">
+    <ul class="toctree toctree-level-1 toctree-length-12">
+            <li>
+    <a href="setup/docker.html">Using Docker with Symfony</a>
+
+    </li>
+            <li>
+    <a href="setup/homestead.html">Using Symfony with Homestead/Vagrant</a>
+
+    </li>
+            <li>
+    <a href="setup/web_server_configuration.html">Configuring a Web Server</a>
+
+    </li>
+            <li>
+    <a href="setup/bundles.html">Upgrading a Third-Party Bundle for a Major Symfony Version</a>
+
+    </li>
+            <li>
+    <a href="setup/file_permissions.html">Setting up or Fixing File Permissions</a>
+
+    </li>
+            <li>
+    <a href="setup/flex.html">Upgrading Existing Applications to Symfony Flex</a>
+
+    </li>
+            <li>
+    <a href="setup/flex_private_recipes.html">How To Configure and Use Flex Private Recipe Repositories</a>
+
+    </li>
+            <li>
+    <a href="setup/symfony_server.html">Symfony Local Web Server</a>
+
+    </li>
+            <li>
+    <a href="setup/unstable_versions.html">How to Install or Upgrade to the Latest, Unreleased Symfony Version</a>
+
+    </li>
+            <li>
+    <a href="setup/upgrade_major.html">Upgrading a Major Version (e.g. 5.4.0 to 6.0.0)</a>
+
+    </li>
+            <li>
+    <a href="setup/upgrade_minor.html">Upgrading a Minor Version (e.g. 5.0.0 to 5.1.0)</a>
+
+    </li>
+            <li>
+    <a href="setup/upgrade_patch.html">Upgrading a Patch Version (e.g. 5.0.0 to 5.0.1)</a>
+
+    </li>
+    </ul>
+</div>
+</div>
+</div>
+
+                            </div>                    </div>
+                                    </div>        </div>
+
+    </section>
+
+</div>
+
+
+<script type="text/javascript" src="assets/js/theme.js"></script>
+<script type="text/javascript" src="assets/js/badge_only.js"></script>
+
+ 
+</body>
+</html>
